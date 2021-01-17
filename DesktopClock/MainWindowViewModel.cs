@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using DesktopClock.Library;
@@ -998,7 +995,7 @@ namespace DesktopClock
             while (holidayChecker.IsHoliday(dateTime) || dateTime.DayOfWeek == System.DayOfWeek.Saturday || dateTime.DayOfWeek == System.DayOfWeek.Sunday)
             {
                 count++;
-                dateTime = dateTime + oneday;
+                dateTime += oneday;
             }
             return count;
         }

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesktopClock
 {
@@ -20,8 +15,8 @@ namespace DesktopClock
             this.InitializeComponent();
 
             // コンテキストメニューのイベントを設定
-            this.toolStripMenuItem_Setting.Click += this.toolStripMenuItem_Open_Click;
-            this.toolStripMenuItem_Exit.Click += this.toolStripMenuItem_Exit_Click;
+            this.toolStripMenuItem_Setting.Click += this.ToolStripMenuItem_Open_Click;
+            this.toolStripMenuItem_Exit.Click += this.ToolStripMenuItem_Exit_Click;
         }
 
         /// <summary>
@@ -40,7 +35,7 @@ namespace DesktopClock
         /// </summary>
         /// <param name="sender">呼び出し元オブジェクト</param>
         /// <param name="e">イベントデータ</param>
-        private void toolStripMenuItem_Open_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_Open_Click(object sender, EventArgs e)
         {
             // MainWindow を生成、表示
             if (wnd != null && wnd.IsLoaded) return;
@@ -53,13 +48,13 @@ namespace DesktopClock
         /// </summary>
         /// <param name="sender">呼び出し元オブジェクト</param>
         /// <param name="e">イベントデータ</param>
-        private void toolStripMenuItem_Exit_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_Exit_Click(object sender, EventArgs e)
         {
             // 現在のアプリケーションを終了
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        private void ContextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
 
         }
