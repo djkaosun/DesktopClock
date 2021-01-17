@@ -1,0 +1,626 @@
+﻿<Window x:Class="DesktopClock.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopClock"
+        Title="MainWindow"
+        Height="{Binding WindowHeight, Mode=OneWayToSource}"
+        Width="{Binding WindowWidth, Mode=OneWayToSource}"
+        Top="{Binding WindowTop, Mode=TwoWay}"
+        Left="{Binding WindowLeft, Mode=TwoWay}"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        SizeToContent="WidthAndHeight"
+        AllowsTransparency="True"
+        Background="#01808080"
+        IsHitTestVisible="True"
+        Topmost="True"
+        MouseEnter="MainWindow_MouseEnter"
+        ContentRendered="Window_ContentRendered">
+    <Grid Opacity="0.8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="68"/>
+                <ColumnDefinition Width="68"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="62"/>
+                <ColumnDefinition Width="62"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding ElementName=H0, Path=Text}"
+                   HorizontalAlignment="{Binding ElementName=H0, Path=HorizontalAlignment}"
+                   VerticalAlignment="{Binding ElementName=H0, Path=VerticalAlignment}"
+                   FontSize="{Binding ElementName=H0, Path=FontSize}"
+                   Foreground="Black"
+                   Opacity="1"
+                   FontFamily="{Binding ElementName=H0, Path=FontFamily}"
+                   Grid.Row="0" Grid.Column="0">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="H0"
+                   Text="{Binding Hour0}" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="125"
+                   Foreground="White"
+                   Opacity="1"
+                   FontFamily="Yu Gothic UI"
+                   Grid.Row="0" Grid.Column="0">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+
+            <TextBlock Text="{Binding ElementName=H1, Path=Text}"
+                   HorizontalAlignment="{Binding ElementName=H1, Path=HorizontalAlignment}"
+                   VerticalAlignment="{Binding ElementName=H1, Path=VerticalAlignment}"
+                   FontSize="{Binding ElementName=H1, Path=FontSize}"
+                   Foreground="Black"
+                   Opacity="1"
+                   FontFamily="{Binding ElementName=H1, Path=FontFamily}"
+                   Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="H1"
+                   Text="{Binding Hour1}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="{Binding ElementName=H0, Path=VerticalAlignment}"
+                   FontSize="{Binding ElementName=H0, Path=FontSize}"
+                   Foreground="{Binding ElementName=H0, Path=Foreground}"
+                   Opacity="1"
+                   FontFamily="{Binding ElementName=H0, Path=FontFamily}"
+                   Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{Binding ElementName=HM, Path=Text}"
+                   HorizontalAlignment="{Binding ElementName=HM, Path=HorizontalAlignment}"
+                   VerticalAlignment="{Binding ElementName=HM, Path=VerticalAlignment}"
+                   FontSize="{Binding ElementName=HM, Path=FontSize}"
+                   Foreground="Black"
+                   Opacity="1"
+                   FontFamily="{Binding ElementName=HM, Path=FontFamily}"
+                   Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text=" " x:Name="HM"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="80" Foreground="White" Opacity="1" FontFamily="Yu Gothic UI"
+                   Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{Binding ElementName=M0, Path=Text}"
+                   HorizontalAlignment="{Binding ElementName=M0, Path=HorizontalAlignment}"
+                   VerticalAlignment="{Binding ElementName=M0, Path=VerticalAlignment}"
+                   FontSize="{Binding ElementName=M0, Path=FontSize}"
+                   Foreground="Black"
+                   Opacity="1"
+                   FontFamily="{Binding ElementName=M0, Path=FontFamily}"
+                   Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="M0"
+                   Text="{Binding Minute0}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="120"
+                   Foreground="White"
+                   Opacity="1"
+                   FontFamily="Yu Gothic UI Light"
+                   Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{Binding ElementName=M1, Path=Text}"
+                   HorizontalAlignment="{Binding ElementName=M1, Path=HorizontalAlignment}"
+                   VerticalAlignment="{Binding ElementName=M1, Path=VerticalAlignment}"
+                   FontSize="{Binding ElementName=M1, Path=FontSize}"
+                   Foreground="Black"
+                   Opacity="1"
+                   FontFamily="{Binding ElementName=M1, Path=FontFamily}"
+                   Grid.Row="0" Grid.Column="4">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="M1"
+                   Text="{Binding Minute1}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="{Binding ElementName=M0, Path=VerticalAlignment}"
+                   FontSize="{Binding ElementName=M0, Path=FontSize}"
+                   Foreground="{Binding ElementName=M0, Path=Foreground}"
+                   Opacity="1"
+                   FontFamily="{Binding ElementName=M0, Path=FontFamily}"
+                   Grid.Row="0" Grid.Column="4">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,-23,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding ElementName=DATE, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=DATE, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=DATE, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=DATE, Path=FontSize}"
+                       Foreground="Black"
+                       FontFamily="{Binding ElementName=DATE, Path=FontFamily}"
+                       Opacity="1"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=DATE, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=DATE, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=DATE, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=DATE, Path=FontSize}"
+                       Foreground="Black"
+                       FontFamily="{Binding ElementName=DATE, Path=FontFamily}"
+                       Opacity="1"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="DATE"
+                       Text="{Binding Date}"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       FontSize="21.5"
+                       Foreground="White"
+                       Opacity="1"
+                       FontFamily="Yu Gothic"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{Binding ElementName=BIGINNEST, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=BIGINNEST, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=BIGINNEST, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=BIGINNEST, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=BIGINNEST, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=BIGINNEST, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=BIGINNEST, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=BIGINNEST, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=BIGINNEST, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=BIGINNEST, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="BIGINNEST" Text="("
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="{Binding ElementName=DATE, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=DATE, Path=FontSize}"
+                       Foreground="{Binding ElementName=DATE, Path=Foreground}"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=DATE, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{Binding ElementName=WEEKDAY, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=WEEKDAY, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=WEEKDAY, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=WEEKDAY, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=WEEKDAY, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=WEEKDAY, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=WEEKDAY, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=WEEKDAY, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=WEEKDAY, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=WEEKDAY, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="WEEKDAY"
+                       Text="{Binding DayOfWeek}"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="{Binding ElementName=DATE, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=DATE, Path=FontSize}"
+                       Foreground="{Binding ColorOfToday}"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=DATE, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{Binding ElementName=ENDNEST, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=ENDNEST, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=ENDNEST, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=ENDNEST, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=ENDNEST, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="4">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=ENDNEST, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=ENDNEST, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=ENDNEST, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=ENDNEST, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=ENDNEST, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="4">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="ENDNEST"
+                       Text=")"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="{Binding ElementName=DATE, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=DATE, Path=FontSize}"
+                       Foreground="{Binding ElementName=DATE, Path=Foreground}"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=DATE, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="4">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Visibility="{Binding VisibilityOfToday, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding ElementName=TODAYIS, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TODAYIS, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TODAYIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYIS, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=TODAYIS, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TODAYIS, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TODAYIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYIS, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="TODAYIS"
+                       Text="今日は"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       FontSize="19.5"
+                       Foreground="White"
+                       Opacity="1"
+                       FontFamily="Yu Gothic"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+
+            <TextBlock Text="{Binding ElementName=TODAYNAME,Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TODAYNAME,Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TODAYNAME,Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYNAME,Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYNAME,Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=TODAYNAME,Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TODAYNAME,Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TODAYNAME,Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYNAME,Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYNAME,Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="TODAYNAME"
+                       Text="{Binding HolidayNameOfToday}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="{Binding ElementName=TODAYIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYIS, Path=FontSize}"
+                       Foreground="{Binding ElementName=TODAYIS, Path=Foreground}"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{Binding ElementName=TODAYDESU,Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TODAYDESU,Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TODAYDESU,Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYDESU,Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYDESU,Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=TODAYDESU,Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TODAYDESU,Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TODAYDESU,Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYDESU,Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYDESU,Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="TODAYDESU"
+                       Text="です。"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="{Binding ElementName=TODAYIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TODAYIS, Path=FontSize}"
+                       Foreground="{Binding ElementName=TODAYIS, Path=Foreground}"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TODAYIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Visibility="{Binding VisibilityOfTommorow, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding ElementName=TOMMOROWIS, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TOMMOROWIS, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWIS, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=TOMMOROWIS, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TOMMOROWIS, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWIS, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="TOMMOROWIS"
+                       Text="明日は"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       FontSize="19.5"
+                       Foreground="White"
+                       Opacity="1"
+                       FontFamily="Yu Gothic"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+
+
+            <TextBlock Text="{Binding ElementName=TOMMOROWNAME, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TOMMOROWNAME, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWNAME, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWNAME, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWNAME, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=TOMMOROWNAME, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TOMMOROWNAME, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWNAME, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWNAME, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWNAME, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="TOMMOROWNAME"
+                       Text="{Binding HolidayNameOfTommorow}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWIS, Path=FontSize}"
+                       Foreground="{Binding ColorOfTommorow}"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="2">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+
+
+            <TextBlock Text="{Binding ElementName=TOMMOROWDESU, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TOMMOROWDESU, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWDESU, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWDESU, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWDESU, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=TOMMOROWDESU, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=TOMMOROWDESU, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWDESU, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWDESU, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWDESU, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="TOMMOROWDESU"
+                       Text="です。"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="{Binding ElementName=TOMMOROWIS, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=TOMMOROWIS, Path=FontSize}"
+                       Foreground="White"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=TOMMOROWIS, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="0" Visibility="{Binding VisibilityOfConsecutiveHolidays}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding ElementName=CONSECUTIVE, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=CONSECUTIVE, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=CONSECUTIVE, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=CONSECUTIVE, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=CONSECUTIVE, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="{Binding ElementName=CONSECUTIVE, Path=Text}"
+                       HorizontalAlignment="{Binding ElementName=CONSECUTIVE, Path=HorizontalAlignment}"
+                       VerticalAlignment="{Binding ElementName=CONSECUTIVE, Path=VerticalAlignment}"
+                       FontSize="{Binding ElementName=CONSECUTIVE, Path=FontSize}"
+                       Foreground="Black"
+                       Opacity="1"
+                       FontFamily="{Binding ElementName=CONSECUTIVE, Path=FontFamily}"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="CONSECUTIVE"
+                       Text="{Binding ConsecutiveHolidaysMessage, Mode=OneWay}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="19.5"
+                       Foreground="{Binding HolidayColor, Mode=OneTime}"
+                       Opacity="1"
+                       FontFamily="Yu Gothic"
+                       Grid.Row="0" Grid.Column="1">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="0" Direction="0" Color="Black" Opacity="1" BlurRadius="6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+        <TextBlock x:Name="Indicator"
+                   Text="{Binding IndicatorString}"
+                   FontSize="10"
+                   Foreground="Black"
+                   Background="White"
+                   Opacity="1"
+                   Grid.Row="5" Grid.Column="0" Visibility="Collapsed">
+        </TextBlock>
+    </Grid>
+</Window>

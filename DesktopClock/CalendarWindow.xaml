@@ -1,0 +1,133 @@
+﻿<Window x:Class="DesktopClock.CalendarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopClock"
+        mc:Ignorable="d"
+        Title="CalendarWindow"
+        Height="{Binding CalendarWindowHeight, Mode=OneWayToSource}"
+        Width="{Binding CalendarWindowWidth, Mode=TwoWay}"
+        Top="{Binding CalendarWindowTop, Mode=TwoWay}"
+        Left="{Binding CalendarWindowLeft, Mode=TwoWay}"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        SizeToContent="Height"
+        AllowsTransparency="True"
+        FontSize="15"
+        Foreground="#CCFFFFFF"
+        Background="Transparent"
+        ContentRendered="Window_ContentRendered"
+        Activated="Window_Activated">
+    <StackPanel>
+        <TextBlock Height="31"/>
+        <Grid Background="#99222222">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="0" Grid.Column="1">
+                    <TextBlock Text="{Binding CalendarYear}"/>
+                    <TextBlock Text=" 年 "/>
+                    <TextBlock Text="{Binding CalendarMonth}"/>
+                    <TextBlock Text="月"/>
+                </StackPanel>
+                <Button Content="Today&lt;&lt;"
+                        Command="{Binding ThisMonthCommand}"
+                        Foreground="#CCFFFFFF"  Background="#01777777" FontSize="12" BorderThickness="0"
+                        VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+            </Grid>
+            <Button Content="＜"
+                    Command="{Binding PreviousMonthCommand}"
+                    Foreground="#CCFFFFFF"  Background="#01777777" BorderThickness="0"
+                    Padding="5" Grid.Row="1" Grid.Column="1" />
+            <Grid HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="33"/>
+                    <ColumnDefinition Width="33"/>
+                    <ColumnDefinition Width="33"/>
+                    <ColumnDefinition Width="33"/>
+                    <ColumnDefinition Width="33"/>
+                    <ColumnDefinition Width="33"/>
+                    <ColumnDefinition Width="33"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Sun" Margin="0,5,0,5" Foreground="{Binding HolidayColor}" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                <TextBlock Text="Mon" Margin="0,5,0,5" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+                <TextBlock Text="Tue" Margin="0,5,0,5" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+                <TextBlock Text="Wed" Margin="0,5,0,5" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3"/>
+                <TextBlock Text="Thu" Margin="0,5,0,5" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="4"/>
+                <TextBlock Text="Fri" Margin="0,5,0,5" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="5"/>
+                <TextBlock Text="Sat" Margin="0,5,0,5" Foreground="{Binding SaturdayColor}" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="6"/>
+                <TextBlock Text="{Binding CalendarR0C0Number, Mode=OneWay}" Foreground="{Binding CalendarR0C0Foreground}" Background="{Binding CalendarR0C0Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                <TextBlock Text="{Binding CalendarR0C1Number, Mode=OneWay}" Foreground="{Binding CalendarR0C1Foreground}" Background="{Binding CalendarR0C1Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Text="{Binding CalendarR0C2Number, Mode=OneWay}" Foreground="{Binding CalendarR0C2Foreground}" Background="{Binding CalendarR0C2Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+                <TextBlock Text="{Binding CalendarR0C3Number, Mode=OneWay}" Foreground="{Binding CalendarR0C3Foreground}" Background="{Binding CalendarR0C3Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3"/>
+                <TextBlock Text="{Binding CalendarR0C4Number, Mode=OneWay}" Foreground="{Binding CalendarR0C4Foreground}" Background="{Binding CalendarR0C4Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="4"/>
+                <TextBlock Text="{Binding CalendarR0C5Number, Mode=OneWay}" Foreground="{Binding CalendarR0C5Foreground}" Background="{Binding CalendarR0C5Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="5"/>
+                <TextBlock Text="{Binding CalendarR0C6Number, Mode=OneWay}" Foreground="{Binding CalendarR0C6Foreground}" Background="{Binding CalendarR0C6Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="6"/>
+                <TextBlock Text="{Binding CalendarR1C0Number, Mode=OneWay}" Foreground="{Binding CalendarR1C0Foreground}" Background="{Binding CalendarR1C0Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                <TextBlock Text="{Binding CalendarR1C1Number, Mode=OneWay}" Foreground="{Binding CalendarR1C1Foreground}" Background="{Binding CalendarR1C1Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                <TextBlock Text="{Binding CalendarR1C2Number, Mode=OneWay}" Foreground="{Binding CalendarR1C2Foreground}" Background="{Binding CalendarR1C2Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2"/>
+                <TextBlock Text="{Binding CalendarR1C3Number, Mode=OneWay}" Foreground="{Binding CalendarR1C3Foreground}" Background="{Binding CalendarR1C3Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="3"/>
+                <TextBlock Text="{Binding CalendarR1C4Number, Mode=OneWay}" Foreground="{Binding CalendarR1C4Foreground}" Background="{Binding CalendarR1C4Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="4"/>
+                <TextBlock Text="{Binding CalendarR1C5Number, Mode=OneWay}" Foreground="{Binding CalendarR1C5Foreground}" Background="{Binding CalendarR1C5Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="5"/>
+                <TextBlock Text="{Binding CalendarR1C6Number, Mode=OneWay}" Foreground="{Binding CalendarR1C6Foreground}" Background="{Binding CalendarR1C6Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="6"/>
+                <TextBlock Text="{Binding CalendarR2C0Number, Mode=OneWay}" Foreground="{Binding CalendarR2C0Foreground}" Background="{Binding CalendarR2C0Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+                <TextBlock Text="{Binding CalendarR2C1Number, Mode=OneWay}" Foreground="{Binding CalendarR2C1Foreground}" Background="{Binding CalendarR2C1Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+                <TextBlock Text="{Binding CalendarR2C2Number, Mode=OneWay}" Foreground="{Binding CalendarR2C2Foreground}" Background="{Binding CalendarR2C2Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="2"/>
+                <TextBlock Text="{Binding CalendarR2C3Number, Mode=OneWay}" Foreground="{Binding CalendarR2C3Foreground}" Background="{Binding CalendarR2C3Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="3"/>
+                <TextBlock Text="{Binding CalendarR2C4Number, Mode=OneWay}" Foreground="{Binding CalendarR2C4Foreground}" Background="{Binding CalendarR2C4Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
+                <TextBlock Text="{Binding CalendarR2C5Number, Mode=OneWay}" Foreground="{Binding CalendarR2C5Foreground}" Background="{Binding CalendarR2C5Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="5"/>
+                <TextBlock Text="{Binding CalendarR2C6Number, Mode=OneWay}" Foreground="{Binding CalendarR2C6Foreground}" Background="{Binding CalendarR2C6Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="6"/>
+                <TextBlock Text="{Binding CalendarR3C0Number, Mode=OneWay}" Foreground="{Binding CalendarR3C0Foreground}" Background="{Binding CalendarR3C0Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+                <TextBlock Text="{Binding CalendarR3C1Number, Mode=OneWay}" Foreground="{Binding CalendarR3C1Foreground}" Background="{Binding CalendarR3C1Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+                <TextBlock Text="{Binding CalendarR3C2Number, Mode=OneWay}" Foreground="{Binding CalendarR3C2Foreground}" Background="{Binding CalendarR3C2Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="2"/>
+                <TextBlock Text="{Binding CalendarR3C3Number, Mode=OneWay}" Foreground="{Binding CalendarR3C3Foreground}" Background="{Binding CalendarR3C3Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3"/>
+                <TextBlock Text="{Binding CalendarR3C4Number, Mode=OneWay}" Foreground="{Binding CalendarR3C4Foreground}" Background="{Binding CalendarR3C4Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="4"/>
+                <TextBlock Text="{Binding CalendarR3C5Number, Mode=OneWay}" Foreground="{Binding CalendarR3C5Foreground}" Background="{Binding CalendarR3C5Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="5"/>
+                <TextBlock Text="{Binding CalendarR3C6Number, Mode=OneWay}" Foreground="{Binding CalendarR3C6Foreground}" Background="{Binding CalendarR3C6Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="6"/>
+                <TextBlock Text="{Binding CalendarR4C0Number, Mode=OneWay}" Foreground="{Binding CalendarR4C0Foreground}" Background="{Binding CalendarR4C0Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="0"/>
+                <TextBlock Text="{Binding CalendarR4C1Number, Mode=OneWay}" Foreground="{Binding CalendarR4C1Foreground}" Background="{Binding CalendarR4C1Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="1"/>
+                <TextBlock Text="{Binding CalendarR4C2Number, Mode=OneWay}" Foreground="{Binding CalendarR4C2Foreground}" Background="{Binding CalendarR4C2Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="2"/>
+                <TextBlock Text="{Binding CalendarR4C3Number, Mode=OneWay}" Foreground="{Binding CalendarR4C3Foreground}" Background="{Binding CalendarR4C3Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="3"/>
+                <TextBlock Text="{Binding CalendarR4C4Number, Mode=OneWay}" Foreground="{Binding CalendarR4C4Foreground}" Background="{Binding CalendarR4C4Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="4"/>
+                <TextBlock Text="{Binding CalendarR4C5Number, Mode=OneWay}" Foreground="{Binding CalendarR4C5Foreground}" Background="{Binding CalendarR4C5Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="5"/>
+                <TextBlock Text="{Binding CalendarR4C6Number, Mode=OneWay}" Foreground="{Binding CalendarR4C6Foreground}" Background="{Binding CalendarR4C6Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="6"/>
+                <TextBlock Text="{Binding CalendarR5C0Number, Mode=OneWay}" Foreground="{Binding CalendarR5C0Foreground}" Background="{Binding CalendarR5C0Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="0"/>
+                <TextBlock Text="{Binding CalendarR5C1Number, Mode=OneWay}" Foreground="{Binding CalendarR5C1Foreground}" Background="{Binding CalendarR5C1Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1"/>
+                <TextBlock Text="{Binding CalendarR5C2Number, Mode=OneWay}" Foreground="{Binding CalendarR5C2Foreground}" Background="{Binding CalendarR5C2Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="2"/>
+                <TextBlock Text="{Binding CalendarR5C3Number, Mode=OneWay}" Foreground="{Binding CalendarR5C3Foreground}" Background="{Binding CalendarR5C3Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="3"/>
+                <TextBlock Text="{Binding CalendarR5C4Number, Mode=OneWay}" Foreground="{Binding CalendarR5C4Foreground}" Background="{Binding CalendarR5C4Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="4"/>
+                <TextBlock Text="{Binding CalendarR5C5Number, Mode=OneWay}" Foreground="{Binding CalendarR5C5Foreground}" Background="{Binding CalendarR5C5Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="5"/>
+                <TextBlock Text="{Binding CalendarR5C6Number, Mode=OneWay}" Foreground="{Binding CalendarR5C6Foreground}" Background="{Binding CalendarR5C6Background}" Padding="5" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="6"/>
+            </Grid>
+            <Button Content="＞"
+                    Command="{Binding NextMonthCommand}"
+                    Foreground="#CCFFFFFF" Background="#01777777" BorderThickness="0"
+                    Padding="5" Grid.Row="1" Grid.Column="3" />
+        </Grid>
+    </StackPanel>
+</Window>
