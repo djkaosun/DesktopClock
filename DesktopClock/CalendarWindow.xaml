@@ -22,7 +22,7 @@
         Activated="Window_Activated">
     <StackPanel>
         <TextBlock Height="31"/>
-        <Grid Background="#99222222">
+        <Grid Background="#77111111">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
