@@ -39,11 +39,13 @@ namespace DesktopClock
                                     MessageBoxButton.OK, MessageBoxImage.Hand);
                     System.Windows.Application.Current.Shutdown(); // プログラム終了
                 }
-
-                // アプリケーション起動
-                base.OnStartup(e);
-                this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                this.notifyIcon = new NotifyIconWrapper();
+                else
+                {
+                    // アプリケーション起動
+                    base.OnStartup(e);
+                    this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                    this.notifyIcon = new NotifyIconWrapper();
+                }
             }
         }
 
@@ -56,7 +58,7 @@ namespace DesktopClock
             App.semaphore.Dispose(); // Semaphoreクラスのインスタンスを破棄
             App.semaphore = null;
             base.OnExit(e);
-            this.notifyIcon.Dispose();
+            this.notifyIcon?.Dispose();
         }
     }
 }
