@@ -1135,7 +1135,10 @@ namespace DesktopClock
             int endDayOfPrev= (new DateTime(year , month, 1) - TimeSpan.FromDays(1)).Day;
 
             int day = 1;
+            int startRow = 0;
+            if (beginDayOfWeek == 0) startRow = 1;
             int prevDay = endDayOfPrev - beginDayOfWeek + 1;
+            if (beginDayOfWeek == 0) prevDay -= 7;
             int nextDay = 1;
             int currentRow = -1;
             for (int i = 0; i < _CalendarNumbers.GetLength(0); i++)
@@ -1143,7 +1146,42 @@ namespace DesktopClock
                 for (int j = 0; j < _CalendarNumbers.GetLength(1); j++)
                 {
 
-                    if (day <= endDay && (i != 0 || j >= beginDayOfWeek))
+                    if (i < startRow || i == startRow && j < beginDayOfWeek)
+                    {
+                        _CalendarNumbers[i, j] = prevDay.ToString();
+                        var isHoliday = false;
+
+                        if (month == 1)
+                        {
+                            isHoliday = holidayChecker.IsHoliday(year - 1, 12, prevDay);
+                        }
+                        else
+                        {
+                            isHoliday = holidayChecker.IsHoliday(year, month - 1, prevDay);
+                        }
+
+                        if (j == 0 || isHoliday)
+                        {
+                            _CalendarForegrounds[i, j] = HolidayColor;
+                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
+                            _CalendarOpacities[i, j] = 0.3;
+                        }
+                        else if (j == 6)
+                        {
+                            _CalendarForegrounds[i, j] = SaturdayColor;
+                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
+                            _CalendarOpacities[i, j] = 0.3;
+                        }
+                        else
+                        {
+                            _CalendarForegrounds[i, j] = NormalColor;
+                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
+                            _CalendarOpacities[i, j] = 0.3;
+                        }
+
+                        prevDay++;
+                    }
+                    else if(day <= endDay)
                     {
                         _CalendarNumbers[i, j] = day.ToString();
                         var isHoliday = holidayChecker.IsHoliday(year, month, day);
@@ -1194,42 +1232,7 @@ namespace DesktopClock
 
                         day++;
                     }
-                    else if (j < beginDayOfWeek && i == 0)
-                    {
-                        _CalendarNumbers[i, j] = prevDay.ToString();
-                        var isHoliday = false;
-
-                        if (month == 1)
-                        {
-                            isHoliday = holidayChecker.IsHoliday(year - 1, 12, prevDay);
-                        }
-                        else
-                        {
-                            isHoliday = holidayChecker.IsHoliday(year, month - 1, prevDay);
-                        }
-
-                        if (j == 0 || isHoliday)
-                        {
-                            _CalendarForegrounds[i, j] = HolidayColor;
-                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                            _CalendarOpacities[i, j] = 0.3;
-                        }
-                        else if (j == 6)
-                        {
-                            _CalendarForegrounds[i, j] = SaturdayColor;
-                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                            _CalendarOpacities[i, j] = 0.3;
-                        }
-                        else
-                        {
-                            _CalendarForegrounds[i, j] = NormalColor;
-                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                            _CalendarOpacities[i, j] = 0.3;
-                        }
-
-                        prevDay++;
-                    }
-                    else
+                    else 
                     {
                         if (currentRow < 0) currentRow = i;
                         if (currentRow == i)
