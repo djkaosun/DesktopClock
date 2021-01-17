@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using System.Windows.Controls;
 using System.Windows.Input;
 using DesktopClock.Library;
 using System.Collections.Specialized;
@@ -472,9 +468,7 @@ namespace DesktopClock
 
         private void ApplyAndSaveSettings()
         {
-            VerticalAlignment verticalAlignment;
-            HorizontalAlignment horizontalAlignment;
-            SetAlignmentFromRadioButton(out verticalAlignment, out horizontalAlignment);
+            SetAlignmentFromRadioButton(out VerticalAlignment verticalAlignment, out HorizontalAlignment horizontalAlignment);
             Properties.Settings.Default.VerticalAlignment = verticalAlignment;
             Properties.Settings.Default.HorizontalAlignment = horizontalAlignment;
             Properties.Settings.Default.VerticalMargin = Double.Parse(VerticalMarginString);
