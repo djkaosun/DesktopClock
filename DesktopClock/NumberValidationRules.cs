@@ -2,8 +2,6 @@
 using System.Globalization;
 using System.Windows.Controls;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesktopClock
 {
