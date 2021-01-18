@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
@@ -206,6 +203,11 @@ namespace DesktopClock.Library
             set {
                 if (_HolidayChecker != null) throw new InvalidOperationException("already setted.");
                 _HolidayChecker = value;
+                _HolidayChecker.HolidaySettingChanged += (object sender, NotifyHolidaySettingChangedEventArgs e) =>
+                {
+                    HolidaySettingChanged?.Invoke(sender, e);
+                };
+
             }
         }
 
@@ -225,9 +227,14 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// プロパティが変更されたときに発生するイベント。
+        /// このオブジェクトのプロパティが変更されたときに発生するイベント。
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// <see cref="INotifyHolidaySettingChanged.HolidaySettingChanged" /> のイベントを転送します。
+        /// </summary>
+        public event HolidaySettingChangedEventHandler HolidaySettingChanged;
 
         private CancellationTokenSource tokenSource;
         
