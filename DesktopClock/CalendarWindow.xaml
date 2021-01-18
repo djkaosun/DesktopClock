@@ -20,6 +20,44 @@
         Background="Transparent"
         ContentRendered="Window_ContentRendered"
         Activated="Window_Activated">
+    <Window.Resources>
+        <!-- ボタンのスタイル -->
+        <Style x:Key="CalendarButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <!-- デフォルトのテーマを無効化 -->
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <!-- 通常時のボタン -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border"
+                                TextBlock.Foreground="#CCFFFFFF"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- マウスオーバー時の見た目 -->
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#33FFFFFF"/>
+                            </Trigger>
+                            <!-- 無効時の見た目 -->
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#33FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <StackPanel>
         <TextBlock Height="31"/>
         <Grid Background="#77111111">
@@ -48,13 +86,15 @@
                 </StackPanel>
                 <Button Content="Today&lt;&lt;"
                         Command="{Binding ThisMonthCommand}"
-                        Foreground="#CCFFFFFF"  Background="#01777777" FontSize="12" BorderThickness="0"
+                        Style="{StaticResource CalendarButton}"
+                        FontSize="12"
                         VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
             </Grid>
             <Button Content="＜"
                     Command="{Binding PreviousMonthCommand}"
-                    Foreground="#CCFFFFFF"  Background="#01777777" BorderThickness="0"
-                    Padding="5" Grid.Row="1" Grid.Column="1" />
+                    Style="{StaticResource CalendarButton}"
+                    VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"  
+                    Padding="6" Grid.Row="1" Grid.Column="1" />
             <Grid HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="33"/>
@@ -126,8 +166,9 @@
             </Grid>
             <Button Content="＞"
                     Command="{Binding NextMonthCommand}"
-                    Foreground="#CCFFFFFF" Background="#01777777" BorderThickness="0"
-                    Padding="5" Grid.Row="1" Grid.Column="3" />
+                    Style="{StaticResource CalendarButton}"
+                    VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"  
+                    Padding="6" Grid.Row="1" Grid.Column="3" />
         </Grid>
     </StackPanel>
 </Window>

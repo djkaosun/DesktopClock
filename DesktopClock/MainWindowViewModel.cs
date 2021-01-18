@@ -674,13 +674,27 @@ namespace DesktopClock
             public ThisMonthCommandImpl(MainWindowViewModel viewModel)
             {
                 this.viewModel = viewModel;
+                viewModel.PropertyChanged += OnViewModelPropertyChangedEventHandler;
+            }
+
+            private void OnViewModelPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(viewModel.CalendarYear):
+                    case nameof(viewModel.CalendarMonth):
+                        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                        break;
+                }
             }
 
             public event EventHandler CanExecuteChanged;
 
             public bool CanExecute(object parameter)
             {
-                return true;
+                var today = DateTime.Today;
+                return today.Year != Int32.Parse(viewModel.CalendarYear)
+                        || today.Month != Int32.Parse(viewModel.CalendarMonth);
             }
 
             public void Execute(object parameter)
