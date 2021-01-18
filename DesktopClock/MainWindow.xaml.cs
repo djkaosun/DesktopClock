@@ -32,7 +32,7 @@ namespace DesktopClock
                 }
             };
 
-            viewModel = new MainWindowViewModel
+            viewModel = new MainWindowViewModel(this.Dispatcher)
             {
                 DateTimeEventSource = dtEvtSrc,
                 PrimaryScreenSizeEventSource = new PrimaryScreenSizeEventSource()
