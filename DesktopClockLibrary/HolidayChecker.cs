@@ -72,6 +72,42 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
+        /// 振替休日処理をしない、生の祝祭日名を返します。
+        /// </summary>
+        /// <param name="dateTime"><see cref="DateTime" />。日付のみが使用され、時分秒は無視されます。</param>
+        /// <returns>祝祭日名。</returns>
+        public string GetHolidayName(DateTime dateTime)
+        {
+            return GetHolidayName(dateTime.Year, dateTime.Month, dateTime.Day);
+        }
+
+        /// <summary>
+        /// 振替休日処理をしない、生の祝祭日名を返します。
+        /// </summary>
+        /// <param name="year">年。</param>
+        /// <param name="month">月。</param>
+        /// <param name="day">日。</param>
+        /// <returns>祝祭日名。</returns>
+        public string GetHolidayName(int year, int month, int day)
+        {
+            DateTime today = new DateTime(year, month, day);
+            string holidayName = GetHolidayNameWithoutKokuminNoKyujitsu(year, month, day);
+
+            if (today >= KokuminNoKyuujitsuStart)
+            {
+                // 今日が平日 (振替休日でない)、かつ、前日と翌日が祝祭日の場合、国民の休日。
+                if (holidayName == null && today.DayOfWeek != DayOfWeek.Sunday
+                        && GetRawHolidayName(today - OneDayTimeSpan) != null
+                        && GetRawHolidayName(today + OneDayTimeSpan) != null)
+                {
+                    holidayName = "国民の休日";
+                }
+            }
+
+            return holidayName;
+        }
+
+        /// <summary>
         /// 祝祭日名を取得します。
         /// 
         /// 1973 年 4 月 12 日以降、振替休日開始。
@@ -82,7 +118,7 @@ namespace DesktopClock.Library
         /// <param name="month">月</param>
         /// <param name="day">日</param>
         /// <returns>祝祭日名。祝祭日でない場合は null。</returns>
-        public string GetHolidayName(int year, int month, int day)
+        private string GetHolidayNameWithoutKokuminNoKyujitsu(int year, int month, int day)
         {
             DateTime today = new DateTime(year, month, day);
             string holidayName = GetRawHolidayName(year, month, day);
@@ -128,53 +164,17 @@ namespace DesktopClock.Library
         /// </summary>
         /// <param name="dateTime"><see cref="DateTime" />。日付のみが使用され、時分秒は無視されます。</param>
         /// <returns>祝祭日名。</returns>
-        public string GetHolidayName(DateTime dateTime)
+        private string GetHolidayNameWithoutKokuminNoKyujitsu(DateTime dateTime)
         {
-            return GetHolidayName(dateTime.Year, dateTime.Month, dateTime.Day);
+            return GetHolidayNameWithoutKokuminNoKyujitsu(dateTime.Year, dateTime.Month, dateTime.Day);
         }
 
-        /// <summary>
-        /// 振替休日処理をしない、生の祝祭日名を返します。
-        /// </summary>
-        /// <param name="dateTime"><see cref="DateTime" />。日付のみが使用され、時分秒は無視されます。</param>
-        /// <returns>祝祭日名。</returns>
-        public static string GetRawHolidayName(DateTime dateTime)
+        private static string GetRawHolidayName(DateTime dateTime)
         {
             return GetRawHolidayName(dateTime.Year, dateTime.Month, dateTime.Day);
         }
 
-        /// <summary>
-        /// 振替休日処理をしない、生の祝祭日名を返します。
-        /// </summary>
-        /// <param name="year">年。</param>
-        /// <param name="month">月。</param>
-        /// <param name="day">日。</param>
-        /// <returns>祝祭日名。</returns>
-        public static string GetRawHolidayName(int year, int month, int day)
-        {
-            DateTime today = new DateTime(year, month, day);
-            string holidayName = GetRawHolidayNameWithoutKokuminNoKyuujitsu(year, month, day);
-
-            if (today >= KokuminNoKyuujitsuStart)
-            {
-                // 今日が平日、かつ、前日と翌日が祝祭日の場合、国民の休日。
-                if (holidayName == null
-                        && GetRawHolidayNameWithoutKokuminNoKyuujitsu(today - OneDayTimeSpan) != null
-                        && GetRawHolidayNameWithoutKokuminNoKyuujitsu(today + OneDayTimeSpan) != null)
-                {
-                    holidayName = "国民の休日";
-                }
-            }
-
-            return holidayName;
-        }
-
-        private static string GetRawHolidayNameWithoutKokuminNoKyuujitsu(DateTime dateTime)
-        {
-            return GetRawHolidayNameWithoutKokuminNoKyuujitsu(dateTime.Year, dateTime.Month, dateTime.Day);
-        }
-
-        private static string GetRawHolidayNameWithoutKokuminNoKyuujitsu(int year, int month, int day)
+        private static string GetRawHolidayName(int year, int month, int day)
         {
             // 1948 年 7 月 20 日施行
             if (year < 1948 || year == 1948 && month < 7 || year == 1948 && month == 7 && day < 20) throw new InvalidOperationException(); 
@@ -184,7 +184,7 @@ namespace DesktopClock.Library
                     switch (day)
                     {
                         case 1:
-                            return "元旦";
+                            return "元日";
                         case 15:
                             if (year < 2000) return "成人の日";
                             break;
@@ -198,7 +198,7 @@ namespace DesktopClock.Library
                 case 2:
                     switch (day)
                     {
-                        case 9:
+                        case 11:
                             if (year >= 1967) return "建国記念の日";
                             break;
                         case 23:
@@ -214,7 +214,7 @@ namespace DesktopClock.Library
                     {
 
                     }
-                    if (day == Math.Truncate(20.8431 + 0.242194 * (year - 1980)) - ((year - 1980) / 4))
+                    if (IsShunbunnoHi(year, month, day))
                     {
                         return "春分の日";
                     }
@@ -223,11 +223,12 @@ namespace DesktopClock.Library
                     switch (day)
                     {
                         case 10:
-                            if (year == 1959) return "皇太子明仁親王の結婚の儀";
+                            if (year == 1959) return "明仁親王の結婚の儀";
                             break;
                         case 29:
                             if (year < 1989) return "天皇誕生日";
-                            else if (year < 2005) return "みどりの日";
+                            else if (year < 2007) return "みどりの日";
+                            else return "昭和の日";
                             break;
                     }
                     break;
@@ -240,7 +241,7 @@ namespace DesktopClock.Library
                         case 3:
                             return "憲法記念日";
                         case 4:
-                            if (year >= 2005) return "みどりの日";
+                            if (year >= 2007) return "みどりの日";
                             break;
                         case 5:
                             return "こどもの日";
@@ -250,7 +251,7 @@ namespace DesktopClock.Library
                     switch (day)
                     {
                         case 9:
-                            if (year == 1993) return "皇太子徳仁親王の結婚の儀";
+                            if (year == 1993) return "徳仁親王の結婚の儀";
                             break;
                     }
                     break;
@@ -258,7 +259,7 @@ namespace DesktopClock.Library
                     switch (day)
                     {
                         case 20:
-                            if (year >= 1995 && year < 2003) return "海の日";
+                            if (year >= 1996 && year < 2003) return "海の日";
                             break;
                         case 22:
                             if (year == 2021) return "海の日";
@@ -271,9 +272,9 @@ namespace DesktopClock.Library
                             if (year == 2020) return "スポーツの日";
                             break;
                     }
-                    if (year >= 2000 && new DateTime(year, month, day).DayOfWeek == DayOfWeek.Monday && day > 7 && day < 15)
+                    if (year >= 2003 && new DateTime(year, month, day).DayOfWeek == DayOfWeek.Monday && day > 14 && day < 22)
                     {
-                        // 第 2 月曜日
+                        // 第 3 月曜日
                         if (year != 2020 && year != 2021) return "海の日";
                     }
                     break;
@@ -287,7 +288,7 @@ namespace DesktopClock.Library
                             if (year == 2020) return "山の日";
                             break;
                         case 11:
-                            if (year >= 2014)
+                            if (year >= 2016)
                             {
                                 if (year != 2020 && year != 2021) return "山の日";
                             }
@@ -298,15 +299,15 @@ namespace DesktopClock.Library
                     switch (day)
                     {
                         case 15:
-                            if (year >= 1967 && year < 2003) return "敬老の日";
+                            if (year >= 1966 && year < 2003) return "敬老の日";
                             break;
                     }
-                    if (year >= 2003 && new DateTime(year, month, day).DayOfWeek == DayOfWeek.Monday && day > 7 && day < 15)
+                    if (year >= 2003 && new DateTime(year, month, day).DayOfWeek == DayOfWeek.Monday && day > 14 && day < 22)
                     {
-                        // 第 2 月曜日
+                        // 第 3 月曜日
                         return "敬老の日";
                     }
-                    if (day == Math.Truncate(23.2488 + 0.242194 * (year - 1980)) - ((year - 1980) / 4))
+                    if (IsShuubunnoHi(year, month, day))
                     {
                         return "秋分の日";
                     }
@@ -315,7 +316,7 @@ namespace DesktopClock.Library
                     switch (day)
                     {
                         case 10:
-                            if (year >= 1967 && year < 2000) return "体育の日";
+                            if (year >= 1966 && year < 2000) return "体育の日";
                             break;
                         case 22:
                             if (year == 2019) return "即位礼正殿の儀";
@@ -324,7 +325,7 @@ namespace DesktopClock.Library
                     if (year >= 2000 && new DateTime(year, month, day).DayOfWeek == DayOfWeek.Monday && day > 7 && day < 15)
                     {
                         // 第 2 月曜日
-                        if (year < 2018)
+                        if (year < 2020)
                         {
                             return "体育の日";
                         }
@@ -356,6 +357,42 @@ namespace DesktopClock.Library
                     break;
             }
             return null;
+        }
+
+        private static bool IsShunbunnoHi(int year, int month, int day)
+        {
+            if (year < 1980)
+            {
+                return day == Math.Truncate(20.8357 + 0.242194 * (year - 1980) - (year - 1983) / 4);
+            }
+            else if (year < 2100)
+            {
+                return day == Math.Truncate(20.8431 + 0.242194 * (year - 1980) - (year - 1980) / 4);
+            }
+            else if (year < 2151)
+            {
+                return day == Math.Truncate(21.8510 + 0.242194 * (year - 1980) - (year - 1980) / 4);
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private static bool IsShuubunnoHi(int year, int month, int day)
+        {
+            if (year < 1980)
+            {
+                return day == Math.Truncate(23.2588 + 0.242194 * (year - 1980) - (year - 1983) / 4);
+            }
+            else if (year < 2100)
+            {
+                return day == Math.Truncate(23.2488 + 0.242194 * (year - 1980) - (year - 1980) / 4);
+            }
+            else if (year < 2151)
+            {
+                return day == Math.Truncate(24.2488 + 0.242194 * (year - 1980) - (year - 1980) / 4);
+            }
+
+            throw new NotImplementedException();
         }
 
         /// <summary>
