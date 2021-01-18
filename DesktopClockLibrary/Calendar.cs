@@ -1,13 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesktopClock.Library
 {
+    /// <summary>
+    /// カレンダーを示す 2 次元配列を生成する静的クラスです。
+    /// </summary>
     public static class Calendar
     {
+        /// <summary>
+        /// カレンダーを示す 2 次元配列を生成します。
+        /// </summary>
+        /// <param name="year">生成するカレンダーの年。</param>
+        /// <param name="month">生成するカレンダーの月。</param>
+        /// <param name="holidayChecker">カレンダー生成の際に利用する <see cref="IHolidayChecker" />></param>
+        /// <param name="days">日が格納された 2 次元配列 (6 * 7)。最終行が 5 行目の時は 6 行目は -1 となります。</param>
+        /// <param name="isHoliday">対応する日が祝日かを示す 2 次元配列 (6 * 7)。</param>
+        /// <param name="isThisMonth">配列に格納された日が、指定された月であるか、空白を埋めるための先月 or 来月であるかを示す 2 次元配列 (6 * 7)。</param>
+        /// <param name="lastRow">最終行を示します。</param>
         public static void GetCalendar(int year, int month, IHolidayChecker holidayChecker, out int[,] days, out bool[,] isHoliday, out bool[,] isThisMonth, out int lastRow)
         {
             days = new int[6, 7];

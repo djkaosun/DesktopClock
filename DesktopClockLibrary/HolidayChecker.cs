@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace DesktopClock.Library
 {
@@ -23,7 +24,7 @@ namespace DesktopClock.Library
             set
             {
                 _IsAddHolidayNameToObservedHolidayName = value;
-                HolidaySettingChanged?.Invoke(this, new NotifyHolidaySettingChangedEventArgs(nameof(IsAddHolidayNameToObservedHolidayName)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsAddHolidayNameToObservedHolidayName)));
             }
         }
 
@@ -41,15 +42,34 @@ namespace DesktopClock.Library
             {
                 if (_CustomHoliday != null) throw new InvalidOperationException("already setted.");
                 _CustomHoliday = value;
-                HolidaySettingChanged?.Invoke(this, new NotifyHolidaySettingChangedEventArgs(nameof(CustomHoliday)));
-                _CustomHoliday.HolidaySettingChanged += (object sender, NotifyHolidaySettingChangedEventArgs e) =>
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomHoliday)));
+                _CustomHoliday.HolidaySettingChanged += (object sender, HolidaySettingChangedEventArgs e) =>
                 {
                     HolidaySettingChanged?.Invoke(sender, e);
                 };
             }
         }
 
+        /// <summary>
+        /// 休日関係の設定変更イベントです。
+        /// </summary>
         public event HolidaySettingChangedEventHandler HolidaySettingChanged;
+
+        /// <summary>
+        /// プロパティが変更された際に発生するイベントです。
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// コンストラクター。
+        /// </summary>
+        public HolidayChecker()
+        {
+            PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
+            {
+                HolidaySettingChanged?.Invoke(sender, new HolidaySettingChangedEventArgs(e.PropertyName, e));
+            };
+        }
 
         /// <summary>
         /// 祝祭日名を取得します。

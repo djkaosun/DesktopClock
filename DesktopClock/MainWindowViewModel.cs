@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 using DesktopClock.Library;
@@ -898,7 +895,7 @@ namespace DesktopClock
         /// </summary>
         /// <param name="sender">イベントの発生元</param>
         /// <param name="e">イベント引数</param>
-        private void HolidaySettingChangedEventHandler(object sender, NotifyHolidaySettingChangedEventArgs e)
+        private void HolidaySettingChangedEventHandler(object sender, HolidaySettingChangedEventArgs e)
         {
             ChangeDate(); 
         }
