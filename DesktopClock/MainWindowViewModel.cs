@@ -1070,7 +1070,7 @@ namespace DesktopClock
             // カレンダーの表示変更
             // ##################### Dispatcher 経由じゃないとエラーになる。 #####################
             // ################ タイミングの問題なら、他の操作も潜在的にバグ持ち？ ###############
-            CalendarWindowDispatcher.BeginInvoke(new Action(() =>
+            CalendarWindowDispatcher.Invoke(new Action(() =>
             {
                 CalendarYear = today.Year.ToString();
                 CalendarMonth = today.Month.ToString();
