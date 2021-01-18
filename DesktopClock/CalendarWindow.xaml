@@ -60,7 +60,7 @@
     </Window.Resources>
     <StackPanel>
         <TextBlock Height="31"/>
-        <Grid Background="#77111111">
+        <Grid Background="#99111111">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

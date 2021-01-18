@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesktopClock.Library
 {
@@ -17,14 +13,23 @@ namespace DesktopClock.Library
         private static readonly DateTime KokuminNoKyuujitsuStart = new DateTime(1985, 12, 27);
         private static readonly DateTime FurikaeKyuujitsuChangeAt2007 = new DateTime(2007, 1, 1);
 
+        private bool _IsAddHolidayNameToObservedHolidayName;
         /// <summary>
         /// 振替休日に元の祝祭日名を含めるか。true の場合は <see cref="GetHolidayName(DateTime)" /> や <see cref="GetHolidayName(int, int, int)" /> が振替休日を「振替休日 (元の祝祭日名)」と、false の場合は単に「振替休日」と返すようになります。
         /// </summary>
-        public bool IsAddHolidayNameToObservedHolidayName { get; set; }
+        public bool IsAddHolidayNameToObservedHolidayName
+        {
+            get { return _IsAddHolidayNameToObservedHolidayName; }
+            set
+            {
+                _IsAddHolidayNameToObservedHolidayName = value;
+                HolidaySettingChanged?.Invoke(this, new NotifyHolidaySettingChangedEventArgs(nameof(IsAddHolidayNameToObservedHolidayName)));
+            }
+        }
 
         private ICustomHoliday _CustomHoliday;
         /// <summary>
-        /// 
+        /// <see cref="ICustomHoliday" /> をセットします。
         /// </summary>
         public ICustomHoliday CustomHoliday
         {
@@ -36,8 +41,15 @@ namespace DesktopClock.Library
             {
                 if (_CustomHoliday != null) throw new InvalidOperationException("already setted.");
                 _CustomHoliday = value;
+                HolidaySettingChanged?.Invoke(this, new NotifyHolidaySettingChangedEventArgs(nameof(CustomHoliday)));
+                _CustomHoliday.HolidaySettingChanged += (object sender, NotifyHolidaySettingChangedEventArgs e) =>
+                {
+                    HolidaySettingChanged?.Invoke(sender, e);
+                };
             }
         }
+
+        public event HolidaySettingChangedEventHandler HolidaySettingChanged;
 
         /// <summary>
         /// 祝祭日名を取得します。

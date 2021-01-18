@@ -32,7 +32,6 @@ namespace DesktopClock
                 }
             };
 
-            // ここマジアブナイ。
             viewModel = new MainWindowViewModel
             {
                 DateTimeEventSource = dtEvtSrc,
