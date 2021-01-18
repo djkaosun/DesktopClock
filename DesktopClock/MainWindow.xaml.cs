@@ -76,6 +76,17 @@ namespace DesktopClock
         }
 
         /// <summary>
+        /// MainWindows で MouseEnter イベントが発生した際のイベント ハンドラー
+        /// MouseEnter と同じ処理をする。
+        /// </summary>
+        /// <param name="sender">イベントの発生元</param>
+        /// <param name="e">ドラッグ イベント引数</param>
+        private void Window_DragEnter(object sender, DragEventArgs e)
+        {
+            MainWindow_MouseEnter(sender, null);
+        }
+
+        /// <summary>
         /// ウィンドウ上からマウスが出るのを待機する。
         /// </summary>
         /// <param name="winPosSizeObject">ウィンドウ位置およびサイズ</param>
