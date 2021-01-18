@@ -1127,143 +1127,71 @@ namespace DesktopClock
         {
             var year = Int32.Parse(CalendarYear);
             var month = Int32.Parse(CalendarMonth);
-            var beginDayOfWeek = (int)(new DateTime(year, month, 1).DayOfWeek);
-            var holidayChecker = DateTimeEventSource.HolidayChecker;
 
             var todayYear = DateTimeEventSource.Year;
             var todayMonth = DateTimeEventSource.Month;
             var todayDay = DateTimeEventSource.Day;
+            var monthContainsToday = (year == todayYear && month == todayMonth);
 
-            var monthIsToday = (year == todayYear && month == todayMonth);
+            Calendar.GetCalendar(year, month, DateTimeEventSource.HolidayChecker, out int[,] days, out bool[,] isHoliday, out bool[,] isThisMonth, out int lastRow);
 
-            int endDay;
-            if (month == 12)
-            {
-                endDay = (new DateTime(year + 1, 1, 1) - TimeSpan.FromDays(1)).Day;
-            }
-            else
-            {
-                endDay = (new DateTime(year, month + 1, 1) - TimeSpan.FromDays(1)).Day;
-            }
-
-            int endDayOfPrev= (new DateTime(year , month, 1) - TimeSpan.FromDays(1)).Day;
-
-            int day = 1;
-            int startRow = 0;
-            if (beginDayOfWeek == 0) startRow = 1;
-            int prevDay = endDayOfPrev - beginDayOfWeek + 1;
-            if (beginDayOfWeek == 0) prevDay -= 7;
-            int nextDay = 1;
-            int currentRow = -1;
             for (int i = 0; i < _CalendarNumbers.GetLength(0); i++)
             {
                 for (int j = 0; j < _CalendarNumbers.GetLength(1); j++)
                 {
-
-                    if (i < startRow || i == startRow && j < beginDayOfWeek)
+                    if (i <= lastRow)
                     {
-                        _CalendarNumbers[i, j] = prevDay.ToString();
-                        var isHoliday = false;
+                        _CalendarNumbers[i, j] = days[i, j].ToString();
+                        if (isThisMonth[i, j])
+                        {
+                            var isToday = (monthContainsToday && days[i, j] == todayDay);
 
-                        if (month == 1)
-                        {
-                            isHoliday = holidayChecker.IsHoliday(year - 1, 12, prevDay);
-                        }
-                        else
-                        {
-                            isHoliday = holidayChecker.IsHoliday(year, month - 1, prevDay);
-                        }
-
-                        if (j == 0 || isHoliday)
-                        {
-                            _CalendarForegrounds[i, j] = HolidayColor;
-                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                            _CalendarOpacities[i, j] = 0.3;
-                        }
-                        else if (j == 6)
-                        {
-                            _CalendarForegrounds[i, j] = SaturdayColor;
-                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                            _CalendarOpacities[i, j] = 0.3;
-                        }
-                        else
-                        {
-                            _CalendarForegrounds[i, j] = NormalColor;
-                            _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                            _CalendarOpacities[i, j] = 0.3;
-                        }
-
-                        prevDay++;
-                    }
-                    else if(day <= endDay)
-                    {
-                        _CalendarNumbers[i, j] = day.ToString();
-                        var isHoliday = holidayChecker.IsHoliday(year, month, day);
-                        var isToday = (monthIsToday && day == todayDay);
-
-                        if (isToday)
-                        {
-                            if (j == 0 || isHoliday)
+                            if (isToday)
                             {
-                                _CalendarForegrounds[i, j] = System.Windows.Media.Brushes.Black;
-                                _CalendarBackgrounds[i, j] = HolidayColor;
-                                _CalendarOpacities[i, j] = 0.9;
-                            }
-                            else if (j == 6)
-                            {
-                                _CalendarForegrounds[i, j] = System.Windows.Media.Brushes.Black;
-                                _CalendarBackgrounds[i, j] = SaturdayColor;
-                                _CalendarOpacities[i, j] = 0.9;
+                                if (j == 0 || isHoliday[i, j])
+                                {
+                                    _CalendarForegrounds[i, j] = System.Windows.Media.Brushes.Black;
+                                    _CalendarBackgrounds[i, j] = HolidayColor;
+                                    _CalendarOpacities[i, j] = 0.9;
+                                }
+                                else if (j == 6)
+                                {
+                                    _CalendarForegrounds[i, j] = System.Windows.Media.Brushes.Black;
+                                    _CalendarBackgrounds[i, j] = SaturdayColor;
+                                    _CalendarOpacities[i, j] = 0.9;
+                                }
+                                else
+                                {
+                                    _CalendarForegrounds[i, j] = System.Windows.Media.Brushes.Black;
+                                    _CalendarBackgrounds[i, j] = NormalColor;
+                                    _CalendarOpacities[i, j] = 0.9;
+                                }
                             }
                             else
                             {
-                                _CalendarForegrounds[i, j] = System.Windows.Media.Brushes.Black;
-                                _CalendarBackgrounds[i, j] = NormalColor;
-                                _CalendarOpacities[i, j] = 0.9;
+                                if (j == 0 || isHoliday[i, j])
+                                {
+                                    _CalendarForegrounds[i, j] = HolidayColor;
+                                    _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
+                                    _CalendarOpacities[i, j] = 1;
+                                }
+                                else if (j == 6)
+                                {
+                                    _CalendarForegrounds[i, j] = SaturdayColor;
+                                    _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
+                                    _CalendarOpacities[i, j] = 1;
+                                }
+                                else
+                                {
+                                    _CalendarForegrounds[i, j] = NormalColor;
+                                    _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
+                                    _CalendarOpacities[i, j] = 1;
+                                }
                             }
                         }
                         else
                         {
-                            if (j == 0 || isHoliday)
-                            {
-                                _CalendarForegrounds[i, j] = HolidayColor;
-                                _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                                _CalendarOpacities[i, j] = 1;
-                            }
-                            else if (j == 6)
-                            {
-                                _CalendarForegrounds[i, j] = SaturdayColor;
-                                _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                                _CalendarOpacities[i, j] = 1;
-                            }
-                            else
-                            {
-                                _CalendarForegrounds[i, j] = NormalColor;
-                                _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
-                                _CalendarOpacities[i, j] = 1;
-                            }
-                        }
-
-                        day++;
-                    }
-                    else 
-                    {
-                        if (currentRow < 0) currentRow = i;
-                        if (currentRow == i)
-                        {
-
-                            _CalendarNumbers[i, j] = nextDay.ToString();
-                            var isHoliday = false;
-
-                            if (month == 12)
-                            {
-                                isHoliday = holidayChecker.IsHoliday(year + 1, 1, nextDay);
-                            }
-                            else
-                            {
-                                isHoliday = holidayChecker.IsHoliday(year, month + 1, nextDay);
-                            }
-                            if (j == 0 || isHoliday)
+                            if (j == 0 || isHoliday[i, j])
                             {
                                 _CalendarForegrounds[i, j] = HolidayColor;
                                 _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
@@ -1281,12 +1209,11 @@ namespace DesktopClock
                                 _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
                                 _CalendarOpacities[i, j] = 0.3;
                             }
-                            nextDay++;
                         }
-                        else
-                        {
-                            _CalendarNumbers[i, j] = String.Empty;
-                        }
+                    }
+                    else
+                    {
+                        _CalendarNumbers[i, j] = String.Empty;
                     }
                 }
             }
