@@ -765,17 +765,18 @@ namespace DesktopClock
         {
             InitializeCalender();
 
-            //コマンドの初期化
+            // コマンドの初期化
             NextMonthCommand = new NextMonthCommandImpl(this);
             PreviousMonthCommand = new PreviousMonthCommandImpl(this);
             ThisMonthCommand = new ThisMonthCommandImpl(this);
 
 
-
+            // イベント ハンドラーの設定
             this.PropertyChanged += WindowPositionEventHandler;
             this.PropertyChanged += CalendarMonthChangedEventHandler;
             Properties.Settings.Default.PropertyChanged += PropertiesSettingsChangedEventHandler;
 
+            // カレンダー ウィンドウの起動
             CalendarWindow = new CalendarWindow();
             CalendarWindow.DataContext = this;
             CalendarWindow.Show();

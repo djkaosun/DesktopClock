@@ -21,11 +21,6 @@ namespace DesktopClock
 
 
             var customHoliday = new CustomHoliday();
-
-            // 最終的には設定ファイルから読み取り
-            //Properties.Settings.Default.VerticalMargin = 90;
-            //Properties.Settings.Default.HorizontalMargin = 115;
-
             customHoliday.Holidays = CustomHolidaysParser.Deserialize(Properties.Settings.Default.CustumHolidaysString);
 
             var dtEvtSrc = new DateTimeEventSource()
@@ -36,15 +31,6 @@ namespace DesktopClock
                     CustomHoliday = customHoliday
                 }
             };
-
-            /*
-            // 最終的には設定ファイルから読み取り
-            customHoliday.Holidays.Add(new DateTime(2021, 4, 30), "休日");
-            customHoliday.Holidays.Add(new DateTime(2021, 12, 29), "休日");
-            customHoliday.Holidays.Add(new DateTime(2021, 12, 30), "休日");
-            customHoliday.Holidays.Add(new DateTime(2021, 12, 31), "休日");
-            customHoliday.Holidays.Add(new DateTime(2022, 1, 3), "休日");
-            //*/
 
             // ここマジアブナイ。
             viewModel = new MainWindowViewModel
