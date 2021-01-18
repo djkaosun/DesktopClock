@@ -9,7 +9,12 @@ using System.ComponentModel;
 namespace DesktopClock.Library
 {
     /// <summary>
-    /// <see cref="IDateTimeEventSource" />の実装です。
+    /// <see cref="IDateTimeEventSource" /> の実装です。
+    /// <see cref="DateTimeEventSource.PropertyChanged" /> イベントは、すべてのプロパティが同時に変更になるタイミング (年越し) では
+    /// Year → Month → Day → Today → Hour → Minute → Second → Now
+    /// の順に発生します。
+    /// また、変化のなかったプロパティのイベントは発生しません。
+    /// たとえば、日が変わったタイミングでは、Day 以下のイベントのみ発生し、Year と Month は発生しません。
     /// </summary>
     public class DateTimeEventSource : IDateTimeEventSource
     {
@@ -162,6 +167,35 @@ namespace DesktopClock.Library
             }
         }
 
+        private DateTime _Today;
+        /// <summary>
+        /// 今日を表す <see cref="DateTime" />。マルチスレッディングで一貫性のある日付を必要とするときに使用します。
+        /// </summary>
+        public DateTime Today
+        {
+            get { return _Today; }
+            private set
+            {
+                _Today = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Today)));
+            }
+        }
+
+        private DateTime _Now;
+        /// <summary>
+        /// 今を表す <see cref="DateTime" />。マルチスレッディングで一貫性のある時分秒を必要とするときに使用します。
+        /// 秒以下は切り捨てられます。
+        /// </summary>
+        public DateTime Now
+        {
+            get { return _Now; }
+            private set
+            {
+                _Now = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Now)));
+            }
+        }
+
         private IHolidayChecker _HolidayChecker;
         /// <summary>
         /// 休日かどうかをチェックする <see cref="IHolidayChecker" />。
@@ -267,12 +301,16 @@ namespace DesktopClock.Library
         private void UpdateDateTime()
         {
             var timeStamp = DateTime.Now;
+            timeStamp = new DateTime(timeStamp.Year, timeStamp.Month, timeStamp.Day, timeStamp.Hour, timeStamp.Minute, timeStamp.Second);
+            var today = new DateTime(timeStamp.Year, timeStamp.Month, timeStamp.Day);
             Year = timeStamp.Year;
             Month = timeStamp.Month;
             Day = timeStamp.Day;
+            Today = today;
             Hour = timeStamp.Hour;
             Minute = timeStamp.Minute;
             Second = timeStamp.Second;
+            Now = timeStamp;
         }
 
         /// <summary>
