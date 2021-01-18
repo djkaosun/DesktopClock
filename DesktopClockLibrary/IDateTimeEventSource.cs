@@ -66,7 +66,7 @@ namespace DesktopClock.Library
 
         /// <summary>
         /// 祝祭日かを判断するための <see cref="IHolidayChecker" />。
-        /// このプロパティに HolidayChecker をセットすると、<see cref="IHolidayChecker.CollectionChanged" /> イベントを転送するようになります。
+        /// このプロパティに HolidayChecker をセットすると、<see cref="INotifyHolidaySettingChanged.HolidaySettingChanged" /> イベントを転送するようになります。
         /// </summary>
         public IHolidayChecker HolidayChecker { get; set; }
 
