@@ -708,14 +708,14 @@ namespace DesktopClock
 
             public bool CanExecute(object parameter)
             {
-                var today = DateTime.Today;
+                var today = viewModel.DateTimeEventSource.Today;
                 return today.Year != Int32.Parse(viewModel.CalendarYear)
                         || today.Month != Int32.Parse(viewModel.CalendarMonth);
             }
 
             public void Execute(object parameter)
             {
-                var timestamp = DateTime.Now;
+                var timestamp = viewModel.DateTimeEventSource.Now;
                 viewModel.CalendarYear = timestamp.Year.ToString();
                 viewModel.CalendarMonth =timestamp.Month.ToString();
             }
@@ -1128,7 +1128,7 @@ namespace DesktopClock
         /// </summary>
         private void InitializeCalender()
         {
-            var timestamp = DateTime.Now;
+            var timestamp = DateTimeEventSource.Now;
             CalendarYear = timestamp.Year.ToString();
             CalendarMonth = timestamp.Month.ToString();
 
