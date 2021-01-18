@@ -203,7 +203,7 @@ namespace DesktopClock.Library
             set {
                 if (_HolidayChecker != null) throw new InvalidOperationException("already setted.");
                 _HolidayChecker = value;
-                _HolidayChecker.HolidaySettingChanged += (object sender, NotifyHolidaySettingChangedEventArgs e) =>
+                _HolidayChecker.HolidaySettingChanged += (object sender, HolidaySettingChangedEventArgs e) =>
                 {
                     HolidaySettingChanged?.Invoke(sender, e);
                 };
