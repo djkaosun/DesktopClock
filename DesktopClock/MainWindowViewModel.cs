@@ -1128,7 +1128,7 @@ namespace DesktopClock
         /// </summary>
         private void InitializeCalender()
         {
-            var timestamp = DateTimeEventSource.Now;
+            var timestamp = DateTime.Now; // DateTimeEventSource 設定前に実施するため。
             CalendarYear = timestamp.Year.ToString();
             CalendarMonth = timestamp.Month.ToString();
 
