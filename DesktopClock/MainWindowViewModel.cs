@@ -619,6 +619,8 @@ namespace DesktopClock
 
             public bool CanExecute(object parameter)
             {
+                if (viewModel.CalendarYear == null || viewModel.CalendarMonth == null) return false;
+
                 // HolidayChecker が祝日法の施行 (1948 年 7 月 20 日) 以降にのみ対応のため、
                 // カレンダー表示は1948 年 8 月 まで。
                 var year = Int32.Parse(viewModel.CalendarYear);
@@ -705,6 +707,8 @@ namespace DesktopClock
 
             public bool CanExecute(object parameter)
             {
+                if (viewModel.CalendarYear == null || viewModel.CalendarMonth == null) return false;
+
                 var today = DateTime.Today;
                 return today.Year != Int32.Parse(viewModel.CalendarYear)
                         || today.Month != Int32.Parse(viewModel.CalendarMonth);
@@ -772,15 +776,17 @@ namespace DesktopClock
 
         #endregion
 
+        private System.Windows.Threading.Dispatcher MainWindowDispatcher;
         private CalendarWindow CalendarWindow;
+        private System.Windows.Threading.Dispatcher CalendarWindowDispatcher;
 
         /// <summary>
         /// コンストラクター。
         /// 内部的に <see cref="CalendarWindow" /> も起動して、このオブジェクトをデータコンテキストとして指定する。
         /// </summary>
-        public MainWindowViewModel()
+        public MainWindowViewModel(System.Windows.Threading.Dispatcher dispatcher)
         {
-            InitializeCalender();
+            MainWindowDispatcher = dispatcher;
 
             // コマンドの初期化
             NextMonthCommand = new NextMonthCommandImpl(this);
@@ -796,6 +802,7 @@ namespace DesktopClock
             // カレンダー ウィンドウの起動
             CalendarWindow = new CalendarWindow();
             CalendarWindow.DataContext = this;
+            CalendarWindowDispatcher = CalendarWindow.Dispatcher;
             CalendarWindow.Show();
         }
 
@@ -1060,6 +1067,14 @@ namespace DesktopClock
                 VisibilityOfConsecutiveHolidays = System.Windows.Visibility.Collapsed;
             }
 
+            // カレンダーの表示変更
+            // ##################### Dispatcher 経由じゃないとエラーになる。 #####################
+            // ################ タイミングの問題なら、他の操作も潜在的にバグ持ち？ ###############
+            CalendarWindowDispatcher.BeginInvoke(new Action(() =>
+            {
+                CalendarYear = today.Year.ToString();
+                CalendarMonth = today.Month.ToString();
+            }));
             UpdateCalender();
         }
 
@@ -1116,30 +1131,14 @@ namespace DesktopClock
         }
 
         /// <summary>
-        /// カレンダーを初期化。
-        /// </summary>
-        private void InitializeCalender()
-        {
-            var timestamp = DateTime.Now;
-            CalendarYear = timestamp.Year.ToString();
-            CalendarMonth = timestamp.Month.ToString();
-
-            for (int i = 0; i < _CalendarNumbers.GetLength(0); i++)
-            {
-                for (int j = 0; j < _CalendarNumbers.GetLength(1); j++)
-                {
-                    _CalendarNumbers[i, j] = String.Empty;
-                }
-            }
-        }
-
-        /// <summary>
         /// カレンダーを更新。
         /// <see cref="ChangeDate"/> の中でも呼ばれる。
         /// 内部的に <see cref="PropertyChanged"/> を発生させる。
         /// </summary>
         private void UpdateCalender()
         {
+            if (CalendarYear == null || CalendarMonth == null) return;
+
             var year = Int32.Parse(CalendarYear);
             var month = Int32.Parse(CalendarMonth);
 
