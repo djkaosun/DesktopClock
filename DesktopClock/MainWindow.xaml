@@ -17,6 +17,8 @@
         IsHitTestVisible="True"
         Topmost="True"
         MouseEnter="MainWindow_MouseEnter"
+        AllowDrop="True"
+        DragEnter="Window_DragEnter"
         ContentRendered="Window_ContentRendered">
     <Grid Opacity="0.8">
         <Grid.RowDefinitions>
