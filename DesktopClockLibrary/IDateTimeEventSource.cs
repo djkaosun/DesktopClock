@@ -59,6 +59,17 @@ namespace DesktopClock.Library
         public string HolidayName { get; }
 
         /// <summary>
+        /// 今日を表す <see cref="DateTime" />。マルチスレッディングで一貫性のある日付を必要とするときに使用します。
+        /// </summary>
+        public DateTime Today { get; }
+
+        /// <summary>
+        /// 今を表す <see cref="DateTime" />。マルチスレッディングで一貫性のある時分秒を必要とするときに使用します。
+        /// 秒以下は切り捨てられます。
+        /// </summary>
+        public DateTime Now { get; }
+
+        /// <summary>
         /// 祝祭日かを判断するための <see cref="IHolidayChecker" />。
         /// </summary>
         public IHolidayChecker HolidayChecker { get; set; }
