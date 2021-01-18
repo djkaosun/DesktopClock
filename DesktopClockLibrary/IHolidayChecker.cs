@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesktopClock.Library
 {
     /// <summary>
     /// ある日付に対応する祝祭日名を返すための処理を担います。
     /// </summary>
-    public interface IHolidayChecker
+    public interface IHolidayChecker : INotifyHolidaySettingChanged
     {
         /// <summary>
         /// 振替休日に元の祝祭日名を含めるか。true の場合は <see cref="GetHolidayName(DateTime)" /> や <see cref="GetHolidayName(int, int, int)" /> が振替休日を「振替休日 (元の祝祭日名)」と、false の場合は単に「振替休日」と返すようになります。

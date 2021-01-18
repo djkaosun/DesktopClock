@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace DesktopClock.Library
@@ -11,7 +6,7 @@ namespace DesktopClock.Library
     /// <summary>
     /// 時刻が変わった際に各プロパティに対応した <see cref="INotifyPropertyChanged.PropertyChanged" /> イベントを発生させます。
     /// </summary>
-    public interface IDateTimeEventSource : INotifyPropertyChanged
+    public interface IDateTimeEventSource : INotifyPropertyChanged, INotifyHolidaySettingChanged
     {
         /// <summary>
         /// 年。
@@ -71,6 +66,7 @@ namespace DesktopClock.Library
 
         /// <summary>
         /// 祝祭日かを判断するための <see cref="IHolidayChecker" />。
+        /// このプロパティに HolidayChecker をセットすると、<see cref="IHolidayChecker.CollectionChanged" /> イベントを転送するようになります。
         /// </summary>
         public IHolidayChecker HolidayChecker { get; set; }
 

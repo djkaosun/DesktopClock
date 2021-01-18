@@ -752,9 +752,7 @@ namespace DesktopClock
                 if (_DateTimeEventSource != null) throw new InvalidOperationException("already setted");
                 _DateTimeEventSource = value;
                 _DateTimeEventSource.PropertyChanged += DateTimeChangedEventHandler;
-
-                // これマジアブナイ。なんとかしたい。
-                _DateTimeEventSource.HolidayChecker.CustomHoliday.Holidays.CollectionChanged += CustomHolidayChangedEventHandler;
+                _DateTimeEventSource.HolidaySettingChanged += HolidaySettingChangedEventHandler;
 
 
             }
@@ -818,19 +816,19 @@ namespace DesktopClock
                 switch (e.PropertyName)
                 {
                     case nameof(IDateTimeEventSource.Day):
-                        ChangeDate(dateTimeEventSource);
+                        ChangeDate();
                         break;
                     case nameof(IDateTimeEventSource.Hour):
-                        ChangeHour(dateTimeEventSource);
+                        ChangeHour();
                         break;
                     case nameof(IDateTimeEventSource.Minute):
-                        ChangeMinute(dateTimeEventSource);
+                        ChangeMinute();
                         break;
                     case nameof(IDateTimeEventSource.DayOfWeek):
-                        ChangeDayOfWeek(dateTimeEventSource);
+                        ChangeDayOfWeek();
                         break;
                     case nameof(IDateTimeEventSource.HolidayName):
-                        ChangeHolidayName(dateTimeEventSource);
+                        ChangeHolidayName();
                         break;
                 }
             }
@@ -895,17 +893,14 @@ namespace DesktopClock
         }
 
         /// <summary>
-        /// カスタム休日が変更された際のイベントを処理するイベントハンドラー。
+        /// カスタム休日が変更など、休日関係の設定が変更された際のイベントを処理するイベントハンドラー。
         /// 日付変更時の処理を走らせる。
         /// </summary>
         /// <param name="sender">イベントの発生元</param>
         /// <param name="e">イベント引数</param>
-        private void CustomHolidayChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
+        private void HolidaySettingChangedEventHandler(object sender, NotifyHolidaySettingChangedEventArgs e)
         {
-            if (sender is ObservableCollection<KeyValuePair<DateTime,string>>)
-            {
-                ChangeDate(DateTimeEventSource); 
-            }
+            ChangeDate(); 
         }
 
         #endregion
@@ -917,10 +912,10 @@ namespace DesktopClock
         /// <summary>
         /// 祝祭日関連の変更が発生した際の処理。
         /// </summary>
-        /// <param name="dateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
-        private void ChangeHolidayName(IDateTimeEventSource dateTimeEventSource)
+        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
+        private void ChangeHolidayName()
         {
-            HolidayNameOfToday = dateTimeEventSource.HolidayName;
+            HolidayNameOfToday = DateTimeEventSource.HolidayName;
         }
 
         private readonly string SundayName = (DateTime.MinValue + TimeSpan.FromDays(6)).ToString("dddd");
@@ -933,10 +928,10 @@ namespace DesktopClock
         /// <summary>
         /// 曜日が変更された際の処理。
         /// </summary>
-        /// <param name="dateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
-        private void ChangeDayOfWeek(IDateTimeEventSource dateTimeEventSource)
+        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
+        private void ChangeDayOfWeek()
         {
-            switch (dateTimeEventSource.DayOfWeek)
+            switch (DateTimeEventSource.DayOfWeek)
             {
                 case System.DayOfWeek.Sunday:
                     DayOfWeek = SundayName;
@@ -965,24 +960,24 @@ namespace DesktopClock
         /// <summary>
         /// 年月日が変更された際の処理。
         /// </summary>
-        /// <param name="dateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
-        private void ChangeDate(IDateTimeEventSource dateTimeEventSource)
+        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
+        private void ChangeDate()
         {
-            Date = dateTimeEventSource.Year + " 年 "
-                    + dateTimeEventSource.Month.ToString("00") + " 月 "
-                    + dateTimeEventSource.Day.ToString("00") + " 日";
+            Date = DateTimeEventSource.Year + " 年 "
+                    + DateTimeEventSource.Month.ToString("00") + " 月 "
+                    + DateTimeEventSource.Day.ToString("00") + " 日";
 
-            var holidayChecker = dateTimeEventSource.HolidayChecker;
-            var today = new DateTime(dateTimeEventSource.Year, dateTimeEventSource.Month, dateTimeEventSource.Day);
+            var holidayChecker = DateTimeEventSource.HolidayChecker;
+            var today = new DateTime(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
             var oneday = TimeSpan.FromDays(1);
-            var holidayNameOfToday = holidayChecker.GetHolidayName(dateTimeEventSource.Year, dateTimeEventSource.Month, dateTimeEventSource.Day);
+            var holidayNameOfToday = holidayChecker.GetHolidayName(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
             var todayIsHoliday = !String.IsNullOrEmpty(holidayNameOfToday);
             var tommorow = today + oneday;
             var holidayNameOfTommorow = holidayChecker.GetHolidayName(tommorow);
             var tommorowIsHoliday = !String.IsNullOrEmpty(holidayNameOfTommorow);
-            var holidayCount = GetConsecutiveHolidaysCount(tommorow, holidayChecker);
+            var holidayCount = GetConsecutiveHolidaysCount(tommorow);
             var dayAfterTommorow = tommorow + oneday;
-            var holidayCountTommorow = GetConsecutiveHolidaysCount(dayAfterTommorow, holidayChecker);
+            var holidayCountTommorow = GetConsecutiveHolidaysCount(dayAfterTommorow);
 
             // HolidayNameOfToday は別のハンドラーでも処理。無駄になるかもしれないが、害もない。
             HolidayNameOfToday = holidayNameOfToday;
@@ -1071,11 +1066,11 @@ namespace DesktopClock
             UpdateCalender();
         }
 
-        private static int GetConsecutiveHolidaysCount(DateTime dateTime, IHolidayChecker holidayChecker)
+        private int GetConsecutiveHolidaysCount(DateTime dateTime)
         {
             var oneday = TimeSpan.FromDays(1);
             int count = 0;
-            while (holidayChecker.IsHoliday(dateTime) || dateTime.DayOfWeek == System.DayOfWeek.Saturday || dateTime.DayOfWeek == System.DayOfWeek.Sunday)
+            while (HolidayChecker.IsHoliday(dateTime) || dateTime.DayOfWeek == System.DayOfWeek.Saturday || dateTime.DayOfWeek == System.DayOfWeek.Sunday)
             {
                 count++;
                 dateTime += oneday;
@@ -1086,10 +1081,10 @@ namespace DesktopClock
         /// <summary>
         /// 時が変更された際の処理。
         /// </summary>
-        /// <param name="dateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
-        private void ChangeHour(IDateTimeEventSource dateTimeEventSource)
+        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
+        private void ChangeHour()
         {
-            string hourStr = dateTimeEventSource.Hour.ToString("00");
+            string hourStr = DateTimeEventSource.Hour.ToString("00");
             Hour0 = hourStr.Substring(0, 1);
             Hour1 = hourStr.Substring(1, 1);
         }
@@ -1097,10 +1092,10 @@ namespace DesktopClock
         /// <summary>
         /// 分が変更された際の処理。
         /// </summary>
-        /// <param name="dateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
-        private void ChangeMinute(IDateTimeEventSource dateTimeEventSource)
+        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
+        private void ChangeMinute()
         {
-            string minuteStr = dateTimeEventSource.Minute.ToString("00");
+            string minuteStr = DateTimeEventSource.Minute.ToString("00");
             Minute0 = minuteStr.Substring(0, 1);
             Minute1 = minuteStr.Substring(1, 1);
         }

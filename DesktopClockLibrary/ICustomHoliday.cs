@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace DesktopClock.Library
      /// <summary>
      /// カスタム休日。
      /// </summary>
-    public interface ICustomHoliday
+    public interface ICustomHoliday : INotifyHolidaySettingChanged
     {
         /// <summary>
         /// カスタム休日の一覧。変更イベントを外部で処理できるよう <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/> です。

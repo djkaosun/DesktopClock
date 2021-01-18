@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Specialized;
 
 namespace DesktopClock.Library
 {
@@ -25,8 +23,16 @@ namespace DesktopClock.Library
                 if (_Holidays != null) throw new InvalidOperationException("already setted.");
 
                 _Holidays = value;
+                HolidaySettingChanged?.Invoke(this, new NotifyHolidaySettingChangedEventArgs(nameof(Holidays)));
+
+                _Holidays.CollectionChanged += (object sender ,NotifyCollectionChangedEventArgs e) =>
+                {
+                    HolidaySettingChanged?.Invoke(sender, new NotifyHolidaySettingChangedEventArgs(nameof(Holidays), e));
+                };
             }
         }
+
+        public event HolidaySettingChangedEventHandler HolidaySettingChanged;
 
         /// <summary>
         /// 年月日に対応するカスタム休日の名前を取得します。
