@@ -604,13 +604,29 @@ namespace DesktopClock
             public PreviousMonthCommandImpl(MainWindowViewModel viewModel)
             {
                 this.viewModel = viewModel;
+                viewModel.PropertyChanged += OnViewModelPropertyChangedEventHandler;
+            }
+
+            private void OnViewModelPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(viewModel.CalendarYear):
+                    case nameof(viewModel.CalendarMonth):
+                        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                        break;
+                }
             }
 
             public event EventHandler CanExecuteChanged;
 
             public bool CanExecute(object parameter)
             {
-                return true;
+                // HolidayChecker が祝日法の施行 (1948 年 7 月 20 日) 以降にのみ対応のため、
+                // カレンダー表示は1948 年 8 月 まで。
+                var year = Int32.Parse(viewModel.CalendarYear);
+                var month = Int32.Parse(viewModel.CalendarMonth);
+                return (year > 1948 || year == 1948 && month > 7);
             }
 
             public void Execute(object parameter)
@@ -717,6 +733,12 @@ namespace DesktopClock
         #endregion
 
         #region Dependency Injection
+
+        /// <summary>
+        /// <see cref="DateTimeEventSource" /> の持つ <see cref="IDateTimeEventSource.HolidayChecker" /> が返ります。
+        /// このプロパティからの set はできません。
+        /// </summary>
+        public IHolidayChecker HolidayChecker { get { return _DateTimeEventSource?.HolidayChecker; } }
 
         private IDateTimeEventSource _DateTimeEventSource;
         /// <summary>

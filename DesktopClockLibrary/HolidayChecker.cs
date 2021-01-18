@@ -8,6 +8,7 @@ namespace DesktopClock.Library
 {
     /// <summary>
     /// <see cref="IHolidayChecker" /> の実装です。
+    /// 1948 年 7 月 20 日施行の祝日法に基づきます。これ以前の日付には例外を返します。
     /// </summary>
     public class HolidayChecker : IHolidayChecker
     {
@@ -143,7 +144,7 @@ namespace DesktopClock.Library
 
         private static string GetRawHolidayNameWithoutKokuminNoKyuujitsu(int year, int month, int day)
         {
-            // 1948 年 7 月 20 日制定
+            // 1948 年 7 月 20 日施行
             if (year < 1948 || year == 1948 && month < 7 || year == 1948 && month == 7 && day < 20) throw new InvalidOperationException(); 
             switch (month)
             {
