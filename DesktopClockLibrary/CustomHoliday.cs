@@ -22,6 +22,7 @@ namespace DesktopClock.Library
             set
             {
                 if (_Holidays != null) throw new InvalidOperationException("already setted.");
+                if (value == null) return;
 
                 _Holidays = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Holidays)));
