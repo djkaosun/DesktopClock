@@ -246,6 +246,7 @@ namespace DesktopClock.Library
             _MillisecondsInterval = DateTimeEventSource.MinimumInterval;
             InitializeDateTime();
             PropertyChanged += UpdateDateInfo;
+            PropertyChanged += HolidayCheckerSetted;
         }
 
         /// <summary>
@@ -276,6 +277,19 @@ namespace DesktopClock.Library
                         DayOfWeek = timeStamp.DayOfWeek;
                         HolidayName = this.HolidayChecker.GetHolidayName(Year, Month, Day);
                         IsHoliday = String.IsNullOrEmpty(HolidayName);
+                        break;
+                }
+            }
+        }
+
+        private void HolidayCheckerSetted(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is DateTimeEventSource dtEvntSrc)
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(HolidayChecker):
+                        HolidaySettingChanged?.Invoke(sender, new HolidaySettingChangedEventArgs(nameof(HolidayChecker), e));
                         break;
                 }
             }

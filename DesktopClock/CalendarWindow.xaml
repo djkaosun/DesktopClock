@@ -19,7 +19,8 @@
         Foreground="#CCFFFFFF"
         Background="Transparent"
         ContentRendered="Window_ContentRendered"
-        Activated="Window_Activated">
+        Activated="Window_Activated"
+        local:ShowDesktopBehavior.IsEnabled="False">
     <Window.Resources>
         <!-- ボタンのスタイル -->
         <Style x:Key="CalendarButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
