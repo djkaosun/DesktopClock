@@ -16,8 +16,8 @@
         Background="#01808080"
         IsHitTestVisible="True"
         Topmost="True"
-        MouseEnter="MainWindow_MouseEnter"
         AllowDrop="True"
+        MouseEnter="MainWindow_MouseEnter"
         DragEnter="Window_DragEnter"
         ContentRendered="Window_ContentRendered">
     <Grid Opacity="0.8">
