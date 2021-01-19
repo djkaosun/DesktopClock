@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopClock"
+        xmlns:lib="clr-namespace:DesktopClock.Library;assembly=DesktopClockLib"
         Title="MainWindow"
         Height="{Binding WindowHeight, Mode=OneWayToSource}"
         Width="{Binding WindowWidth, Mode=OneWayToSource}"
