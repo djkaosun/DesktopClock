@@ -111,6 +111,6 @@ namespace DesktopClock.Library
     /// WinuserEvent を処理するハンドラーのデリゲート。
     /// </summary>
     /// <param name="winuserEvent"><see cref="WinuserEvent" /></param>
-    /// <param name="windowClassName">ウィンドウのクラス ネーム。</param>
+    /// <param name="windowClassName">クラス名。</param>
     public delegate void WinuserEventDelegate(WinuserEvent winuserEvent, string windowClassName);
 }

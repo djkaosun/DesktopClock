@@ -12,55 +12,81 @@ namespace DesktopClock.Library
     /// </summary>
     public enum WinuserEvent : uint
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        AIA_Start = 0xA000,
+        #region Start And End
 
         /// <summary>
-        /// 
-        /// </summary>
-        AIA_End = 0xAFFF,
-
-        /// <summary>
-        /// 
+        /// WinuserEvent の最小値。
         /// </summary>
         Min = 0x00000001,
 
         /// <summary>
-        /// 
+        /// WinuserEvent の最大値。
         /// </summary>
         Max = 0x7FFFFFFF,
 
         /// <summary>
-        /// 
+        /// システム イベントの最初。SystemSound と同じ。
+        /// </summary>
+        System_Start = 0x0001,
+
+        /// <summary>
+        /// システム イベントの最後。
+        /// </summary>
+        System_End = 0x00FF,
+
+        /// <summary>
+        /// OEM 定義イベントの最初。
         /// </summary>
         OEMDefined_Start = 0x0101,
 
         /// <summary>
-        /// 
+        /// OEM 定義イベントの最後。
         /// </summary>
         OEMDefined_End = 0x01FF,
 
         /// <summary>
-        /// 
+        /// UIA イベント ID の最初。
         /// </summary>
         UIAEventID_Start = 0x4E00,
 
         /// <summary>
-        /// 
+        /// UIA イベント ID の最後。
         /// </summary>
         UIAEventID_End = 0x4EFF,
 
         /// <summary>
-        /// 
+        /// UIA プロパティ変更イベントの最初。
         /// </summary>
         UIAPropID_Start = 0x7500,
 
         /// <summary>
-        /// 
+        /// UIA プロパティ変更イベントの最後。
         /// </summary>
         UIAPropID_End = 0x75FF,
+
+        /// <summary>
+        /// オブジェクト イベントの最初。Object_Create と同じ。
+        /// </summary>
+        Object_Start = 0x8000,
+
+        /// <summary>
+        /// オブジェクト イベントの最後。
+        /// </summary>
+        Object_End = 0x80FF,
+
+        /// <summary>
+        /// AIA イベントの最初。
+        /// </summary>
+        AIA_Start = 0xA000,
+
+        /// <summary>
+        /// AIA イベントの最後。
+        /// </summary>
+        AIA_End = 0xAFFF,
+
+        #endregion
+
+        #region EventIDs
 
         /// <summary>
         /// 
@@ -126,11 +152,6 @@ namespace DesktopClock.Library
         /// 
         /// </summary>
         ObjectDragDropped = 0x8026,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        ObjectEnd = 0x80FF,
 
         /// <summary>
         /// 
@@ -305,11 +326,6 @@ namespace DesktopClock.Library
         /// <summary>
         /// 
         /// </summary>
-        SystemEnd = 0x00FF,
-
-        /// <summary>
-        /// 
-        /// </summary>
         SystemForeground = 0x0003,
 
         /// <summary>
@@ -376,5 +392,7 @@ namespace DesktopClock.Library
         /// 
         /// </summary>
         SystemSwitchStart = 0x0014
+
+        #endregion
     }
 }

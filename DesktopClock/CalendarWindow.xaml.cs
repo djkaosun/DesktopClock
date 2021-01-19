@@ -14,15 +14,5 @@ namespace DesktopClock
         {
             InitializeComponent();
         }
-
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            NativeMethodsWrapper.SetAsBottomMost(this);
-        }
-
-        private void Window_ContentRendered(object sender, EventArgs e)
-        {
-            NativeMethodsWrapper.SetAsBottomMost(this);
-        }
     }
 }

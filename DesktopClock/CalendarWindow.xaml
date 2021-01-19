@@ -19,9 +19,7 @@
         FontSize="15"
         Foreground="#CCFFFFFF"
         Background="Transparent"
-        ContentRendered="Window_ContentRendered"
-        Activated="Window_Activated"
-        lib:ShowDesktopBehavior.IsEnabled="False">
+        lib:BottomMostBehavior.IsEnabled="True">
     <Window.Resources>
         <!-- ボタンのスタイル -->
         <Style x:Key="CalendarButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
