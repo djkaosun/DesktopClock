@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using DesktopClock.Library;
 
-namespace DesktopClock
+namespace DesktopClock.Library
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {

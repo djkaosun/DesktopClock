@@ -7,7 +7,7 @@ using DesktopClock.Library;
 using System.Collections.Specialized;
 using System.Windows;
 
-namespace DesktopClock
+namespace DesktopClock.Library
 {
     public class SettingWindowViewModel : INotifyPropertyChanged
     {
@@ -474,10 +474,6 @@ namespace DesktopClock
             Properties.Settings.Default.VerticalMargin = Double.Parse(VerticalMarginString);
             Properties.Settings.Default.HorizontalMargin = Double.Parse(HorizontalMarginString);
             Properties.Settings.Default.CustumHolidaysString = CustomHolidaysParser.Serialize(CustomHolidaysDictionary);
-
-            System.Diagnostics.Debug.WriteLine(AlignmentCenterBottom);
-            System.Diagnostics.Debug.WriteLine(verticalAlignment);
-            System.Diagnostics.Debug.WriteLine(horizontalAlignment);
             // 設定の保存
             Properties.Settings.Default.Save();
         }
