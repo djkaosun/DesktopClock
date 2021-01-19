@@ -6,16 +6,20 @@ using System.Windows;
 namespace DesktopClock.Library
 {
     /// <summary>
-    /// 「デスクトップを表示」ボタンを押したとき、ウィンドウを最小化するかどうかを制御するためのビヘイビアを表します。
+    /// BottomMost を実現するビヘイビア。IsEnabled を true にすると、以下の挙動を行います。
+    /// <list>
+    /// <item><description>あらゆるウィンドウの下に表示されます。</description></item>
+    /// <item><description>Win+D などでデスクトップを表示したとき、ウィンドウを最小化しません。</description></item>
+    /// </list>
     /// </summary>
-    public class ShowDesktopBehavior
+    public class BottomMostBehavior
     {
 
         #region IsEnabled 添付プロパティ
         /// <summary>
-        /// IsEnabled 添付プロパティの定義
+        /// IsEnabled 添付プロパティの定義。
         /// </summary>
-        public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(ShowDesktopBehavior), new PropertyMetadata(true, OnIsEnabledPropertyChanged));
+        public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(BottomMostBehavior), new PropertyMetadata(false, OnIsEnabledPropertyChanged));
 
         /// <summary>
         /// IsEnabled 添付プロパティを取得します。
@@ -38,10 +42,10 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// IsEnabled 添付プロパティ変更イベントハンドラ
+        /// IsEnabled 添付プロパティ変更イベント ハンドラー。
         /// </summary>
-        /// <param name="sender">イベント発行元</param>
-        /// <param name="e">イベント引数</param>
+        /// <param name="sender">イベント発行元。</param>
+        /// <param name="e">イベント引数。</param>
         private static void OnIsEnabledPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var w = sender as Window;
@@ -51,22 +55,25 @@ namespace DesktopClock.Library
             var isEnabled = (bool)e.NewValue;
             if (isEnabled)
             {
-                nativeMethods.RemoveHook();
-                nativeMethods.WinuserEventOccured -= WinuserEventOccuredEventHandler;
-                w.SourceInitialized -= OnSourceInitialized;
+                w.Activated += SetWindowToBottom;
+                w.ContentRendered += SetWindowToBottom;
+                w.SourceInitialized += OnSourceInitialized;
             }
             else
             {
-                w.SourceInitialized += OnSourceInitialized;
+                nativeMethods.RemoveHook();
+                nativeMethods.WinuserEventOccured -= WinuserEventOccuredEventHandler;
+                w.SourceInitialized -= OnSourceInitialized;
+                w.Activated -= SetWindowToBottom;
+                w.ContentRendered -= SetWindowToBottom;
             }
         }
         #endregion IsEnabled 添付プロパティ
 
         private static readonly NativeMethodsWrapper nativeMethods = new NativeMethodsWrapper();
 
-
         /// <summary>
-        /// Window クラスのウィンドウハンドルが決定する最速のイベントハンドラ
+        /// Window クラスのウィンドウ ハンドルが決定する最速のイベント ハンドラー。
         /// </summary>
         /// <param name="sender">イベント発行元</param>
         /// <param name="e">イベント引数</param>
@@ -78,12 +85,18 @@ namespace DesktopClock.Library
             nativeMethods.AddHook(WinuserEvent.SystemForeground);
         }
 
+        private static void SetWindowToBottom(object sender, EventArgs e)
+        {
+            var w = sender as Window;
+            NativeMethodsWrapper.SetAsBottomMost(w);
+        }
+
 
         /// <summary>
         /// WinuserEvent が発生した際に処理するイベント ハンドラー。
         /// </summary>
-        /// <param name="winuserEvent">発生したイベントの種類</param>
-        /// <param name="windowClassName">ウィンドウのクラス ネーム</param>
+        /// <param name="winuserEvent">発生したイベントの種類。</param>
+        /// <param name="windowClassName">クラス名。</param>
         private static void WinuserEventOccuredEventHandler(WinuserEvent winuserEvent, string windowClassName)
         {
             if (winuserEvent == WinuserEvent.SystemForeground)
