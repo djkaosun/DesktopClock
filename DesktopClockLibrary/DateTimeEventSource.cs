@@ -202,6 +202,7 @@ namespace DesktopClock.Library
             get { return _HolidayChecker; }
             set {
                 if (_HolidayChecker != null) throw new InvalidOperationException("already setted.");
+                if (value == null) return;
                 _HolidayChecker = value;
                 _HolidayChecker.HolidaySettingChanged += (object sender, HolidaySettingChangedEventArgs e) =>
                 {
@@ -220,7 +221,7 @@ namespace DesktopClock.Library
             get { return _MillisecondsInterval; }
             private set
             {
-                if (MillisecondsInterval < MinimumInterval) throw new InvalidOperationException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
+                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
                 _MillisecondsInterval = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MillisecondsInterval)));
             }

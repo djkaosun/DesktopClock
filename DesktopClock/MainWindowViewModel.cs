@@ -751,6 +751,7 @@ namespace DesktopClock
             set
             {
                 if (_DateTimeEventSource != null) throw new InvalidOperationException("already setted");
+                if (value == null) return;
                 _DateTimeEventSource = value;
                 _DateTimeEventSource.PropertyChanged += DateTimeChangedEventHandler;
                 _DateTimeEventSource.HolidaySettingChanged += HolidaySettingChangedEventHandler;
@@ -769,6 +770,7 @@ namespace DesktopClock
             set
             {
                 if (_PrimaryScreenSizeEventSource != null) throw new InvalidOperationException("already setted");
+                if (value == null) return;
                 _PrimaryScreenSizeEventSource = value;
                 _PrimaryScreenSizeEventSource.PropertyChanged += PrimaryScreenSizeChangedEventHandler;
             }
