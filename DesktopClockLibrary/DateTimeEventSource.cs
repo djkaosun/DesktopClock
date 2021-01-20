@@ -219,7 +219,7 @@ namespace DesktopClock.Library
         public int MillisecondsInterval
         {
             get { return _MillisecondsInterval; }
-            private set
+            set
             {
                 if (MillisecondsInterval < MinimumInterval) throw new ArgumentException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
                 _MillisecondsInterval = value;

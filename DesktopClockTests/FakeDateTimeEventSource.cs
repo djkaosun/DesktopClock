@@ -7,7 +7,7 @@ namespace DesktopClockTests
     /// <summary>
     /// <see cref="IDateTimeEventSource" /> のフェイク実装です。
     /// </summary>
-    public class FakeDateTimeEventSource : IDateTimeEventSource
+    public class FakeDateTimeEventSource : IDateTimeEventSource, INotifyFakeMethodCalled
     {
         /// <summary>
         /// 時刻を確認する間隔の最小値。
@@ -231,6 +231,7 @@ namespace DesktopClockTests
         /// <see cref="INotifyHolidaySettingChanged.HolidaySettingChanged" /> のイベントを転送します。
         /// </summary>
         public event HolidaySettingChangedEventHandler HolidaySettingChanged;
+        public event FakeMethodCalledEventHandler FakeMethodCalled;
 
         /// <summary>
         /// コンストラクター。
@@ -262,11 +263,11 @@ namespace DesktopClockTests
         /// </summary>
         public void Start()
         {
-            throw new NotImplementedException();
+            FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Start), null));
         }
 
         /// <summary>
-        /// このフェイク オブジェクトの状態を変化させるためのメソッド。
+        /// このフェイク オブジェクトの状態 (時刻) を変化させるためのメソッド。
         /// </summary>
         /// <param name="timeStamp">更新後の時間。</param>
         public void FakeDateTimeUpdate(DateTime timeStamp)
@@ -284,11 +285,29 @@ namespace DesktopClockTests
         }
 
         /// <summary>
+        /// このフェイク オブジェクトの状態 (休日判定) を変化させるためのメソッド。
+        /// </summary>
+        /// <param name="timeStamp">更新後の休日名。</param>
+        public void FakeHolidayNameUpdate(string holidayName)
+        {
+            if (String.IsNullOrEmpty(holidayName))
+            {
+                HolidayName = holidayName;
+                IsHoliday = false;
+            }
+            else
+            {
+                HolidayName = holidayName;
+                IsHoliday = true;
+            }
+        }
+
+        /// <summary>
         /// 時刻の確認を停止します。各値は初期値に戻ります。
         /// </summary>
         public void Stop()
         {
-            throw new NotImplementedException();
+            FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Stop), null));
         }
     }
 }
