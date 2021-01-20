@@ -23,10 +23,4 @@
     <ProjectReference Include="..\DesktopClockLibrary\DesktopClockLibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="PresentationFramework">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\PresentationFramework.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

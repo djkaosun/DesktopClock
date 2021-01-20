@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopClock", "DesktopCloc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopClockLibrary", "DesktopClockLibrary\DesktopClockLibrary.csproj", "{B01BB436-8F7F-49F8-853C-5AADCD9A386C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopClockTests", "DesktopClockTests\DesktopClockTests.csproj", "{03867004-37D9-41FE-99B0-8B327D73A9E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopClockTests", "DesktopClockTests\DesktopClockTests.csproj", "{67D21A07-61CE-4252-9799-97BA0A13EBCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{B01BB436-8F7F-49F8-853C-5AADCD9A386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01BB436-8F7F-49F8-853C-5AADCD9A386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01BB436-8F7F-49F8-853C-5AADCD9A386C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03867004-37D9-41FE-99B0-8B327D73A9E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03867004-37D9-41FE-99B0-8B327D73A9E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03867004-37D9-41FE-99B0-8B327D73A9E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03867004-37D9-41FE-99B0-8B327D73A9E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67D21A07-61CE-4252-9799-97BA0A13EBCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67D21A07-61CE-4252-9799-97BA0A13EBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67D21A07-61CE-4252-9799-97BA0A13EBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67D21A07-61CE-4252-9799-97BA0A13EBCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

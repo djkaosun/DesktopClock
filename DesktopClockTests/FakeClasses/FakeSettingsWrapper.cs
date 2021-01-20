@@ -7,8 +7,8 @@ namespace DesktopClockTests.FakeClasses
 {
     public class FakeSettingsWrapper : ISettingsWrapper, INotifyFakeMethodCalled
     {
-        private VerticalAlignment _VerticalAlignment;
-        public VerticalAlignment VerticalAlignment
+        private int _VerticalAlignment;
+        public int VerticalAlignment
         {
             get { return _VerticalAlignment; }
             set
@@ -18,8 +18,8 @@ namespace DesktopClockTests.FakeClasses
             }
         }
 
-        private HorizontalAlignment _HorizontalAlignment;
-        public HorizontalAlignment HorizontalAlignment
+        private int _HorizontalAlignment;
+        public int HorizontalAlignment
         {
             get { return _HorizontalAlignment; }
             set
