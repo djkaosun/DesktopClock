@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using DesktopClock.Library;
 
-namespace DesktopClock.Library
+namespace DesktopClock
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
@@ -776,19 +776,32 @@ namespace DesktopClock.Library
             }
         }
 
+        private ISettingsWrapper _SettingsWrapper;
+        public ISettingsWrapper SettingsWrapper
+        {
+            get { return _SettingsWrapper; }
+            set
+            {
+                if (_SettingsWrapper != null) throw new InvalidOperationException("already setted");
+                if (value == null) return;
+                _SettingsWrapper = value;
+                _SettingsWrapper.PropertyChanged += PropertiesSettingsChangedEventHandler;
+            }
+        }
+
         #endregion
 
         private System.Windows.Threading.Dispatcher MainWindowDispatcher;
-        private CalendarWindow CalendarWindow;
         private System.Windows.Threading.Dispatcher CalendarWindowDispatcher;
 
         /// <summary>
         /// コンストラクター。
         /// 内部的に <see cref="CalendarWindow" /> も起動して、このオブジェクトをデータコンテキストとして指定する。
         /// </summary>
-        public MainWindowViewModel(System.Windows.Threading.Dispatcher dispatcher)
+        public MainWindowViewModel(System.Windows.Threading.Dispatcher mainDispatcher, System.Windows.Threading.Dispatcher calendarDispatcher)
         {
-            MainWindowDispatcher = dispatcher;
+            MainWindowDispatcher = mainDispatcher;
+            CalendarWindowDispatcher = calendarDispatcher;
 
             // コマンドの初期化
             NextMonthCommand = new NextMonthCommandImpl(this);
@@ -799,13 +812,6 @@ namespace DesktopClock.Library
             // イベント ハンドラーの設定
             this.PropertyChanged += WindowPositionEventHandler;
             this.PropertyChanged += CalendarMonthChangedEventHandler;
-            Properties.Settings.Default.PropertyChanged += PropertiesSettingsChangedEventHandler;
-
-            // カレンダー ウィンドウの起動
-            CalendarWindow = new CalendarWindow();
-            CalendarWindow.DataContext = this;
-            CalendarWindowDispatcher = CalendarWindow.Dispatcher;
-            CalendarWindow.Show();
         }
 
         #region Event Handlers
@@ -869,25 +875,23 @@ namespace DesktopClock.Library
         /// <param name="e">イベント引数</param>
         private void PropertiesSettingsChangedEventHandler(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is Properties.Settings settings)
-            {
                 //IndicatorString = (settings == Properties.Settings.Default).ToString();
                 switch (e.PropertyName)
                 {
-                    case nameof(DesktopClock.Properties.Settings.VerticalAlignment):
-                        VerticalAlignment = settings.VerticalAlignment;
+                    case nameof(SettingsWrapper.VerticalAlignment):
+                        VerticalAlignment = SettingsWrapper.VerticalAlignment;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.HorizontalAlignment):
-                        HorizontalAlignment = settings.HorizontalAlignment;
+                    case nameof(SettingsWrapper.HorizontalAlignment):
+                        HorizontalAlignment = SettingsWrapper.HorizontalAlignment;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.VerticalMargin):
-                        MarginPadding = settings.VerticalMargin;
+                    case nameof(SettingsWrapper.VerticalMargin):
+                        MarginPadding = SettingsWrapper.VerticalMargin;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.HorizontalMargin):
-                        HorizontalMargin = settings.HorizontalMargin;
+                    case nameof(SettingsWrapper.HorizontalMargin):
+                        HorizontalMargin = SettingsWrapper.HorizontalMargin;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.CustumHolidaysString):
-                        var tmp = CustomHolidaysParser.Deserialize(DesktopClock.Properties.Settings.Default.CustumHolidaysString);
+                    case nameof(SettingsWrapper.CustumHolidaysString):
+                        var tmp = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
                         DateTimeEventSource.HolidayChecker.CustomHoliday.Holidays.Clear();
                         foreach (var item in tmp)
                         {
@@ -895,7 +899,6 @@ namespace DesktopClock.Library
                         }
                         break;
                 }
-            }
         }
 
         /// <summary>

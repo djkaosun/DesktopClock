@@ -5,7 +5,7 @@ using DesktopClock.Library;
 
 namespace DesktopClock
 {
-    public class SettingWrapper : ISettingWrapper
+    public class SettingsWrapper : ISettingsWrapper
     {
         private Properties.Settings _Settings;
 
@@ -31,5 +31,10 @@ namespace DesktopClock
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Save()
+        {
+            _Settings.Save();
+        }
     }
 }
