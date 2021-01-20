@@ -5,9 +5,16 @@ using System.Text.Json;
 
 namespace DesktopClock.Library
 {
+    /// <summary>
+    /// 保存のため、カスタム休日をシリアライズ、デシリアライズします。
+    /// </summary>
     public static class CustomHolidaysParser
     {
-
+        /// <summary>
+        /// シリアライズされた文字列を、<see cref="System.Collections.ObjectModel.ObservableCollection{T}"/> に戻します。
+        /// </summary>
+        /// <param name="customHolidaysString">シリアライズされた文字列。</param>
+        /// <returns>カスタム休日を格納した <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/>。</returns>
         public static ObservableCollection<KeyValuePair<DateTime, string>> Deserialize(string customHolidaysString)
         {
             var customHolidays = new ObservableCollection<KeyValuePair<DateTime, string>>();
@@ -25,7 +32,11 @@ namespace DesktopClock.Library
             return customHolidays;
         }
 
-
+        /// <summary>
+        /// カスタム休日を格納した <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/> を、文字列にシリアライズします。
+        /// </summary>
+        /// <param name="customHolidays">カスタム休日を格納した <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/>。</param>
+        /// <returns>シリアライズされた文字列。</returns>
         public static string Serialize(ObservableCollection<KeyValuePair<DateTime, string>> customHolidays)
         {
 

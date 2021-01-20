@@ -17,7 +17,6 @@ namespace DesktopClock
             {
                 SettingsWrapper = new SettingsWrapper() { Settings = Properties.Settings.Default }
             };
-            viewModel.LoadSettings();
             this.DataContext = viewModel;
         }
 
