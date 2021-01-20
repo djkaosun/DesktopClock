@@ -25,6 +25,30 @@ namespace DesktopClock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VerticalAlignment {
+            get {
+                return ((int)(this["VerticalAlignment"]));
+            }
+            set {
+                this["VerticalAlignment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int HorizontalAlignment {
+            get {
+                return ((int)(this["HorizontalAlignment"]));
+            }
+            set {
+                this["HorizontalAlignment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("90")]
         public double VerticalMargin {
             get {

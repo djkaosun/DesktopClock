@@ -9,8 +9,8 @@ namespace DesktopClock
     {
         private Properties.Settings _Settings;
 
-        public int VerticalAlignment { get => (int)_Settings.VerticalAlignment; set => _Settings.VerticalAlignment = (VerticalAlignment)value; }
-        public int HorizontalAlignment { get => (int)_Settings.HorizontalAlignment; set => _Settings.HorizontalAlignment = (HorizontalAlignment)value; }
+        public int VerticalAlignment { get => _Settings.VerticalAlignment; set => _Settings.VerticalAlignment = value; }
+        public int HorizontalAlignment { get => _Settings.HorizontalAlignment; set => _Settings.HorizontalAlignment = value; }
         public double VerticalMargin { get => _Settings.VerticalMargin; set => _Settings.VerticalMargin = value; }
         public double HorizontalMargin { get => _Settings.HorizontalMargin; set => _Settings.HorizontalMargin = value; }
         public string CustumHolidaysString { get => _Settings.CustumHolidaysString; set => _Settings.CustumHolidaysString = value; }
