@@ -42,9 +42,9 @@ namespace DesktopClock
                 SettingsWrapper = new SettingsWrapper() { Settings = Properties.Settings.Default }
             };
 
-            viewModel.VerticalAlignment = Properties.Settings.Default.VerticalAlignment;
-            viewModel.HorizontalAlignment = Properties.Settings.Default.HorizontalAlignment;
-            viewModel.MarginPadding = Properties.Settings.Default.VerticalMargin;
+            viewModel.VerticalAlignment = (VerticalAlignment)Properties.Settings.Default.VerticalAlignment;
+            viewModel.HorizontalAlignment = (HorizontalAlignment)Properties.Settings.Default.HorizontalAlignment;
+            viewModel.VerticalMargin = Properties.Settings.Default.VerticalMargin;
             viewModel.HorizontalMargin = Properties.Settings.Default.HorizontalMargin;
 
             this.DataContext = viewModel;

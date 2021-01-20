@@ -93,13 +93,13 @@ namespace DesktopClock
         /// <summary>
         /// 垂直方向のマージン。
         /// </summary>
-        public double MarginPadding
+        public double VerticalMargin
         {
             get { return _VerticalMargin; }
             set
             {
                 _VerticalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MarginPadding)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMargin)));
             }
         }
 
@@ -1200,7 +1200,7 @@ namespace DesktopClock
                         HorizontalAlignment = (System.Windows.HorizontalAlignment)SettingsWrapper.HorizontalAlignment;
                         break;
                     case nameof(SettingsWrapper.VerticalMargin):
-                        MarginPadding = SettingsWrapper.VerticalMargin;
+                        VerticalMargin = SettingsWrapper.VerticalMargin;
                         break;
                     case nameof(SettingsWrapper.HorizontalMargin):
                         HorizontalMargin = SettingsWrapper.HorizontalMargin;
@@ -1588,7 +1588,7 @@ namespace DesktopClock
                     case nameof(CalendarWindowHeight):
                     case nameof(VerticalAlignment):
                     case nameof(HorizontalAlignment):
-                    case nameof(MarginPadding):
+                    case nameof(VerticalMargin):
                     case nameof(HorizontalMargin):
                         ChangeWindowPosition();
                         break;
@@ -1609,12 +1609,12 @@ namespace DesktopClock
                     CalendarWindowTop = WindowTop + WindowHeight - 31;
                     break;
                 case System.Windows.VerticalAlignment.Bottom:
-                    WindowTop = ScreenHeight - MarginPadding - WindowHeight;
+                    WindowTop = ScreenHeight - VerticalMargin - WindowHeight;
                     CalendarWindowTop = WindowTop - CalendarWindowHeight + 31;
                     break;
                 case System.Windows.VerticalAlignment.Top:
                 default:
-                    WindowTop = MarginPadding;
+                    WindowTop = VerticalMargin;
                     CalendarWindowTop = WindowTop + WindowHeight - 31;
                     break;
             }
