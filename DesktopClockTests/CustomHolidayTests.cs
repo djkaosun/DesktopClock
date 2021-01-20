@@ -65,7 +65,8 @@ namespace DesktopClockTests
             Assert.Null(actual);
         }
 
-        public void Holidays_SetNull_ThrowsNoExceptions()
+        [Fact]
+        public void Holidays_SetNull_ThrowsNoException()
         {
             // arrange
             var customHoliday = new CustomHoliday();
@@ -76,7 +77,8 @@ namespace DesktopClockTests
 
         }
 
-        public void Holidays_SetTwice_ThrowsInvalidOperaionExceptions()
+        [Fact]
+        public void Holidays_SetTwice_ThrowsInvalidOperaionException()
         {
             // arrange
             var customHoliday = new CustomHoliday();
@@ -88,7 +90,8 @@ namespace DesktopClockTests
 
         }
 
-        public void Holidays_SetNullAfterSetOnce_ThrowsInvalidOperaionExceptions()
+        [Fact]
+        public void Holidays_SetNullAfterSetOnce_ThrowsInvalidOperaionException()
         {
             // arrange
             var customHoliday = new CustomHoliday();

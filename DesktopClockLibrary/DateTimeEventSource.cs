@@ -8,8 +8,8 @@ namespace DesktopClock.Library
     /// <summary>
     /// <see cref="IDateTimeEventSource" /> の実装です。
     /// <see cref="DateTimeEventSource.PropertyChanged" /> イベントは、すべてのプロパティが同時に変更になるタイミング (年越し) では
-    /// Year → Month → Day → Today → Hour → Minute → Second → Now
-    /// の順に発生します。
+    /// 「Year → Month → Day → Today → Hour → Minute → Second → Now」
+    /// の順に発生します。「HolidayName → IsHoliday」と「Day」の発生順序は保証されません (Month より後、Today より前のどこかで更新)。
     /// また、変化のなかったプロパティのイベントは発生しません。
     /// たとえば、日が変わったタイミングでは、Day 以下のイベントのみ発生し、Year と Month は発生しません。
     /// </summary>
