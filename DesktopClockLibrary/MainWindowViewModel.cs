@@ -457,11 +457,28 @@ namespace DesktopClock
         /// </summary>
         public string CalendarYear
         {
-            get { return CalendarYearInt.ToString(); }
+            get
+            {
+                if (CalendarYearInt == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return CalendarYearInt.ToString();
+                }
+            }
             set
             {
-                CalendarYearInt = Int32.Parse(value);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarYear)));
+                if (value == null)
+                {
+                    CalendarYearInt = 0;
+                }
+                else
+                {
+                    CalendarYearInt = Int32.Parse(value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarYear)));
+                }
             }
         }
 
@@ -474,11 +491,28 @@ namespace DesktopClock
         /// </summary>
         public string CalendarMonth
         {
-            get { return CalendarMonthInt.ToString(); }
+            get
+            {
+                if (CalendarMonthInt == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return CalendarMonthInt.ToString();
+                }
+            }
             set
             {
-                CalendarMonthInt = Int32.Parse(value);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarMonth)));
+                if (value == null)
+                {
+                    CalendarMonthInt = 0;
+                }
+                else
+                {
+                    CalendarMonthInt = Int32.Parse(value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarMonth)));
+                }
             }
         }
 
@@ -1420,8 +1454,8 @@ namespace DesktopClock
         {
             if (CalendarYear == null || CalendarMonth == null) return;
 
-            var year = Int32.Parse(CalendarYear);
-            var month = Int32.Parse(CalendarMonth);
+            var year = CalendarYearInt;
+            var month = CalendarMonthInt;
 
             var todayYear = DateTimeEventSource.Year;
             var todayMonth = DateTimeEventSource.Month;
