@@ -18,7 +18,7 @@ namespace DesktopClock.Library
         /// <summary>
         /// 時刻を確認する間隔の最小値。
         /// </summary>
-        public static readonly int MinimumInterval = 500;
+        public static readonly int MinimumInterval = 200;
 
         private int _Year;
         /// <summary>
@@ -173,8 +173,10 @@ namespace DesktopClock.Library
             get { return _Today; }
             private set
             {
-                _Today = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Today)));
+                if (value != _Today) {
+                    _Today = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Today)));
+                }
             }
         }
 
@@ -188,8 +190,11 @@ namespace DesktopClock.Library
             get { return _Now; }
             private set
             {
-                _Now = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Now)));
+                if (value != _Now)
+                {
+                    _Now = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Now)));
+                }
             }
         }
 
@@ -276,7 +281,7 @@ namespace DesktopClock.Library
                     case nameof(Day):
                         var timeStamp = DateTime.Now;
                         DayOfWeek = timeStamp.DayOfWeek;
-                        HolidayName = this.HolidayChecker.GetHolidayName(Year, Month, Day);
+                        HolidayName = this.HolidayChecker?.GetHolidayName(Year, Month, Day);
                         IsHoliday = String.IsNullOrEmpty(HolidayName);
                         break;
                 }

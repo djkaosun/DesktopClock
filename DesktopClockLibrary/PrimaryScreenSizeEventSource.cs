@@ -13,7 +13,7 @@ namespace DesktopClock.Library
         /// <summary>
         /// スクリーン サイズを確認する間隔の最小値。
         /// </summary>
-        public static readonly int MinimumInterval = 500;
+        public static readonly int MinimumInterval = 200;
 
         private double _Height;
         /// <summary>

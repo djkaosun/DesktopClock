@@ -57,11 +57,13 @@ namespace DesktopClock.Library
 
                         if (month == 1)
                         {
-                            isHoliday[i, j] = holidayChecker.IsHoliday(year - 1, 12, prevDay);
+                            if (holidayChecker == null) isHoliday[i, j] = false;
+                            else isHoliday[i, j] = holidayChecker.IsHoliday(year - 1, 12, prevDay);
                         }
                         else
                         {
-                            isHoliday[i, j] = holidayChecker.IsHoliday(year, month - 1, prevDay);
+                            if (holidayChecker == null) isHoliday[i, j] = false;
+                            else isHoliday[i, j] = holidayChecker.IsHoliday(year, month - 1, prevDay);
                         }
 
                         prevDay++;
@@ -71,7 +73,8 @@ namespace DesktopClock.Library
                         days[i, j] = day;
                         isThisMonth[i, j] = true;
 
-                        isHoliday[i, j] = holidayChecker.IsHoliday(year, month, day);
+                        if (holidayChecker == null) isHoliday[i, j] = false;
+                        else isHoliday[i, j] = holidayChecker.IsHoliday(year, month, day);
 
                         day++;
                     }
@@ -85,11 +88,13 @@ namespace DesktopClock.Library
 
                             if (month == 12)
                             {
-                                isHoliday[i, j] = holidayChecker.IsHoliday(year + 1, 1, nextDay);
+                                if (holidayChecker == null) isHoliday[i, j] = false;
+                                else isHoliday[i, j] = holidayChecker.IsHoliday(year + 1, 1, nextDay);
                             }
                             else
                             {
-                                isHoliday[i, j] = holidayChecker.IsHoliday(year, month + 1, nextDay);
+                                if (holidayChecker == null) isHoliday[i, j] = false;
+                                else isHoliday[i, j] = holidayChecker.IsHoliday(year, month + 1, nextDay);
                             }
 
                             nextDay++;

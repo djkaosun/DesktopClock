@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesktopClockTests
+namespace DesktopClockTests.TestDatas
 {
-    class HolidayData : IEnumerable<object[]>
+    public class HolidayData : IEnumerable<object[]>
     {
         private List<object[]> _testData = new List<object[]>();
         private List<DateTime> _listData = new List<DateTime>();
