@@ -7,7 +7,7 @@ using DesktopClock.Library;
 using System.Collections.Specialized;
 using System.Windows;
 
-namespace DesktopClock.Library
+namespace DesktopClock
 {
     public class SettingWindowViewModel : INotifyPropertyChanged
     {
@@ -369,13 +369,30 @@ namespace DesktopClock.Library
 
         #endregion
 
-
         #region Events
 
         /// <summary>
         /// プロパティが変更された際に発生するイベント。
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Dependency Injection
+
+        private ISettingsWrapper _SettingsWrapper;
+        public ISettingsWrapper SettingsWrapper
+        {
+            get { return _SettingsWrapper; }
+            set
+            {
+                if (_SettingsWrapper != null) throw new InvalidOperationException("already setted");
+                if (value == null) return;
+                _SettingsWrapper = value;
+                _SettingsWrapper.PropertyChanged += PropertiesSettingsChangedEventHandler;
+            }
+        }
+
 
         #endregion
 
@@ -399,13 +416,6 @@ namespace DesktopClock.Library
             CustomHolidayName = String.Empty;
             CustomHolidaysDictionary = new ObservableCollection<KeyValuePair<DateTime, string>>();
 
-            // Properties.Settings からの読み出し
-            SetAlignmentToRadioButton(Properties.Settings.Default.VerticalAlignment,
-                    Properties.Settings.Default.HorizontalAlignment);
-            VerticalMarginString = Properties.Settings.Default.VerticalMargin.ToString();
-            HorizontalMarginString = Properties.Settings.Default.HorizontalMargin.ToString();
-            CustomHolidaysDictionary = CustomHolidaysParser.Deserialize(Properties.Settings.Default.CustumHolidaysString);
-
             // コマンドの初期化
             ApplySettingsCommand = new ApplySettingsCommandImpl(this);
             CloseWindowCommand = new CloseWindowCommandImpl(this);
@@ -416,6 +426,16 @@ namespace DesktopClock.Library
             // イベントハンドラーの登録
             CustomHolidaysDictionary.CollectionChanged += CustomHolidaysChangedEventHandler;
             PropertyChanged += SettingsChangedEventHandler;
+        }
+
+        public void LoadSettings()
+        {
+            // Properties.Settings からの読み出し
+            SetAlignmentToRadioButton(SettingsWrapper.VerticalAlignment,
+                    SettingsWrapper.HorizontalAlignment);
+            VerticalMarginString = SettingsWrapper.VerticalMargin.ToString();
+            HorizontalMarginString = SettingsWrapper.HorizontalMargin.ToString();
+            CustomHolidaysDictionary = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
         }
 
         #region Event Handlers
@@ -447,10 +467,12 @@ namespace DesktopClock.Library
 
         private void CustomHolidaysChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (sender == CustomHolidaysDictionary)
-            {
 
-            }
+        }
+
+        private void PropertiesSettingsChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        {
+
         }
 
         public void CustomHolidaysSelectionChangedEventHandler(object currentItem)
@@ -469,13 +491,13 @@ namespace DesktopClock.Library
         private void ApplyAndSaveSettings()
         {
             SetAlignmentFromRadioButton(out VerticalAlignment verticalAlignment, out HorizontalAlignment horizontalAlignment);
-            Properties.Settings.Default.VerticalAlignment = verticalAlignment;
-            Properties.Settings.Default.HorizontalAlignment = horizontalAlignment;
-            Properties.Settings.Default.VerticalMargin = Double.Parse(VerticalMarginString);
-            Properties.Settings.Default.HorizontalMargin = Double.Parse(HorizontalMarginString);
-            Properties.Settings.Default.CustumHolidaysString = CustomHolidaysParser.Serialize(CustomHolidaysDictionary);
+            SettingsWrapper.VerticalAlignment = verticalAlignment;
+            SettingsWrapper.HorizontalAlignment = horizontalAlignment;
+            SettingsWrapper.VerticalMargin = Double.Parse(VerticalMarginString);
+            SettingsWrapper.HorizontalMargin = Double.Parse(HorizontalMarginString);
+            SettingsWrapper.CustumHolidaysString = CustomHolidaysParser.Serialize(CustomHolidaysDictionary);
             // 設定の保存
-            Properties.Settings.Default.Save();
+            SettingsWrapper.Save();
         }
 
         #region Alignment
