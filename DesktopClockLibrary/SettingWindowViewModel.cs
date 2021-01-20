@@ -9,23 +9,32 @@ using System.Windows;
 
 namespace DesktopClock
 {
+    /// <summary>
+    /// 設定ウィンドウ (SettingWindow) 用の ViewModel クラスです。
+    /// </summary>
     public class SettingWindowViewModel : INotifyPropertyChanged
     {
 
         #region Properties for Binding
 
-        private ObservableCollection<KeyValuePair<DateTime, string>> _CustomHolidaysDictionary;
+        private ObservableCollection<KeyValuePair<DateTime, string>> _CustomHolidays;
+        /// <summary>
+        /// カスタム休日を格納するコレクション。
+        /// </summary>
         public ObservableCollection<KeyValuePair<DateTime, string>> CustomHolidaysDictionary
         {
-            get { return _CustomHolidaysDictionary; }
+            get { return _CustomHolidays; }
             set
             {
-                _CustomHolidaysDictionary = value;
+                _CustomHolidays = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomHolidaysDictionary)));
             }
         }
 
         private DateTime _CustomHolidayDate;
+        /// <summary>
+        /// 追加、もしくは、削除するカスタム休日の日付。
+        /// </summary>
         public DateTime CustomHolidayDate
         {
             get { return _CustomHolidayDate; }
@@ -37,6 +46,9 @@ namespace DesktopClock
         }
 
         private string _CustomHolidayName;
+        /// <summary>
+        /// 追加、もしくは、削除するカスタム休日の名前。
+        /// </summary>
         public string CustomHolidayName
         {
             get { return _CustomHolidayName; }
@@ -48,29 +60,39 @@ namespace DesktopClock
         }
 
         private string _VerticalMarginString;
+        /// <summary>
+        /// 垂直方向のマージンを示す文字列。(double にパースできる文字列)
+        /// </summary>
         public string VerticalMarginString
         {
             get { return _VerticalMarginString; }
             set
             {
                 _VerticalMarginString = value;
+                Double.Parse(value);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginString)));
             }
         }
 
         private string _HorizontalMarginString;
+        /// <summary>
+        /// 水平方向のマージンを示す文字列。(double にパースできる文字列)
+        /// </summary>
         public string HorizontalMarginString
         {
             get { return _HorizontalMarginString; }
             set
             {
                 _HorizontalMarginString = value;
+                Double.Parse(value);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginString)));
             }
         }
 
-
         private bool _AlignmentLeftTop;
+        /// <summary>
+        /// ウィンドウが左上配置か。
+        /// </summary>
         public bool AlignmentLeftTop
         {
             get { return _AlignmentLeftTop; }
@@ -82,6 +104,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentCenterTop;
+        /// <summary>
+        /// ウィンドウが上配置か。
+        /// </summary>
         public bool AlignmentCenterTop
         {
             get { return _AlignmentCenterTop; }
@@ -93,6 +118,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentRightTop;
+        /// <summary>
+        /// ウィンドウが右上配置か。
+        /// </summary>
         public bool AlignmentRightTop
         {
             get { return _AlignmentRightTop; }
@@ -104,6 +132,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentLeftCenter;
+        /// <summary>
+        /// ウィンドウが左配置か。
+        /// </summary>
         public bool AlignmentLeftCenter
         {
             get { return _AlignmentLeftCenter; }
@@ -115,6 +146,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentCenterCenter;
+        /// <summary>
+        /// ウィンドウが中央配置か。
+        /// </summary>
         public bool AlignmentCenterCenter
         {
             get { return _AlignmentCenterCenter; }
@@ -126,6 +160,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentRightCenter;
+        /// <summary>
+        /// ウィンドウが右配置か。
+        /// </summary>
         public bool AlignmentRightCenter
         {
             get { return _AlignmentRightCenter; }
@@ -137,6 +174,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentLeftBottom;
+        /// <summary>
+        /// ウィンドウが左下配置か。
+        /// </summary>
         public bool AlignmentLeftBottom
         {
             get { return _AlignmentLeftBottom; }
@@ -148,6 +188,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentCenterBottom;
+        /// <summary>
+        /// ウィンドウが下配置か。
+        /// </summary>
         public bool AlignmentCenterBottom
         {
             get { return _AlignmentCenterBottom; }
@@ -159,6 +202,9 @@ namespace DesktopClock
         }
 
         private bool _AlignmentRightBottom;
+        /// <summary>
+        /// ウィンドウが右下配置か。
+        /// </summary>
         public bool AlignmentRightBottom
         {
             get { return _AlignmentRightBottom; }
@@ -381,6 +427,9 @@ namespace DesktopClock
         #region Dependency Injection
 
         private ISettingsWrapper _SettingsWrapper;
+        /// <summary>
+        /// Properties.Settings.Default をラップしたラッパー。
+        /// </summary>
         public ISettingsWrapper SettingsWrapper
         {
             get { return _SettingsWrapper; }
@@ -389,6 +438,7 @@ namespace DesktopClock
                 if (_SettingsWrapper != null) throw new InvalidOperationException("already setted");
                 if (value == null) return;
                 _SettingsWrapper = value;
+                LoadSettings();
                 _SettingsWrapper.PropertyChanged += PropertiesSettingsChangedEventHandler;
             }
         }
@@ -428,16 +478,6 @@ namespace DesktopClock
             PropertyChanged += SettingsChangedEventHandler;
         }
 
-        public void LoadSettings()
-        {
-            // Properties.Settings からの読み出し
-            SetAlignmentToRadioButton(SettingsWrapper.VerticalAlignment,
-                    SettingsWrapper.HorizontalAlignment);
-            VerticalMarginString = SettingsWrapper.VerticalMargin.ToString();
-            HorizontalMarginString = SettingsWrapper.HorizontalMargin.ToString();
-            CustomHolidaysDictionary = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
-        }
-
         #region Event Handlers
 
         private void SettingsChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -475,6 +515,11 @@ namespace DesktopClock
 
         }
 
+        /// <summary>
+        /// DataGrid の CurrentCellChanged イベントに応じて、
+        /// コードビハインドから呼び出される。
+        /// </summary>
+        /// <param name="currentItem">現在選択中の列のアイテム</param>
         public void CustomHolidaysSelectionChangedEventHandler(object currentItem)
         {
             if (currentItem is KeyValuePair<DateTime, string> item)
@@ -488,8 +533,28 @@ namespace DesktopClock
 
         #region Private Methods
 
+        /// <summary>
+        /// 設定をロードします。
+        /// </summary>
+        private void LoadSettings()
+        {
+            if (SettingsWrapper == null) throw new InvalidOperationException("SettingWrapper is null.");
+
+            // Properties.Settings からの読み出し
+            SetAlignmentToRadioButton(SettingsWrapper.VerticalAlignment,
+                    SettingsWrapper.HorizontalAlignment);
+            VerticalMarginString = SettingsWrapper.VerticalMargin.ToString();
+            HorizontalMarginString = SettingsWrapper.HorizontalMargin.ToString();
+            CustomHolidaysDictionary = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
+        }
+
+        /// <summary>
+        /// 設定を動作に反映し、保存します。
+        /// </summary>
         private void ApplyAndSaveSettings()
         {
+            if (SettingsWrapper == null) throw new InvalidOperationException("SettingWrapper is null.");
+
             SetAlignmentFromRadioButton(out VerticalAlignment verticalAlignment, out HorizontalAlignment horizontalAlignment);
             SettingsWrapper.VerticalAlignment = verticalAlignment;
             SettingsWrapper.HorizontalAlignment = horizontalAlignment;
@@ -551,42 +616,6 @@ namespace DesktopClock
             }
         }
 
-        /*
-        private bool CheckAlignment(string propertyName)
-        {
-            switch (propertyName)
-            {
-                case nameof(AlignmentLeftTop):
-                    return VerticalAlignment == VerticalAlignment.Top
-                        && HorizontalAlignment == HorizontalAlignment.Left;
-                case nameof(AlignmentCenterTop):
-                    return VerticalAlignment == VerticalAlignment.Top
-                        && HorizontalAlignment == HorizontalAlignment.Center;
-                case nameof(AlignmentLeftCenter):
-                    return VerticalAlignment == VerticalAlignment.Center
-                        && HorizontalAlignment == HorizontalAlignment.Left;
-                case nameof(AlignmentCenterCenter):
-                    return VerticalAlignment == VerticalAlignment.Center
-                        && HorizontalAlignment == HorizontalAlignment.Center;
-                case nameof(AlignmentRightCenter):
-                    return VerticalAlignment == VerticalAlignment.Center
-                        && HorizontalAlignment == HorizontalAlignment.Right;
-                case nameof(AlignmentLeftBottom):
-                    return VerticalAlignment == VerticalAlignment.Bottom
-                        && HorizontalAlignment == HorizontalAlignment.Left;
-                case nameof(AlignmentCenterBottom):
-                    return VerticalAlignment == VerticalAlignment.Bottom
-                        && HorizontalAlignment == HorizontalAlignment.Center;
-                case nameof(AlignmentRightBottom):
-                    return VerticalAlignment == VerticalAlignment.Bottom
-                        && HorizontalAlignment == HorizontalAlignment.Right;
-                default:
-                    // 右上
-                    return VerticalAlignment == VerticalAlignment.Top
-                        && HorizontalAlignment == HorizontalAlignment.Right;
-            }
-        }//*/
-
         private void SetAlignmentToRadioButton(VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment)
         {
             _AlignmentLeftTop = false;
@@ -645,75 +674,6 @@ namespace DesktopClock
                 _AlignmentRightTop = true;
             }
         }
-
-        /*
-        private void SetRadioButtonValue(string propertyName)
-        {
-            //if (AlignmentLeftTop) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentLeftTop)));
-            //if (AlignmentCenterTop) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentCenterTop)));
-            //if (AlignmentRightTop) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentRightTop)));
-            //if (AlignmentLeftCenter) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentLeftCenter)));
-            //if (AlignmentCenterCenter) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentCenterCenter)));
-            //if (AlignmentRightCenter) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentRightCenter)));
-            //if (AlignmentLeftBottom) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentLeftBottom)));
-            //if (AlignmentCenterBottom) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentCenterBottom)));
-            //if (AlignmentRightBottom) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentRightBottom)));
-
-
-            if (String.IsNullOrEmpty(propertyName))
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(propertyName)));
-            }
-
-
-            if (VerticalAlignment == VerticalAlignment.Top
-                        && HorizontalAlignment == HorizontalAlignment.Left)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentLeftTop)));
-
-            }
-            else if (VerticalAlignment == VerticalAlignment.Top
-                 && HorizontalAlignment == HorizontalAlignment.Center)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentCenterTop)));
-            }
-            else if (VerticalAlignment == VerticalAlignment.Center
-                 && HorizontalAlignment == HorizontalAlignment.Left)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentLeftCenter)));
-            }
-            else if (VerticalAlignment == VerticalAlignment.Center
-                 && HorizontalAlignment == HorizontalAlignment.Center)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentCenterCenter)));
-            }
-            else if (VerticalAlignment == VerticalAlignment.Center
-                 && HorizontalAlignment == HorizontalAlignment.Right)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentRightCenter)));
-            }
-            else if (VerticalAlignment == VerticalAlignment.Bottom
-                 && HorizontalAlignment == HorizontalAlignment.Left)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentLeftBottom)));
-            }
-            else if (VerticalAlignment == VerticalAlignment.Bottom
-                 && HorizontalAlignment == HorizontalAlignment.Center)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentCenterBottom)));
-            }
-            else if (VerticalAlignment == VerticalAlignment.Bottom
-                && HorizontalAlignment == HorizontalAlignment.Right)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentRightBottom)));
-            }
-            else
-            {
-                // 右上
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlignmentRightTop)));
-            }
-
-        }//*/
 
         #endregion
 

@@ -4,10 +4,19 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>DesktopClock.Library</RootNamespace>
     <AssemblyName>DesktopClockLib</AssemblyName>
+    <Authors>DJ_Kaosun</Authors>
+    <Company>DJ_Kaosun</Company>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Release\FilterUtilities.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net5.0\DesktopClockLibrary.xml</DocumentationFile>
+    <OutputPath>bin\Release\net5.0</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

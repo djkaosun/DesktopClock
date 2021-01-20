@@ -5,9 +5,10 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources/APP_ICON.ico</ApplicationIcon>
-    <Authors>TkmrAkhs</Authors>
-    <Company>TkmrAkhs</Company>
+    <Authors>DJ_Kaosun</Authors>
+    <Company>DJ_Kaosun</Company>
     <PackageIcon></PackageIcon>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
