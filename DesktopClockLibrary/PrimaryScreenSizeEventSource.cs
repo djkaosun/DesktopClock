@@ -64,7 +64,7 @@ namespace DesktopClock.Library
             get { return _MillisecondsInterval; }
             private set
             {
-                if (MillisecondsInterval < MinimumInterval) throw new InvalidOperationException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
+                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
                 _MillisecondsInterval = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MillisecondsInterval)));
             }

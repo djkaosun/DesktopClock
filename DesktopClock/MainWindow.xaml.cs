@@ -32,10 +32,14 @@ namespace DesktopClock
                 }
             };
 
-            viewModel = new MainWindowViewModel(this.Dispatcher)
+            // カレンダー ウィンドウの生成
+            var calendarWindow = new CalendarWindow();
+
+            viewModel = new MainWindowViewModel(this.Dispatcher, calendarWindow.Dispatcher)
             {
                 DateTimeEventSource = dtEvtSrc,
-                PrimaryScreenSizeEventSource = new PrimaryScreenSizeEventSource()
+                PrimaryScreenSizeEventSource = new PrimaryScreenSizeEventSource(),
+                SettingsWrapper = new SettingsWrapper() { Settings = Properties.Settings.Default }
             };
 
             viewModel.VerticalAlignment = Properties.Settings.Default.VerticalAlignment;
@@ -44,6 +48,10 @@ namespace DesktopClock
             viewModel.HorizontalMargin = Properties.Settings.Default.HorizontalMargin;
 
             this.DataContext = viewModel;
+
+            // カレンダー ウィンドウの表示
+            calendarWindow.DataContext = viewModel;
+            calendarWindow.Show();
         }
 
         /// <summary>

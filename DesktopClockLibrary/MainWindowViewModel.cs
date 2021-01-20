@@ -5,13 +5,18 @@ using DesktopClock.Library;
 
 namespace DesktopClock
 {
+    /// <summary>
+    /// 時計ウィンドウ、および、カレンダー ウィンドウで使用する VeiwModel です。
+    /// </summary>
     public class MainWindowViewModel : INotifyPropertyChanged
     {
 
         #region Properties for Binding
 
-        // for test
         private string _IndicatorString;
+        /// <summary>
+        /// テスト用。
+        /// </summary>
         public string IndicatorString
         {
             get { return _IndicatorString; }
@@ -25,6 +30,9 @@ namespace DesktopClock
         #region Primary Screen Size
 
         private double _ScreenHeight;
+        /// <summary>
+        /// スクリーンの高さ。
+        /// </summary>
         public double ScreenHeight
         {
             get { return _ScreenHeight; }
@@ -36,6 +44,9 @@ namespace DesktopClock
         }
 
         private double _ScreenWidth;
+        /// <summary>
+        /// スクリーンの幅。
+        /// </summary>
         public double ScreenWidth
         {
             get { return _ScreenWidth; }
@@ -51,6 +62,9 @@ namespace DesktopClock
         #region Window Alignment Settings
 
         private System.Windows.VerticalAlignment _VerticalAlignment;
+        /// <summary>
+        /// 時計ウィンドウの垂直方向の位置。Stretch の場合、Top として扱われます。
+        /// </summary>
         public System.Windows.VerticalAlignment VerticalAlignment
         {
             get { return _VerticalAlignment; }
@@ -62,6 +76,9 @@ namespace DesktopClock
         }
 
         private System.Windows.HorizontalAlignment _HorizontalAlignment;
+        /// <summary>
+        /// 時計ウィンドウの水平方向の位置。Stretch の場合、Right として扱われます。
+        /// </summary>
         public System.Windows.HorizontalAlignment HorizontalAlignment
         {
             get { return _HorizontalAlignment; }
@@ -73,6 +90,9 @@ namespace DesktopClock
         }
 
         private double _VerticalMargin;
+        /// <summary>
+        /// 垂直方向のマージン。
+        /// </summary>
         public double MarginPadding
         {
             get { return _VerticalMargin; }
@@ -84,6 +104,9 @@ namespace DesktopClock
         }
 
         private double _HorizontalMargin;
+        /// <summary>
+        /// 水平方向のマージン。
+        /// </summary>
         public double HorizontalMargin
         {
             get { return _HorizontalMargin; }
@@ -99,6 +122,9 @@ namespace DesktopClock
         #region MainWindow's Size and Position
 
         private double _WindowHeight;
+        /// <summary>
+        /// 時計ウィンドウの高さ。
+        /// </summary>
         public double WindowHeight
         {
             get { return _WindowHeight; }
@@ -110,6 +136,9 @@ namespace DesktopClock
         }
 
         private double _WindowWidth;
+        /// <summary>
+        /// 時計ウィンドウの幅。
+        /// </summary>
         public double WindowWidth
         {
             get { return _WindowWidth; }
@@ -121,6 +150,9 @@ namespace DesktopClock
         }
 
         private double _WindowTop;
+        /// <summary>
+        /// 時計ウィンドウの上端の位置。
+        /// </summary>
         public double WindowTop
         {
             get { return _WindowTop; }
@@ -132,6 +164,9 @@ namespace DesktopClock
         }
 
         private double _WindowLeft;
+        /// <summary>
+        /// 時計ウィンドウの左端の位置。
+        /// </summary>
         public double WindowLeft
         {
             get { return _WindowLeft; }
@@ -147,6 +182,9 @@ namespace DesktopClock
         #region CalendarWindow's Size and Position
 
         private double _CalendarWindowHeight;
+        /// <summary>
+        /// カレンダー ウィンドウの高さ。
+        /// </summary>
         public double CalendarWindowHeight
         {
             get { return _CalendarWindowHeight; }
@@ -158,6 +196,9 @@ namespace DesktopClock
         }
 
         private double _CalendarWindowWidth;
+        /// <summary>
+        /// カレンダー ウィンドウの幅。
+        /// </summary>
         public double CalendarWindowWidth
         {
             get { return _CalendarWindowWidth; }
@@ -169,6 +210,9 @@ namespace DesktopClock
         }
 
         private double _CalendarWindowTop;
+        /// <summary>
+        /// カレンダー ウィンドウの上端の位置。
+        /// </summary>
         public double CalendarWindowTop
         {
             get { return _CalendarWindowTop; }
@@ -180,6 +224,9 @@ namespace DesktopClock
         }
 
         private double _CalendarWindowLeft;
+        /// <summary>
+        /// カレンダー ウィンドウの左端の位置。
+        /// </summary>
         public double CalendarWindowLeft
         {
             get { return _CalendarWindowLeft; }
@@ -195,6 +242,9 @@ namespace DesktopClock
         #region DateTime Information String 
 
         private string _Date;
+        /// <summary>
+        /// 日付を示す文字列。「yyyy 年 MM 月 dd 日」
+        /// </summary>
         public string Date
         {
             get { return _Date; }
@@ -206,6 +256,9 @@ namespace DesktopClock
         }
 
         private string _DayOfWeek;
+        /// <summary>
+        /// 曜日を示す文字列。「□曜日」
+        /// </summary>
         public string DayOfWeek
         {
             get { return _DayOfWeek; }
@@ -217,6 +270,9 @@ namespace DesktopClock
         }
 
         private string _Hour0;
+        /// <summary>
+        /// 時の十の位。
+        /// </summary>
         public string Hour0
         {
             get { return _Hour0; }
@@ -228,6 +284,9 @@ namespace DesktopClock
         }
 
         private string _Hour1;
+        /// <summary>
+        /// 時の一の位。
+        /// </summary>
         public string Hour1
         {
             get { return _Hour1; }
@@ -239,6 +298,9 @@ namespace DesktopClock
         }
 
         private string _Minute0;
+        /// <summary>
+        /// 分の十の位。
+        /// </summary>
         public string Minute0
         {
             get { return _Minute0; }
@@ -250,6 +312,9 @@ namespace DesktopClock
         }
 
         private string _Minute1;
+        /// <summary>
+        /// 分の一の位。
+        /// </summary>
         public string Minute1
         {
             get { return _Minute1; }
@@ -261,6 +326,9 @@ namespace DesktopClock
         }
 
         private string _HolidayNameOfToday;
+        /// <summary>
+        /// 本日の休日名。
+        /// </summary>
         public string HolidayNameOfToday
         {
             get { return _HolidayNameOfToday; }
@@ -272,6 +340,9 @@ namespace DesktopClock
         }
 
         private string _HolidayNameOfTommorow;
+        /// <summary>
+        /// 明日の休日名。
+        /// </summary>
         public string HolidayNameOfTommorow
         {
             get { return _HolidayNameOfTommorow; }
@@ -287,6 +358,9 @@ namespace DesktopClock
         #region Information Visibilities
 
         private System.Windows.Visibility _VisibilityOfToday;
+        /// <summary>
+        /// 今日の情報の表示有無。
+        /// </summary>
         public System.Windows.Visibility VisibilityOfToday
         {
             get { return _VisibilityOfToday; }
@@ -298,6 +372,9 @@ namespace DesktopClock
         }
 
         private System.Windows.Visibility _VisibilityOfTommorow;
+        /// <summary>
+        /// 明日の情報の表示有無。
+        /// </summary>
         public System.Windows.Visibility VisibilityOfTommorow
         {
             get { return _VisibilityOfTommorow; }
@@ -309,6 +386,9 @@ namespace DesktopClock
         }
 
         private string _ConsecutiveHolidaysMessage;
+        /// <summary>
+        /// 連休情報。
+        /// </summary>
         public string ConsecutiveHolidaysMessage
         {
             get { return _ConsecutiveHolidaysMessage; }
@@ -319,6 +399,9 @@ namespace DesktopClock
             }
         }
         private System.Windows.Visibility _VisibilityOfConsecutiveHolidays;
+        /// <summary>
+        /// 連休情報の表示有無。
+        /// </summary>
         public System.Windows.Visibility VisibilityOfConsecutiveHolidays
         {
             get { return _VisibilityOfConsecutiveHolidays; }
@@ -334,6 +417,9 @@ namespace DesktopClock
         #region Color of Today and Tommorw
 
         private System.Windows.Media.Brush _ColorOfToday;
+        /// <summary>
+        /// 今日の色。
+        /// </summary>
         public System.Windows.Media.Brush ColorOfToday
         {
             get { return _ColorOfToday; }
@@ -345,6 +431,9 @@ namespace DesktopClock
         }
 
         private System.Windows.Media.Brush _ColorOfTommorow;
+        /// <summary>
+        /// 明日の色。
+        /// </summary>
         public System.Windows.Media.Brush ColorOfTommorow
         {
             get { return _ColorOfTommorow; }
@@ -359,210 +448,425 @@ namespace DesktopClock
 
         #region Date Properties for CalendarWindow
 
-        private string _CalendarYear;
+        /// <summary>
+        /// カレンダーに表示する年の数値。
+        /// </summary>
+        private int CalendarYearInt { get; set; }
+        /// <summary>
+        /// カレンダーに表示する年。
+        /// </summary>
         public string CalendarYear
         {
-            get { return _CalendarYear; }
+            get
+            {
+                if (CalendarYearInt == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return CalendarYearInt.ToString();
+                }
+            }
             set
             {
-                _CalendarYear = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarYear)));
+                if (value == null)
+                {
+                    CalendarYearInt = 0;
+                }
+                else
+                {
+                    CalendarYearInt = Int32.Parse(value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarYear)));
+                }
             }
         }
 
-        private string _CalendarMonth;
+        /// <summary>
+        /// カレンダーに表示する月の数値。
+        /// </summary>
+        private int CalendarMonthInt { get; set; }
+        /// <summary>
+        /// カレンダーに表示する月。
+        /// </summary>
         public string CalendarMonth
         {
-            get { return _CalendarMonth; }
+            get
+            {
+                if (CalendarMonthInt == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return CalendarMonthInt.ToString();
+                }
+            }
             set
             {
-                _CalendarMonth = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarMonth)));
+                if (value == null)
+                {
+                    CalendarMonthInt = 0;
+                }
+                else
+                {
+                    CalendarMonthInt = Int32.Parse(value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarMonth)));
+                }
             }
         }
 
         #region Number
         private string[,] _CalendarNumbers = new string[6,7];
 
+        /// <summary>カレンダーに表示する日付。(以下略)</summary>
         public string CalendarR0C0Number { get { return _CalendarNumbers[0, 0]; } }
+        /// <summary></summary>
         public string CalendarR0C1Number { get { return _CalendarNumbers[0, 1]; } }
+        /// <summary></summary>
         public string CalendarR0C2Number { get { return _CalendarNumbers[0, 2]; } }
+        /// <summary></summary>
         public string CalendarR0C3Number { get { return _CalendarNumbers[0, 3]; } }
+        /// <summary></summary>
         public string CalendarR0C4Number { get { return _CalendarNumbers[0, 4]; } }
+        /// <summary></summary>
         public string CalendarR0C5Number { get { return _CalendarNumbers[0, 5]; } }
+        /// <summary></summary>
         public string CalendarR0C6Number { get { return _CalendarNumbers[0, 6]; } }
+        /// <summary></summary>
         public string CalendarR1C0Number { get { return _CalendarNumbers[1, 0]; } }
+        /// <summary></summary>
         public string CalendarR1C1Number { get { return _CalendarNumbers[1, 1]; } }
+        /// <summary></summary>
         public string CalendarR1C2Number { get { return _CalendarNumbers[1, 2]; } }
+        /// <summary></summary>
         public string CalendarR1C3Number { get { return _CalendarNumbers[1, 3]; } }
+        /// <summary></summary>
         public string CalendarR1C4Number { get { return _CalendarNumbers[1, 4]; } }
+        /// <summary></summary>
         public string CalendarR1C5Number { get { return _CalendarNumbers[1, 5]; } }
+        /// <summary></summary>
         public string CalendarR1C6Number { get { return _CalendarNumbers[1, 6]; } }
+        /// <summary></summary>
         public string CalendarR2C0Number { get { return _CalendarNumbers[2, 0]; } }
+        /// <summary></summary>
         public string CalendarR2C1Number { get { return _CalendarNumbers[2, 1]; } }
+        /// <summary></summary>
         public string CalendarR2C2Number { get { return _CalendarNumbers[2, 2]; } }
+        /// <summary></summary>
         public string CalendarR2C3Number { get { return _CalendarNumbers[2, 3]; } }
+        /// <summary></summary>
         public string CalendarR2C4Number { get { return _CalendarNumbers[2, 4]; } }
+        /// <summary></summary>
         public string CalendarR2C5Number { get { return _CalendarNumbers[2, 5]; } }
+        /// <summary></summary>
         public string CalendarR2C6Number { get { return _CalendarNumbers[2, 6]; } }
+        /// <summary></summary>
         public string CalendarR3C0Number { get { return _CalendarNumbers[3, 0]; } }
+        /// <summary></summary>
         public string CalendarR3C1Number { get { return _CalendarNumbers[3, 1]; } }
+        /// <summary></summary>
         public string CalendarR3C2Number { get { return _CalendarNumbers[3, 2]; } }
+        /// <summary></summary>
         public string CalendarR3C3Number { get { return _CalendarNumbers[3, 3]; } }
+        /// <summary></summary>
         public string CalendarR3C4Number { get { return _CalendarNumbers[3, 4]; } }
+        /// <summary></summary>
         public string CalendarR3C5Number { get { return _CalendarNumbers[3, 5]; } }
+        /// <summary></summary>
         public string CalendarR3C6Number { get { return _CalendarNumbers[3, 6]; } }
+        /// <summary></summary>
         public string CalendarR4C0Number { get { return _CalendarNumbers[4, 0]; } }
+        /// <summary></summary>
         public string CalendarR4C1Number { get { return _CalendarNumbers[4, 1]; } }
+        /// <summary></summary>
         public string CalendarR4C2Number { get { return _CalendarNumbers[4, 2]; } }
+        /// <summary></summary>
         public string CalendarR4C3Number { get { return _CalendarNumbers[4, 3]; } }
+        /// <summary></summary>
         public string CalendarR4C4Number { get { return _CalendarNumbers[4, 4]; } }
+        /// <summary></summary>
         public string CalendarR4C5Number { get { return _CalendarNumbers[4, 5]; } }
+        /// <summary></summary>
         public string CalendarR4C6Number { get { return _CalendarNumbers[4, 6]; } }
+        /// <summary></summary>
         public string CalendarR5C0Number { get { return _CalendarNumbers[5, 0]; } }
+        /// <summary></summary>
         public string CalendarR5C1Number { get { return _CalendarNumbers[5, 1]; } }
+        /// <summary></summary>
         public string CalendarR5C2Number { get { return _CalendarNumbers[5, 2]; } }
+        /// <summary></summary>
         public string CalendarR5C3Number { get { return _CalendarNumbers[5, 3]; } }
+        /// <summary></summary>
         public string CalendarR5C4Number { get { return _CalendarNumbers[5, 4]; } }
+        /// <summary></summary>
         public string CalendarR5C5Number { get { return _CalendarNumbers[5, 5]; } }
+        /// <summary></summary>
         public string CalendarR5C6Number { get { return _CalendarNumbers[5, 6]; } }
         #endregion
         #region Foreground
         private System.Windows.Media.Brush[,] _CalendarForegrounds = new System.Windows.Media.Brush[6, 7];
 
+        /// <summary>カレンダーに表示する日付のフォント色。(以下略)</summary>
         public System.Windows.Media.Brush CalendarR0C0Foreground { get { return _CalendarForegrounds[0, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C1Foreground { get { return _CalendarForegrounds[0, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C2Foreground { get { return _CalendarForegrounds[0, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C3Foreground { get { return _CalendarForegrounds[0, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C4Foreground { get { return _CalendarForegrounds[0, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C5Foreground { get { return _CalendarForegrounds[0, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C6Foreground { get { return _CalendarForegrounds[0, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C0Foreground { get { return _CalendarForegrounds[1, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C1Foreground { get { return _CalendarForegrounds[1, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C2Foreground { get { return _CalendarForegrounds[1, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C3Foreground { get { return _CalendarForegrounds[1, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C4Foreground { get { return _CalendarForegrounds[1, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C5Foreground { get { return _CalendarForegrounds[1, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C6Foreground { get { return _CalendarForegrounds[1, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C0Foreground { get { return _CalendarForegrounds[2, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C1Foreground { get { return _CalendarForegrounds[2, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C2Foreground { get { return _CalendarForegrounds[2, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C3Foreground { get { return _CalendarForegrounds[2, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C4Foreground { get { return _CalendarForegrounds[2, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C5Foreground { get { return _CalendarForegrounds[2, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C6Foreground { get { return _CalendarForegrounds[2, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C0Foreground { get { return _CalendarForegrounds[3, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C1Foreground { get { return _CalendarForegrounds[3, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C2Foreground { get { return _CalendarForegrounds[3, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C3Foreground { get { return _CalendarForegrounds[3, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C4Foreground { get { return _CalendarForegrounds[3, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C5Foreground { get { return _CalendarForegrounds[3, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C6Foreground { get { return _CalendarForegrounds[3, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C0Foreground { get { return _CalendarForegrounds[4, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C1Foreground { get { return _CalendarForegrounds[4, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C2Foreground { get { return _CalendarForegrounds[4, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C3Foreground { get { return _CalendarForegrounds[4, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C4Foreground { get { return _CalendarForegrounds[4, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C5Foreground { get { return _CalendarForegrounds[4, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C6Foreground { get { return _CalendarForegrounds[4, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C0Foreground { get { return _CalendarForegrounds[5, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C1Foreground { get { return _CalendarForegrounds[5, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C2Foreground { get { return _CalendarForegrounds[5, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C3Foreground { get { return _CalendarForegrounds[5, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C4Foreground { get { return _CalendarForegrounds[5, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C5Foreground { get { return _CalendarForegrounds[5, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C6Foreground { get { return _CalendarForegrounds[5, 6]; } }
         #endregion
         #region Background
         private System.Windows.Media.Brush[,] _CalendarBackgrounds = new System.Windows.Media.Brush[6, 7];
 
+        /// <summary>カレンダーに表示する日付の背景色。(以下略)</summary>
         public System.Windows.Media.Brush CalendarR0C0Background { get { return _CalendarBackgrounds[0, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C1Background { get { return _CalendarBackgrounds[0, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C2Background { get { return _CalendarBackgrounds[0, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C3Background { get { return _CalendarBackgrounds[0, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C4Background { get { return _CalendarBackgrounds[0, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C5Background { get { return _CalendarBackgrounds[0, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR0C6Background { get { return _CalendarBackgrounds[0, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C0Background { get { return _CalendarBackgrounds[1, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C1Background { get { return _CalendarBackgrounds[1, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C2Background { get { return _CalendarBackgrounds[1, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C3Background { get { return _CalendarBackgrounds[1, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C4Background { get { return _CalendarBackgrounds[1, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C5Background { get { return _CalendarBackgrounds[1, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR1C6Background { get { return _CalendarBackgrounds[1, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C0Background { get { return _CalendarBackgrounds[2, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C1Background { get { return _CalendarBackgrounds[2, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C2Background { get { return _CalendarBackgrounds[2, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C3Background { get { return _CalendarBackgrounds[2, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C4Background { get { return _CalendarBackgrounds[2, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C5Background { get { return _CalendarBackgrounds[2, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR2C6Background { get { return _CalendarBackgrounds[2, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C0Background { get { return _CalendarBackgrounds[3, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C1Background { get { return _CalendarBackgrounds[3, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C2Background { get { return _CalendarBackgrounds[3, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C3Background { get { return _CalendarBackgrounds[3, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C4Background { get { return _CalendarBackgrounds[3, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C5Background { get { return _CalendarBackgrounds[3, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR3C6Background { get { return _CalendarBackgrounds[3, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C0Background { get { return _CalendarBackgrounds[4, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C1Background { get { return _CalendarBackgrounds[4, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C2Background { get { return _CalendarBackgrounds[4, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C3Background { get { return _CalendarBackgrounds[4, 3]; } }
+        /// <summary></summary>
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C4Background { get { return _CalendarBackgrounds[4, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C5Background { get { return _CalendarBackgrounds[4, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR4C6Background { get { return _CalendarBackgrounds[4, 6]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C0Background { get { return _CalendarBackgrounds[5, 0]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C1Background { get { return _CalendarBackgrounds[5, 1]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C2Background { get { return _CalendarBackgrounds[5, 2]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C3Background { get { return _CalendarBackgrounds[5, 3]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C4Background { get { return _CalendarBackgrounds[5, 4]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C5Background { get { return _CalendarBackgrounds[5, 5]; } }
+        /// <summary></summary>
         public System.Windows.Media.Brush CalendarR5C6Background { get { return _CalendarBackgrounds[5, 6]; } }
         #endregion
         #region Opacity
         private double[,] _CalendarOpacities = new double[6,7];
 
+        /// <summary>カレンダーに表示する日付の不透明度。(以下略)</summary>
         public double CalendarR0C0Opacity { get { return _CalendarOpacities[0, 0]; } }
+        /// <summary></summary>
         public double CalendarR0C1Opacity { get { return _CalendarOpacities[0, 1]; } }
+        /// <summary></summary>
         public double CalendarR0C2Opacity { get { return _CalendarOpacities[0, 2]; } }
+        /// <summary></summary>
         public double CalendarR0C3Opacity { get { return _CalendarOpacities[0, 3]; } }
+        /// <summary></summary>
         public double CalendarR0C4Opacity { get { return _CalendarOpacities[0, 4]; } }
+        /// <summary></summary>
         public double CalendarR0C5Opacity { get { return _CalendarOpacities[0, 5]; } }
+        /// <summary></summary>
         public double CalendarR0C6Opacity { get { return _CalendarOpacities[0, 6]; } }
+        /// <summary></summary>
         public double CalendarR1C0Opacity { get { return _CalendarOpacities[1, 0]; } }
+        /// <summary></summary>
         public double CalendarR1C1Opacity { get { return _CalendarOpacities[1, 1]; } }
+        /// <summary></summary>
         public double CalendarR1C2Opacity { get { return _CalendarOpacities[1, 2]; } }
+        /// <summary></summary>
         public double CalendarR1C3Opacity { get { return _CalendarOpacities[1, 3]; } }
+        /// <summary></summary>
         public double CalendarR1C4Opacity { get { return _CalendarOpacities[1, 4]; } }
+        /// <summary></summary>
         public double CalendarR1C5Opacity { get { return _CalendarOpacities[1, 5]; } }
+        /// <summary></summary>
         public double CalendarR1C6Opacity { get { return _CalendarOpacities[1, 6]; } }
+        /// <summary></summary>
         public double CalendarR2C0Opacity { get { return _CalendarOpacities[2, 0]; } }
+        /// <summary></summary>
         public double CalendarR2C1Opacity { get { return _CalendarOpacities[2, 1]; } }
+        /// <summary></summary>
         public double CalendarR2C2Opacity { get { return _CalendarOpacities[2, 2]; } }
+        /// <summary></summary>
         public double CalendarR2C3Opacity { get { return _CalendarOpacities[2, 3]; } }
+        /// <summary></summary>
         public double CalendarR2C4Opacity { get { return _CalendarOpacities[2, 4]; } }
+        /// <summary></summary>
         public double CalendarR2C5Opacity { get { return _CalendarOpacities[2, 5]; } }
+        /// <summary></summary>
         public double CalendarR2C6Opacity { get { return _CalendarOpacities[2, 6]; } }
+        /// <summary></summary>
         public double CalendarR3C0Opacity { get { return _CalendarOpacities[3, 0]; } }
+        /// <summary></summary>
         public double CalendarR3C1Opacity { get { return _CalendarOpacities[3, 1]; } }
+        /// <summary></summary>
         public double CalendarR3C2Opacity { get { return _CalendarOpacities[3, 2]; } }
+        /// <summary></summary>
         public double CalendarR3C3Opacity { get { return _CalendarOpacities[3, 3]; } }
+        /// <summary></summary>
         public double CalendarR3C4Opacity { get { return _CalendarOpacities[3, 4]; } }
+        /// <summary></summary>
         public double CalendarR3C5Opacity { get { return _CalendarOpacities[3, 5]; } }
+        /// <summary></summary>
         public double CalendarR3C6Opacity { get { return _CalendarOpacities[3, 6]; } }
+        /// <summary></summary>
         public double CalendarR4C0Opacity { get { return _CalendarOpacities[4, 0]; } }
+        /// <summary></summary>
         public double CalendarR4C1Opacity { get { return _CalendarOpacities[4, 1]; } }
+        /// <summary></summary>
         public double CalendarR4C2Opacity { get { return _CalendarOpacities[4, 2]; } }
+        /// <summary></summary>
         public double CalendarR4C3Opacity { get { return _CalendarOpacities[4, 3]; } }
+        /// <summary></summary>
         public double CalendarR4C4Opacity { get { return _CalendarOpacities[4, 4]; } }
+        /// <summary></summary>
         public double CalendarR4C5Opacity { get { return _CalendarOpacities[4, 5]; } }
+        /// <summary></summary>
         public double CalendarR4C6Opacity { get { return _CalendarOpacities[4, 6]; } }
+        /// <summary></summary>
         public double CalendarR5C0Opacity { get { return _CalendarOpacities[5, 0]; } }
+        /// <summary></summary>
         public double CalendarR5C1Opacity { get { return _CalendarOpacities[5, 1]; } }
+        /// <summary></summary>
         public double CalendarR5C2Opacity { get { return _CalendarOpacities[5, 2]; } }
+        /// <summary></summary>
         public double CalendarR5C3Opacity { get { return _CalendarOpacities[5, 3]; } }
+        /// <summary></summary>
         public double CalendarR5C4Opacity { get { return _CalendarOpacities[5, 4]; } }
+        /// <summary></summary>
         public double CalendarR5C5Opacity { get { return _CalendarOpacities[5, 5]; } }
+        /// <summary></summary>
         public double CalendarR5C6Opacity { get { return _CalendarOpacities[5, 6]; } }
         #endregion
 
@@ -572,16 +876,25 @@ namespace DesktopClock
 
         #region Color Settings
 
+        /// <summary>
+        /// 休日の色.。
+        /// </summary>
         public System.Windows.Media.Brush HolidayColor
         {
             get { return System.Windows.Media.Brushes.PaleVioletRed; }
         }
 
+        /// <summary>
+        /// 土曜日の色。
+        /// </summary>
         public System.Windows.Media.Brush SaturdayColor
         {
             get { return System.Windows.Media.Brushes.SkyBlue; }
         }
 
+        /// <summary>
+        /// 平日の色。
+        /// </summary>
         public System.Windows.Media.Brush NormalColor
         {
             get { return System.Windows.Media.Brushes.White; }
@@ -751,6 +1064,7 @@ namespace DesktopClock
             set
             {
                 if (_DateTimeEventSource != null) throw new InvalidOperationException("already setted");
+                if (value == null) return;
                 _DateTimeEventSource = value;
                 _DateTimeEventSource.PropertyChanged += DateTimeChangedEventHandler;
                 _DateTimeEventSource.HolidaySettingChanged += HolidaySettingChangedEventHandler;
@@ -769,24 +1083,40 @@ namespace DesktopClock
             set
             {
                 if (_PrimaryScreenSizeEventSource != null) throw new InvalidOperationException("already setted");
+                if (value == null) return;
                 _PrimaryScreenSizeEventSource = value;
                 _PrimaryScreenSizeEventSource.PropertyChanged += PrimaryScreenSizeChangedEventHandler;
+            }
+        }
+
+        private ISettingsWrapper _SettingsWrapper;
+        /// <summary>
+        /// Properties.Settings.Default をラップしたラッパー。
+        /// </summary>
+        public ISettingsWrapper SettingsWrapper
+        {
+            get { return _SettingsWrapper; }
+            set
+            {
+                if (_SettingsWrapper != null) throw new InvalidOperationException("already setted");
+                if (value == null) return;
+                _SettingsWrapper = value;
+                _SettingsWrapper.PropertyChanged += PropertiesSettingsChangedEventHandler;
             }
         }
 
         #endregion
 
         private System.Windows.Threading.Dispatcher MainWindowDispatcher;
-        private CalendarWindow CalendarWindow;
         private System.Windows.Threading.Dispatcher CalendarWindowDispatcher;
 
         /// <summary>
         /// コンストラクター。
-        /// 内部的に <see cref="CalendarWindow" /> も起動して、このオブジェクトをデータコンテキストとして指定する。
         /// </summary>
-        public MainWindowViewModel(System.Windows.Threading.Dispatcher dispatcher)
+        public MainWindowViewModel(System.Windows.Threading.Dispatcher mainDispatcher, System.Windows.Threading.Dispatcher calendarDispatcher)
         {
-            MainWindowDispatcher = dispatcher;
+            MainWindowDispatcher = mainDispatcher;
+            CalendarWindowDispatcher = calendarDispatcher;
 
             // コマンドの初期化
             NextMonthCommand = new NextMonthCommandImpl(this);
@@ -797,13 +1127,6 @@ namespace DesktopClock
             // イベント ハンドラーの設定
             this.PropertyChanged += WindowPositionEventHandler;
             this.PropertyChanged += CalendarMonthChangedEventHandler;
-            Properties.Settings.Default.PropertyChanged += PropertiesSettingsChangedEventHandler;
-
-            // カレンダー ウィンドウの起動
-            CalendarWindow = new CalendarWindow();
-            CalendarWindow.DataContext = this;
-            CalendarWindowDispatcher = CalendarWindow.Dispatcher;
-            CalendarWindow.Show();
         }
 
         #region Event Handlers
@@ -867,25 +1190,23 @@ namespace DesktopClock
         /// <param name="e">イベント引数</param>
         private void PropertiesSettingsChangedEventHandler(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is Properties.Settings settings)
-            {
                 //IndicatorString = (settings == Properties.Settings.Default).ToString();
                 switch (e.PropertyName)
                 {
-                    case nameof(DesktopClock.Properties.Settings.VerticalAlignment):
-                        VerticalAlignment = settings.VerticalAlignment;
+                    case nameof(SettingsWrapper.VerticalAlignment):
+                        VerticalAlignment = SettingsWrapper.VerticalAlignment;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.HorizontalAlignment):
-                        HorizontalAlignment = settings.HorizontalAlignment;
+                    case nameof(SettingsWrapper.HorizontalAlignment):
+                        HorizontalAlignment = SettingsWrapper.HorizontalAlignment;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.VerticalMargin):
-                        MarginPadding = settings.VerticalMargin;
+                    case nameof(SettingsWrapper.VerticalMargin):
+                        MarginPadding = SettingsWrapper.VerticalMargin;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.HorizontalMargin):
-                        HorizontalMargin = settings.HorizontalMargin;
+                    case nameof(SettingsWrapper.HorizontalMargin):
+                        HorizontalMargin = SettingsWrapper.HorizontalMargin;
                         break;
-                    case nameof(DesktopClock.Properties.Settings.CustumHolidaysString):
-                        var tmp = CustomHolidaysParser.Deserialize(DesktopClock.Properties.Settings.Default.CustumHolidaysString);
+                    case nameof(SettingsWrapper.CustumHolidaysString):
+                        var tmp = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
                         DateTimeEventSource.HolidayChecker.CustomHoliday.Holidays.Clear();
                         foreach (var item in tmp)
                         {
@@ -893,7 +1214,6 @@ namespace DesktopClock
                         }
                         break;
                 }
-            }
         }
 
         /// <summary>
@@ -916,7 +1236,6 @@ namespace DesktopClock
         /// <summary>
         /// 祝祭日関連の変更が発生した際の処理。
         /// </summary>
-        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
         private void ChangeHolidayName()
         {
             HolidayNameOfToday = DateTimeEventSource.HolidayName;
@@ -932,7 +1251,6 @@ namespace DesktopClock
         /// <summary>
         /// 曜日が変更された際の処理。
         /// </summary>
-        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
         private void ChangeDayOfWeek()
         {
             switch (DateTimeEventSource.DayOfWeek)
@@ -964,7 +1282,6 @@ namespace DesktopClock
         /// <summary>
         /// 年月日が変更された際の処理。
         /// </summary>
-        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
         private void ChangeDate()
         {
             Date = DateTimeEventSource.Year + " 年 "
@@ -1093,7 +1410,6 @@ namespace DesktopClock
         /// <summary>
         /// 時が変更された際の処理。
         /// </summary>
-        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
         private void ChangeHour()
         {
             string hourStr = DateTimeEventSource.Hour.ToString("00");
@@ -1104,7 +1420,6 @@ namespace DesktopClock
         /// <summary>
         /// 分が変更された際の処理。
         /// </summary>
-        /// <param name="DateTimeEventSource"><see cref="IDateTimeEventSource" /></param>
         private void ChangeMinute()
         {
             string minuteStr = DateTimeEventSource.Minute.ToString("00");
@@ -1139,8 +1454,8 @@ namespace DesktopClock
         {
             if (CalendarYear == null || CalendarMonth == null) return;
 
-            var year = Int32.Parse(CalendarYear);
-            var month = Int32.Parse(CalendarMonth);
+            var year = CalendarYearInt;
+            var month = CalendarMonthInt;
 
             var todayYear = DateTimeEventSource.Year;
             var todayMonth = DateTimeEventSource.Month;

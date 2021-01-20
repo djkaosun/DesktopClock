@@ -41,6 +41,7 @@ namespace DesktopClock.Library
             set
             {
                 if (_CustomHoliday != null) throw new InvalidOperationException("already setted.");
+                if (value == null) return;
                 _CustomHoliday = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomHoliday)));
                 _CustomHoliday.HolidaySettingChanged += (object sender, HolidaySettingChangedEventArgs e) =>
@@ -72,7 +73,7 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// 振替休日処理をしない、生の祝祭日名を返します。
+        /// 祝祭日名を返します。
         /// </summary>
         /// <param name="dateTime"><see cref="DateTime" />。日付のみが使用され、時分秒は無視されます。</param>
         /// <returns>祝祭日名。</returns>
@@ -82,7 +83,7 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// 振替休日処理をしない、生の祝祭日名を返します。
+        /// 祝祭日名を返します。
         /// </summary>
         /// <param name="year">年。</param>
         /// <param name="month">月。</param>
@@ -108,7 +109,7 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// 祝祭日名を取得します。
+        /// 振替休日まで処理し、国民の休日の処理をしていない祝祭日名を取得します。
         /// 
         /// 1973 年 4 月 12 日以降、振替休日開始。
         /// 1985 年 12 月 27 日以降、2つの祝日に挟まれた平日を休日とする国民の休日を制定。
@@ -160,7 +161,7 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// 祝祭日名を取得します。
+        /// 振替休日まで処理し、国民の休日の処理をしていない祝祭日名を取得します。
         /// </summary>
         /// <param name="dateTime"><see cref="DateTime" />。日付のみが使用され、時分秒は無視されます。</param>
         /// <returns>祝祭日名。</returns>
@@ -169,11 +170,23 @@ namespace DesktopClock.Library
             return GetHolidayNameWithoutKokuminNoKyujitsu(dateTime.Year, dateTime.Month, dateTime.Day);
         }
 
+        /// <summary>
+        /// 振替休日および国民の休日の処理をしていない祝日名を取得します。
+        /// </summary>
+        /// <param name="dateTime"><see cref="DateTime" />。日付のみが使用され、時分秒は無視されます。</param>
+        /// <returns></returns>
         private static string GetRawHolidayName(DateTime dateTime)
         {
             return GetRawHolidayName(dateTime.Year, dateTime.Month, dateTime.Day);
         }
 
+        /// <summary>
+        /// 振替休日および国民の休日の処理をしていない祝日名を取得します。
+        /// </summary>
+        /// <param name="year">年</param>
+        /// <param name="month">月</param>
+        /// <param name="day">日</param>
+        /// <returns></returns>
         private static string GetRawHolidayName(int year, int month, int day)
         {
             // 1948 年 7 月 20 日施行

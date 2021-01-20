@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using DesktopClock.Library;
 
 namespace DesktopClock
 {
@@ -12,7 +13,10 @@ namespace DesktopClock
         public SettingWindow()
         {
             InitializeComponent();
-            viewModel = new SettingWindowViewModel();
+            viewModel = new SettingWindowViewModel()
+            {
+                SettingsWrapper = new SettingsWrapper() { Settings = Properties.Settings.Default }
+            };
             this.DataContext = viewModel;
         }
 
