@@ -12,12 +12,12 @@ namespace DesktopClock.Library
         /// <summary>
         /// 垂直方向の位置設定を取得、適用します。
         /// </summary>
-        public VerticalAlignment VerticalAlignment {  get; set; }
+        public int VerticalAlignment {  get; set; }
 
         /// <summary>
         /// 水平方向の位置設定を取得、適用します。
         /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; }
+        public int HorizontalAlignment { get; set; }
 
         /// <summary>
         /// 垂直方向のマージン設定を取得、適用します。

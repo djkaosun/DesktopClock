@@ -1,6 +1,7 @@
 ﻿using System;
 using Xunit;
 using DesktopClock.Library;
+using DesktopClockTests.TestDatas;
 
 namespace DesktopClockTests
 {

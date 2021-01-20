@@ -2,18 +2,19 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using DesktopClock.Library;
 
-namespace DesktopClock.Library
+namespace DesktopClockTests.FakeClasses
 {
     /// <summary>
     /// <see cref="IPrimaryScreenSizeEventSource" />の実装です。
     /// </summary>
-    public class PrimaryScreenSizeEventSource : IPrimaryScreenSizeEventSource
+    public class FakePrimaryScreenSizeEventSource : IPrimaryScreenSizeEventSource, INotifyFakeMethodCalled
     {
         /// <summary>
         /// スクリーン サイズを確認する間隔の最小値。
         /// </summary>
-        public static readonly int MinimumInterval = 200;
+        public static readonly int MinimumInterval = 500;
 
         private double _Height;
         /// <summary>
@@ -74,13 +75,14 @@ namespace DesktopClock.Library
         /// プロパティが変更されたときに発生するイベント。
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+        public event FakeMethodCalledEventHandler FakeMethodCalled;
 
         private CancellationTokenSource tokenSource;
 
         /// <summary>
         /// コンストラクター。
         /// </summary>
-        public PrimaryScreenSizeEventSource()
+        public FakePrimaryScreenSizeEventSource()
         {
             _MillisecondsInterval = DateTimeEventSource.MinimumInterval;
             InitializeScreenSize();
@@ -100,29 +102,13 @@ namespace DesktopClock.Library
         /// </summary>
         public void Start()
         {
-            if (tokenSource != null) throw new InvalidOperationException("Already started.");
-            tokenSource = new CancellationTokenSource();
-            CheckUpdate(tokenSource.Token);
+            FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Start), null));
         }
 
-        private async void CheckUpdate(CancellationToken token)
+        public void FakeScreenSizeUpdate(double height, double width)
         {
-            await Task.Run(() =>
-            {
-                while (true)
-                {
-                    UpdateScreenSize();
-                    Thread.Sleep(MillisecondsInterval);
-
-                    if (token.IsCancellationRequested) break;
-                }
-            });
-        }
-
-        private void UpdateScreenSize()
-        {
-            Height = System.Windows.SystemParameters.PrimaryScreenHeight;
-            Width = System.Windows.SystemParameters.PrimaryScreenWidth;
+            Height = height;
+            Width = width;
         }
 
         /// <summary>
@@ -130,10 +116,7 @@ namespace DesktopClock.Library
         /// </summary>
         public void Stop()
         {
-            if (tokenSource == null) throw new InvalidOperationException("This is not running.");
-            tokenSource.Cancel();
-            tokenSource = null;
-            InitializeScreenSize();
+            FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Stop), null));
         }
     }
 }

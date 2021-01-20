@@ -4,8 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
-
-    <StartupObject>DesktopClockTests.MainClass</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

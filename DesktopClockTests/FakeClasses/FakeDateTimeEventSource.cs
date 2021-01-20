@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.ComponentModel;
+using DesktopClock.Library;
 
-namespace DesktopClock.Library
+namespace DesktopClockTests.FakeClasses
 {
     /// <summary>
-    /// <see cref="IDateTimeEventSource" /> の実装です。
-    /// <see cref="DateTimeEventSource.PropertyChanged" /> イベントは、すべてのプロパティが同時に変更になるタイミング (年越し) では
-    /// Year → Month → Day → Today → Hour → Minute → Second → Now
-    /// の順に発生します。
-    /// また、変化のなかったプロパティのイベントは発生しません。
-    /// たとえば、日が変わったタイミングでは、Day 以下のイベントのみ発生し、Year と Month は発生しません。
+    /// <see cref="IDateTimeEventSource" /> のフェイク実装です。
     /// </summary>
-    public class DateTimeEventSource : IDateTimeEventSource
+    public class FakeDateTimeEventSource : IDateTimeEventSource, INotifyFakeMethodCalled
     {
         /// <summary>
         /// 時刻を確認する間隔の最小値。
         /// </summary>
-        public static readonly int MinimumInterval = 200;
+        public static readonly int MinimumInterval = 500;
 
         private int _Year;
         /// <summary>
@@ -173,10 +167,8 @@ namespace DesktopClock.Library
             get { return _Today; }
             private set
             {
-                if (value != _Today) {
-                    _Today = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Today)));
-                }
+                _Today = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Today)));
             }
         }
 
@@ -190,11 +182,8 @@ namespace DesktopClock.Library
             get { return _Now; }
             private set
             {
-                if (value != _Now)
-                {
-                    _Now = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Now)));
-                }
+                _Now = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Now)));
             }
         }
 
@@ -205,7 +194,8 @@ namespace DesktopClock.Library
         public IHolidayChecker HolidayChecker
         {
             get { return _HolidayChecker; }
-            set {
+            set
+            {
                 if (_HolidayChecker != null) throw new InvalidOperationException("already setted.");
                 if (value == null) return;
                 _HolidayChecker = value;
@@ -224,7 +214,7 @@ namespace DesktopClock.Library
         public int MillisecondsInterval
         {
             get { return _MillisecondsInterval; }
-            set
+            private set
             {
                 if (MillisecondsInterval < MinimumInterval) throw new ArgumentException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
                 _MillisecondsInterval = value;
@@ -241,25 +231,21 @@ namespace DesktopClock.Library
         /// <see cref="INotifyHolidaySettingChanged.HolidaySettingChanged" /> のイベントを転送します。
         /// </summary>
         public event HolidaySettingChangedEventHandler HolidaySettingChanged;
+        public event FakeMethodCalledEventHandler FakeMethodCalled;
 
-        private CancellationTokenSource tokenSource;
-        
         /// <summary>
         /// コンストラクター。
         /// </summary>
-        public DateTimeEventSource()
+        public FakeDateTimeEventSource()
         {
             _MillisecondsInterval = DateTimeEventSource.MinimumInterval;
             InitializeDateTime();
-            PropertyChanged += UpdateDateInfo;
-            PropertyChanged += HolidayCheckerSetted;
         }
 
         /// <summary>
-        /// Start 実行直後に PropertyChanged イベントが起きるよう、各値を初期化する。
-        /// (int の初期値は 0 のため、これをしないと 0 時や 0 分の場合にイベントが発生しない。)
+        /// 各値を初期化する。
         /// </summary>
-        private void InitializeDateTime()
+        public void InitializeDateTime()
         {
             _Year = -1;
             _Month = 99;
@@ -272,62 +258,20 @@ namespace DesktopClock.Library
             _DayOfWeek = DayOfWeek.Sunday;
         }
 
-        private void UpdateDateInfo(object sender, PropertyChangedEventArgs e)
-        {
-            if (sender is DateTimeEventSource dtEvntSrc)
-            {
-                switch (e.PropertyName)
-                {
-                    case nameof(Day):
-                        var timeStamp = DateTime.Now;
-                        DayOfWeek = timeStamp.DayOfWeek;
-                        HolidayName = this.HolidayChecker?.GetHolidayName(Year, Month, Day);
-                        IsHoliday = String.IsNullOrEmpty(HolidayName);
-                        break;
-                }
-            }
-        }
-
-        private void HolidayCheckerSetted(object sender, PropertyChangedEventArgs e)
-        {
-            if (sender is DateTimeEventSource dtEvntSrc)
-            {
-                switch (e.PropertyName)
-                {
-                    case nameof(HolidayChecker):
-                        HolidaySettingChanged?.Invoke(sender, new HolidaySettingChangedEventArgs(nameof(HolidayChecker), e));
-                        break;
-                }
-            }
-        }
-
         /// <summary>
         /// 時刻の確認を開始します。時刻に変化があった場合、<see cref="PropertyChanged" /> イベントが発生します。
         /// </summary>
         public void Start()
         {
-            if (tokenSource != null) throw new InvalidOperationException("Already started.");
-            tokenSource = new CancellationTokenSource();
-            CheckUpdate(tokenSource.Token);
+            FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Start), null));
         }
 
-        private async void CheckUpdate(CancellationToken token)
+        /// <summary>
+        /// このフェイク オブジェクトの状態 (時刻) を変化させるためのメソッド。
+        /// </summary>
+        /// <param name="timeStamp">更新後の時間。</param>
+        public void FakeDateTimeUpdate(DateTime timeStamp)
         {
-            await Task.Run(() =>
-            {
-                while (true)
-                {
-                    UpdateDateTime();
-                    Thread.Sleep(MillisecondsInterval);
-
-                    if (token.IsCancellationRequested) break;
-                }
-            });
-        }
-
-        private void UpdateDateTime()
-        {
-            var timeStamp = DateTime.Now;
             timeStamp = new DateTime(timeStamp.Year, timeStamp.Month, timeStamp.Day, timeStamp.Hour, timeStamp.Minute, timeStamp.Second);
             var today = new DateTime(timeStamp.Year, timeStamp.Month, timeStamp.Day);
             Year = timeStamp.Year;
@@ -341,14 +285,29 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
+        /// このフェイク オブジェクトの状態 (休日判定) を変化させるためのメソッド。
+        /// </summary>
+        /// <param name="timeStamp">更新後の休日名。</param>
+        public void FakeHolidayNameUpdate(string holidayName)
+        {
+            if (String.IsNullOrEmpty(holidayName))
+            {
+                HolidayName = holidayName;
+                IsHoliday = false;
+            }
+            else
+            {
+                HolidayName = holidayName;
+                IsHoliday = true;
+            }
+        }
+
+        /// <summary>
         /// 時刻の確認を停止します。各値は初期値に戻ります。
         /// </summary>
         public void Stop()
         {
-            if (tokenSource == null) throw new InvalidOperationException("This is not running.");
-            tokenSource.Cancel();
-            tokenSource = null;
-            InitializeDateTime();
+            FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Stop), null));
         }
     }
 }

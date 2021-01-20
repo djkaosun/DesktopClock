@@ -1194,10 +1194,10 @@ namespace DesktopClock
                 switch (e.PropertyName)
                 {
                     case nameof(SettingsWrapper.VerticalAlignment):
-                        VerticalAlignment = SettingsWrapper.VerticalAlignment;
+                        VerticalAlignment = (System.Windows.VerticalAlignment)SettingsWrapper.VerticalAlignment;
                         break;
                     case nameof(SettingsWrapper.HorizontalAlignment):
-                        HorizontalAlignment = SettingsWrapper.HorizontalAlignment;
+                        HorizontalAlignment = (System.Windows.HorizontalAlignment)SettingsWrapper.HorizontalAlignment;
                         break;
                     case nameof(SettingsWrapper.VerticalMargin):
                         MarginPadding = SettingsWrapper.VerticalMargin;

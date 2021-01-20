@@ -541,8 +541,9 @@ namespace DesktopClock
             if (SettingsWrapper == null) throw new InvalidOperationException("SettingWrapper is null.");
 
             // Properties.Settings からの読み出し
-            SetAlignmentToRadioButton(SettingsWrapper.VerticalAlignment,
-                    SettingsWrapper.HorizontalAlignment);
+            SetAlignmentToRadioButton(
+                    (VerticalAlignment)SettingsWrapper.VerticalAlignment,
+                    (HorizontalAlignment)SettingsWrapper.HorizontalAlignment);
             VerticalMarginString = SettingsWrapper.VerticalMargin.ToString();
             HorizontalMarginString = SettingsWrapper.HorizontalMargin.ToString();
             CustomHolidaysDictionary = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
@@ -556,8 +557,8 @@ namespace DesktopClock
             if (SettingsWrapper == null) throw new InvalidOperationException("SettingWrapper is null.");
 
             SetAlignmentFromRadioButton(out VerticalAlignment verticalAlignment, out HorizontalAlignment horizontalAlignment);
-            SettingsWrapper.VerticalAlignment = verticalAlignment;
-            SettingsWrapper.HorizontalAlignment = horizontalAlignment;
+            SettingsWrapper.VerticalAlignment = (int)verticalAlignment;
+            SettingsWrapper.HorizontalAlignment = (int)horizontalAlignment;
             SettingsWrapper.VerticalMargin = Double.Parse(VerticalMarginString);
             SettingsWrapper.HorizontalMargin = Double.Parse(HorizontalMarginString);
             SettingsWrapper.CustumHolidaysString = CustomHolidaysParser.Serialize(CustomHolidaysDictionary);
