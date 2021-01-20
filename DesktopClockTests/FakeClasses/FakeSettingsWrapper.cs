@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using DesktopClock.Library;
 
-namespace DesktopClockTests
+namespace DesktopClockTests.FakeClasses
 {
     public class FakeSettingsWrapper : ISettingsWrapper, INotifyFakeMethodCalled
     {

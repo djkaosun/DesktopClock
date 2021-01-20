@@ -9,7 +9,7 @@ namespace DesktopClockTests
     {
         [Theory]
         [ClassData(typeof(CalendarData))]
-        public void Hour_ChangeProperty_OccursPropertyChangedEvent(int year, int month, int[,] days, bool[,] isHoliday, bool[,] isThisMonth, int lastRow)
+        public void GetCalendar_YearAndMonthArgs_CollectCalendar(int year, int month, int[,] days, bool[,] isHoliday, bool[,] isThisMonth, int lastRow)
         {
             // arrange
 

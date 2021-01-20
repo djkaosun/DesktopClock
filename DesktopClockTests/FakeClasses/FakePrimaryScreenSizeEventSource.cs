@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using DesktopClock.Library;
 
-namespace DesktopClockTests
+namespace DesktopClockTests.FakeClasses
 {
     /// <summary>
     /// <see cref="IPrimaryScreenSizeEventSource" />の実装です。

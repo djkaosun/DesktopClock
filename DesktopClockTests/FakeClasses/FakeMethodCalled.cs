@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace DesktopClockTests
+namespace DesktopClockTests.FakeClasses
 {
     public interface INotifyFakeMethodCalled
     {
