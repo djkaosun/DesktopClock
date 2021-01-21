@@ -7,7 +7,7 @@ using DesktopClock.Library;
 using System.Collections.Specialized;
 using System.Windows;
 
-namespace DesktopClock
+namespace DesktopClock.Library
 {
     /// <summary>
     /// 設定ウィンドウ (SettingWindow) 用の ViewModel クラスです。

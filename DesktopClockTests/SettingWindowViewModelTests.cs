@@ -9,7 +9,7 @@ using DesktopClockTests.TestDatas;
 
 namespace DesktopClockTests
 {
-    public class SettingWindowViewClassTests
+    public class SettingWindowViewModelTests
     {
 
         [Fact]
