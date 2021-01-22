@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using Xunit;
+using NUnit.Framework;
 using DesktopClock.Library;
 using DesktopClockTests.TestDatas;
 using DesktopClockTests.FakeClasses;
@@ -11,8 +11,8 @@ using DesktopClockTests.FakeClasses;
 namespace DesktopClockTests
 {
     public class MainWindowViewModelTests
-    {/*
-
+    {
+        /*
         [Fact]
         public void ScreenHeight_ChangedScreenHeight_SettedNewValue()
         {
@@ -47,6 +47,7 @@ namespace DesktopClockTests
 
             // assert
             Assert.True(actual);
-        }//*/
+        }
+        //*/
     }
 }

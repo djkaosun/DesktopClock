@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using DesktopClock.Library;
 
-namespace DesktopClockTests
+namespace DesktopClockTests_xUnit
 {
     class MainClass
     {/*

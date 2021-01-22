@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DesktopClockLibrary\DesktopClockLibrary.csproj" />
+    <ProjectReference Include="..\DesktopClockTests\DesktopClockTests.csproj" />
   </ItemGroup>
 
 </Project>
