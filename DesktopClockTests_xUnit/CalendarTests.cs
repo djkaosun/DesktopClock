@@ -3,7 +3,7 @@ using Xunit;
 using DesktopClock.Library;
 using DesktopClockTests.TestDatas;
 
-namespace DesktopClockTests
+namespace DesktopClockTests_xUnit
 {
     public class CalendarTests
     {
