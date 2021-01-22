@@ -21,7 +21,7 @@ namespace DesktopClock.Library
             get { return _Holidays; }
             set
             {
-                if (_Holidays != null) throw new InvalidOperationException("already setted.");
+                if (_Holidays != null) throw new InvalidOperationException("already set.");
                 if (value == null) return;
 
                 _Holidays = value;

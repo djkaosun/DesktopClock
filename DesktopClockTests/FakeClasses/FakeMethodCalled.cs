@@ -20,5 +20,5 @@ namespace DesktopClockTests.FakeClasses
         }
     }
 
-    public delegate void FakeMethodCalledEventHandler(object sender, FakeMethodCalledEventArgs e);
+    public delegate object FakeMethodCalledEventHandler(object sender, FakeMethodCalledEventArgs e);
 }

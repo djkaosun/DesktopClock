@@ -20,7 +20,7 @@ namespace DesktopClock
             get { return _Settings; }
             set
             {
-                if (_Settings != null) throw new InvalidOperationException("already setted.");
+                if (_Settings != null) throw new InvalidOperationException("already set.");
                 if (value == null) return;
                 _Settings = value;
                 _Settings.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>

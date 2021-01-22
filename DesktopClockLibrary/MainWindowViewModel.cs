@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using DesktopClock.Library;
 
-namespace DesktopClock
+namespace DesktopClock.Library
 {
     /// <summary>
     /// 時計ウィンドウ、および、カレンダー ウィンドウで使用する VeiwModel です。

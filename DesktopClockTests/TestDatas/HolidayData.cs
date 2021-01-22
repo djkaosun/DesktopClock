@@ -9,7 +9,10 @@ namespace DesktopClockTests.TestDatas
 {
     public class HolidayData : IEnumerable<object[]>
     {
-        private const bool IS_FULL_TEST = false;
+        /// <summary>
+        /// ここを true にすると全数チェック。
+        /// </summary>
+        public const bool IS_FULL_TEST = false;
 
         private List<object[]> _testData = new List<object[]>();
         private List<DateTime> _listData = new List<DateTime>();

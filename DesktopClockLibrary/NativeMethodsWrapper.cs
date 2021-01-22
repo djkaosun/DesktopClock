@@ -54,7 +54,7 @@ namespace DesktopClock.Library
         /// <param name="winuserEvent">フック対象のイベント。</param>
         public void AddHook(WinuserEvent winuserEvent)
         {
-            if (Window == null) throw new InvalidOperationException("Window is not setted.");
+            if (Window == null) throw new InvalidOperationException("Window is not set.");
             if (IsHooked) return;
 
             IsHooked = true;

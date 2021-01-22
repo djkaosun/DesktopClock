@@ -9,8 +9,6 @@ namespace DesktopClockTests.TestDatas
 {
     public class NotHolidayData : IEnumerable<object[]>
     {
-        private const bool IS_FULL_TEST = false;
-
         private List<object[]> _testData = new List<object[]>();
 
         public NotHolidayData()
@@ -20,7 +18,7 @@ namespace DesktopClockTests.TestDatas
             var endDateTime = new DateTime(2026, 1, 1);
             var oneDaySpan = TimeSpan.FromDays(1);
 
-            if (!IS_FULL_TEST) dateTime = new DateTime(2020, 1, 1);
+            if (!HolidayData.IS_FULL_TEST) dateTime = new DateTime(2020, 1, 1);
             for (; dateTime < endDateTime; dateTime += oneDaySpan)
             {
                if(!holidayData.HolidayDateTimeList.Contains(dateTime)) _testData.Add(new object[] { dateTime });
