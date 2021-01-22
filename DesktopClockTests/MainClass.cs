@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using DesktopClock.Library;
 
 namespace DesktopClockTests
@@ -8,18 +10,9 @@ namespace DesktopClockTests
     {/*
         static void Main(string[] args)
         {
-            var dtes = new DateTimeEventSource();
-            dtes.PropertyChanged += (object item, PropertyChangedEventArgs e) => { Console.WriteLine(e.PropertyName); };
-            dtes.Start();
-            Console.WriteLine("---- test1 ----");
-            System.Threading.Thread.Sleep(5000);
-            Console.WriteLine("---- test2 ----");
-            System.Threading.Thread.Sleep(5000);
-            dtes.Stop();
-            System.Threading.Thread.Sleep(5000);
-            Console.WriteLine("---- test3 ----");
-            Console.WriteLine("");
-
+            var holidaysCollection = new ObservableCollection<KeyValuePair<DateTime, string>>();
+            holidaysCollection.Add(new DateTime(2020, 1, 2), "HolidayName");
+            Console.WriteLine(CustomHolidaysParser.Serialize(holidaysCollection));
 
             for (int i = 1; i <= 12; i++)
             {
@@ -146,6 +139,20 @@ namespace DesktopClockTests
                     }
                 }
             }
+
+
+            var dtes = new DateTimeEventSource();
+            dtes.PropertyChanged += (object item, PropertyChangedEventArgs e) => { Console.WriteLine(e.PropertyName); };
+            dtes.Start();
+            Console.WriteLine("---- test1 ----");
+            System.Threading.Thread.Sleep(5000);
+            Console.WriteLine("---- test2 ----");
+            System.Threading.Thread.Sleep(5000);
+            dtes.Stop();
+            System.Threading.Thread.Sleep(5000);
+            Console.WriteLine("---- test3 ----");
+            Console.WriteLine("");
+
         }//*/
     }
 }

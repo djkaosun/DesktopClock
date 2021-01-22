@@ -24,7 +24,7 @@ namespace DesktopClock.Library
         public ObservableCollection<KeyValuePair<DateTime, string>> CustomHolidaysDictionary
         {
             get { return _CustomHolidays; }
-            set
+            private set
             {
                 _CustomHolidays = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomHolidaysDictionary)));

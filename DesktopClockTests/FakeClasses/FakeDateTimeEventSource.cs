@@ -196,7 +196,7 @@ namespace DesktopClockTests.FakeClasses
             get { return _HolidayChecker; }
             set
             {
-                if (_HolidayChecker != null) throw new InvalidOperationException("already setted.");
+                if (_HolidayChecker != null) throw new InvalidOperationException("already set.");
                 if (value == null) return;
                 _HolidayChecker = value;
                 _HolidayChecker.HolidaySettingChanged += (object sender, HolidaySettingChangedEventArgs e) =>
