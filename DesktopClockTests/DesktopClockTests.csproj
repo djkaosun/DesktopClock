@@ -4,8 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
-
-    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,10 +17,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DesktopClockLibrary\DesktopClockLibrary.csproj" />
   </ItemGroup>
 
 </Project>
