@@ -31,12 +31,12 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// キーに対応する値を更新します。(インデクサーの代替)
+        /// キーが既に存在する場合は更新、存在しない場合は追加します。(インデクサーの代替)
         /// </summary>
         /// <param name="observableCollection">拡張メソッドの基となるオブジェクト。</param>
         /// <param name="key">キー。</param>
-        /// <param name="value">新しい値。</param>
-        public static void UpdateValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
+        /// <param name="value">値。</param>
+        public static void AddOrUpdate<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
             if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
@@ -45,11 +45,10 @@ namespace DesktopClock.Library
                 if (keyValuePair.Key.Equals(key))
                 {
                     observableCollection.Remove(keyValuePair);
-                    observableCollection.Add(new KeyValuePair<TKey, TValue>(key, value));
-                    return;
+                    break;
                 }
             }
-            throw new KeyNotFoundException(String.Format(KEY_NOT_FOUND_EXCEPTION_MESSAGE, key));
+            observableCollection.Add(new KeyValuePair<TKey, TValue>(key, value));
         }
 
         /// <summary>
@@ -70,12 +69,12 @@ namespace DesktopClock.Library
         }
 
         /// <summary>
-        /// キーが既に存在する場合は更新、存在しない場合は追加します。
+        /// キーに対応する値を更新します。
         /// </summary>
         /// <param name="observableCollection">拡張メソッドの基となるオブジェクト。</param>
         /// <param name="key">キー。</param>
-        /// <param name="value">値。</param>
-        public static void AddOrUpdate<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
+        /// <param name="value">新しい値。</param>
+        public static void UpdateValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
             if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
@@ -84,10 +83,11 @@ namespace DesktopClock.Library
                 if (keyValuePair.Key.Equals(key))
                 {
                     observableCollection.Remove(keyValuePair);
-                    break;
+                    observableCollection.Add(new KeyValuePair<TKey, TValue>(key, value));
+                    return;
                 }
             }
-            observableCollection.Add(new KeyValuePair<TKey, TValue>(key, value));
+            throw new KeyNotFoundException(String.Format(KEY_NOT_FOUND_EXCEPTION_MESSAGE, key));
         }
 
         /// <summary>
