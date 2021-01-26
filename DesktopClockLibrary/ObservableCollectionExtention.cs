@@ -17,6 +17,8 @@ namespace DesktopClock.Library
         /// <returns>対応する値。</returns>
         public static TValue GetValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
         {
+            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+
             foreach (var keyValuePair in observableCollection)
             {
                 if (keyValuePair.Key.Equals(key)) return keyValuePair.Value;
@@ -32,6 +34,8 @@ namespace DesktopClock.Library
         /// <param name="value">新しい値。</param>
         public static void UpdateValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
+            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+
             foreach (var keyValuePair in observableCollection)
             {
                 if (keyValuePair.Key.Equals(key))
@@ -52,6 +56,8 @@ namespace DesktopClock.Library
         /// <param name="value">値。</param>
         public static void Add<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
+            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+
             if (ContainsKey(observableCollection, key))
             {
                 throw new ArgumentException("An item with the same key has already been added. Key: " + key);
@@ -67,6 +73,8 @@ namespace DesktopClock.Library
         /// <param name="value">値。</param>
         public static void AddOrUpdate<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
+            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+
             foreach (var keyValuePair in observableCollection)
             {
                 if (keyValuePair.Key.Equals(key))
@@ -86,6 +94,8 @@ namespace DesktopClock.Library
         /// <returns>キーが含まれる場合 true。含まれない場合は false。</returns>
         public static bool ContainsKey<TKey,TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
         {
+            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+
             foreach (var keyValuePair in observableCollection)
             {
                 if (keyValuePair.Key.Equals(key)) return true;
@@ -103,7 +113,14 @@ namespace DesktopClock.Library
         {
             foreach (var keyValuePair in observableCollection)
             {
-                if (keyValuePair.Value.Equals(value)) return true;
+                if (keyValuePair.Value == null)
+                {
+                    if (value == null) return true; 
+                }
+                else
+                {
+                    if (keyValuePair.Value.Equals(value)) return true;
+                }
             }
             return false;
         }
@@ -116,6 +133,8 @@ namespace DesktopClock.Library
         /// <returns>削除された場合 true。削除されなかった場合は false。</returns>
         public static bool Remove<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
         {
+            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+
             foreach (var keyValuePair in observableCollection)
             {
                 if (keyValuePair.Key.Equals(key))
@@ -136,6 +155,8 @@ namespace DesktopClock.Library
         /// <returns>削除された場合 true。削除されなかった場合は false。</returns>
         public static bool Remove<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, out TValue value)
         {
+            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+
             foreach (var keyValuePair in observableCollection)
             {
                 if (keyValuePair.Key.Equals(key))

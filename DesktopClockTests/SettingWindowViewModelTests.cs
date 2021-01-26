@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
-using Xunit;
 using DesktopClock.Library;
+using Xunit;
 using DesktopClockTests.FakeClasses;
 using DesktopClockTests.TestDatas;
 

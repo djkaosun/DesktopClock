@@ -55,5 +55,17 @@ namespace DesktopClock.Library
             }
             return JsonSerializer.Serialize(dic);
         }
+
+        /// <summary>
+        /// カスタム休日を格納した <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/> を、文字列にシリアライズします。
+        /// </summary>
+        /// <param name="customHolidays">カスタム休日を格納した <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/>。</param>
+        /// <param name="customHolidaysString">シリアライズされた文字列を格納する変数。</param>
+        /// <returns>シリアライズされた文字列。</returns>
+        public static string Serialize(ObservableCollection<KeyValuePair<DateTime, string>> customHolidays, out string customHolidaysString)
+        {
+            customHolidaysString = Serialize(customHolidays);
+            return customHolidaysString;
+        }
     }
 }
