@@ -70,7 +70,7 @@ namespace DesktopClock.Library
             string holidayName = null;
             if (Holidays.ContainsKey(today))
             {
-                holidayName = Holidays.GetValue(today);
+                holidayName = Holidays.Get(today);
             }
             return holidayName;
         }
