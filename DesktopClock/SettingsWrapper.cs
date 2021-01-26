@@ -7,6 +7,8 @@ namespace DesktopClock
 {
     public class SettingsWrapper : ISettingsWrapper
     {
+        private const string ALREADY_SET_MESSAGE = "{0} is already set.";
+
         private Properties.Settings _Settings;
 
         public int VerticalAlignment { get => _Settings.VerticalAlignment; set => _Settings.VerticalAlignment = value; }
@@ -20,7 +22,7 @@ namespace DesktopClock
             get { return _Settings; }
             set
             {
-                if (_Settings != null) throw new InvalidOperationException("already set.");
+                if (_Settings != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(Settings)));
                 if (value == null) return;
                 _Settings = value;
                 _Settings.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>

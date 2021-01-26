@@ -10,6 +10,12 @@ namespace DesktopClock.Library
     /// </summary>
     public class PrimaryScreenSizeEventSource : IPrimaryScreenSizeEventSource
     {
+        private const string TOO_SMALL_MESSAGE = "{0} is too small. (< {1})";
+        private const string ALREADY_STARTED_MESSAGE = "Already started.";
+        private const string NOT_RUNNING_MESSAGE = "This is not running.";
+        private const double INITIAL_HEIGHT = 0;
+        private const double INITIAL_WIDTH = 0;
+
         /// <summary>
         /// スクリーン サイズを確認する間隔の最小値。
         /// </summary>
@@ -81,7 +87,7 @@ namespace DesktopClock.Library
             get { return _MillisecondsInterval; }
             set
             {
-                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
+                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException(String.Format(TOO_SMALL_MESSAGE, nameof(MillisecondsInterval), MinimumInterval));
                 _MillisecondsInterval = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MillisecondsInterval)));
             }
@@ -108,8 +114,8 @@ namespace DesktopClock.Library
         /// </summary>
         private void InitializeScreenSize()
         {
-            _Height = 0;
-            _Width = 0;
+            _Height = INITIAL_HEIGHT;
+            _Width = INITIAL_WIDTH;
         }
 
         /// <summary>
@@ -117,8 +123,9 @@ namespace DesktopClock.Library
         /// </summary>
         public void Start()
         {
-            if (tokenSource != null) throw new InvalidOperationException("Already started.");
+            if (IsRunning) throw new InvalidOperationException(ALREADY_STARTED_MESSAGE);
             tokenSource = new CancellationTokenSource();
+            IsRunning = true;
             CheckUpdate(tokenSource.Token);
         }
 
@@ -147,9 +154,10 @@ namespace DesktopClock.Library
         /// </summary>
         public void Stop()
         {
-            if (tokenSource == null) throw new InvalidOperationException("This is not running.");
+            if (!IsRunning) throw new InvalidOperationException(NOT_RUNNING_MESSAGE);
             tokenSource.Cancel();
             tokenSource = null;
+            IsRunning = false;
             InitializeScreenSize();
         }
     }

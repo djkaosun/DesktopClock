@@ -9,6 +9,8 @@ namespace DesktopClock.Library
     /// </summary>
     public class HolidayChecker : IHolidayChecker
     {
+        private const string ALREADY_SET_MESSAGE = "{0} is already set.";
+
         private static readonly TimeSpan OneDayTimeSpan = TimeSpan.FromDays(1);
         private static readonly DateTime FurikaeKyuujitsuStart = new DateTime(1973, 4, 12);
         private static readonly DateTime KokuminNoKyuujitsuStart = new DateTime(1985, 12, 27);
@@ -40,7 +42,7 @@ namespace DesktopClock.Library
             }
             set
             {
-                if (_CustomHoliday != null) throw new InvalidOperationException("already set.");
+                if (_CustomHoliday != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(CustomHoliday)));
                 if (value == null) return;
                 _CustomHoliday = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomHoliday)));

@@ -10,6 +10,7 @@ namespace DesktopClock.Library
     /// </summary>
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        private const string ALREADY_SET_MESSAGE = "{0} is already set.";
 
         #region Properties for Binding
 
@@ -1063,7 +1064,7 @@ namespace DesktopClock.Library
             get { return _DateTimeEventSource; }
             set
             {
-                if (_DateTimeEventSource != null) throw new InvalidOperationException("already set.");
+                if (_DateTimeEventSource != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(DateTimeEventSource)));
                 if (value == null) return;
                 _DateTimeEventSource = value;
                 _DateTimeEventSource.PropertyChanged += DateTimeChangedEventHandler;
@@ -1082,7 +1083,7 @@ namespace DesktopClock.Library
             get { return _PrimaryScreenSizeEventSource; }
             set
             {
-                if (_PrimaryScreenSizeEventSource != null) throw new InvalidOperationException("already set.");
+                if (_PrimaryScreenSizeEventSource != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(PrimaryScreenSizeEventSource)));
                 if (value == null) return;
                 _PrimaryScreenSizeEventSource = value;
                 _PrimaryScreenSizeEventSource.PropertyChanged += PrimaryScreenSizeChangedEventHandler;
@@ -1098,7 +1099,7 @@ namespace DesktopClock.Library
             get { return _SettingsWrapper; }
             set
             {
-                if (_SettingsWrapper != null) throw new InvalidOperationException("already set.");
+                if (_SettingsWrapper != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(SettingsWrapper)));
                 if (value == null) return;
                 _SettingsWrapper = value;
                 _SettingsWrapper.PropertyChanged += PropertiesSettingsChangedEventHandler;

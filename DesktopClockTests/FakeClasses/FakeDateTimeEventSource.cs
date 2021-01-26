@@ -9,6 +9,20 @@ namespace DesktopClockTests.FakeClasses
     /// </summary>
     public class FakeDateTimeEventSource : IDateTimeEventSource, INotifyFakeMethodCalled
     {
+        private const string ALREADY_SET_MESSAGE = "{0} is already set.";
+        private const string TOO_SMALL_MESSAGE = "{0} is too small. (< {1})";
+        private const string ALREADY_STARTED_MESSAGE = "Already started.";
+        private const string NOT_RUNNING_MESSAGE = "This is not running.";
+        private const int INITIAL_YEAR = -1;
+        private const int INITIAL_MONTH = 99;
+        private const int INITIAL_DAY = 99;
+        private const int INITIAL_HOUR = 99;
+        private const int INITIAL_MINUTE = 99;
+        private const int INITIAL_SECOND = 99;
+        private const string INITIAL_HOLIDAYNAME = null;
+        private const bool INITIAL_ISHOLIDAY = false;
+        private const DayOfWeek INITIAL_DAYOFWEEK = DayOfWeek.Sunday;
+
         /// <summary>
         /// 時刻を確認する間隔の最小値。
         /// </summary>
@@ -213,7 +227,7 @@ namespace DesktopClockTests.FakeClasses
             get { return _HolidayChecker; }
             set
             {
-                if (_HolidayChecker != null) throw new InvalidOperationException("already set.");
+                if (_HolidayChecker != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(HolidayChecker)));
                 if (value == null) return;
                 _HolidayChecker = value;
                 _HolidayChecker.HolidaySettingChanged += (object sender, HolidaySettingChangedEventArgs e) =>
@@ -233,7 +247,7 @@ namespace DesktopClockTests.FakeClasses
             get { return _MillisecondsInterval; }
             private set
             {
-                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
+                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException(String.Format(TOO_SMALL_MESSAGE, nameof(MillisecondsInterval), MinimumInterval));
                 _MillisecondsInterval = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MillisecondsInterval)));
             }
@@ -264,15 +278,15 @@ namespace DesktopClockTests.FakeClasses
         /// </summary>
         public void InitializeDateTime()
         {
-            _Year = -1;
-            _Month = 99;
-            _Day = 99;
-            _Hour = 99;
-            _Minute = 99;
-            _Second = 99;
-            _HolidayName = null;
-            _IsHoliday = false;
-            _DayOfWeek = DayOfWeek.Sunday;
+            _Year = INITIAL_YEAR;
+            _Month = INITIAL_MONTH;
+            _Day = INITIAL_DAY;
+            _Hour = INITIAL_HOUR;
+            _Minute = INITIAL_MINUTE;
+            _Second = INITIAL_SECOND;
+            _HolidayName = INITIAL_HOLIDAYNAME;
+            _IsHoliday = INITIAL_ISHOLIDAY;
+            _DayOfWeek = INITIAL_DAYOFWEEK;
         }
 
         /// <summary>
@@ -280,6 +294,7 @@ namespace DesktopClockTests.FakeClasses
         /// </summary>
         public void Start()
         {
+            if (IsRunning) throw new InvalidOperationException(ALREADY_STARTED_MESSAGE);
             FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Start), null));
             IsRunning = true;
         }
@@ -325,6 +340,7 @@ namespace DesktopClockTests.FakeClasses
         /// </summary>
         public void Stop()
         {
+            if (!IsRunning) throw new InvalidOperationException(NOT_RUNNING_MESSAGE);
             FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Stop), null));
             IsRunning = false;
             InitializeDateTime();
