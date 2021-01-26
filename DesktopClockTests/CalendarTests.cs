@@ -1,6 +1,7 @@
 using System;
-using Xunit;
 using DesktopClock.Library;
+using Xunit;
+using DesktopClockTests.FakeClasses;
 using DesktopClockTests.TestDatas;
 
 namespace DesktopClockTests
