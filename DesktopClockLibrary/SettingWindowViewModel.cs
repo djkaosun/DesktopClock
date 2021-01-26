@@ -401,13 +401,13 @@ namespace DesktopClock.Library
             public bool CanExecute(object parameter)
             {
                 return viewModel.CustomHolidaysDictionary.ContainsKey(viewModel.CustomHolidayDate)
-                        && viewModel.CustomHolidaysDictionary.GetValue(viewModel.CustomHolidayDate) != viewModel.CustomHolidayName
+                        && viewModel.CustomHolidaysDictionary.Get(viewModel.CustomHolidayDate) != viewModel.CustomHolidayName
                         && !String.IsNullOrEmpty(viewModel.CustomHolidayName);
             }
 
             public void Execute(object parameter)
             {
-                viewModel.CustomHolidaysDictionary.UpdateValue(viewModel.CustomHolidayDate, viewModel.CustomHolidayName);
+                viewModel.CustomHolidaysDictionary.Update(viewModel.CustomHolidayDate, viewModel.CustomHolidayName);
                 viewModel.CustomHolidayDate = DateTime.Today;
                 viewModel.CustomHolidayName = String.Empty;
             }
@@ -448,7 +448,7 @@ namespace DesktopClock.Library
             public bool CanExecute(object parameter)
             {
                 return viewModel.CustomHolidaysDictionary.ContainsKey(viewModel.CustomHolidayDate)
-                        && viewModel.CustomHolidaysDictionary.GetValue(viewModel.CustomHolidayDate) == viewModel.CustomHolidayName;
+                        && viewModel.CustomHolidaysDictionary.Get(viewModel.CustomHolidayDate) == viewModel.CustomHolidayName;
             }
 
             public void Execute(object parameter)

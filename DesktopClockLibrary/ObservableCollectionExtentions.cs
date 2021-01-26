@@ -19,7 +19,7 @@ namespace DesktopClock.Library
         /// <param name="observableCollection">拡張メソッドの基となるオブジェクト。</param>
         /// <param name="key">キー。</param>
         /// <returns>対応する値。</returns>
-        public static TValue GetValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
+        public static TValue Get<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
         {
             if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
@@ -74,7 +74,7 @@ namespace DesktopClock.Library
         /// <param name="observableCollection">拡張メソッドの基となるオブジェクト。</param>
         /// <param name="key">キー。</param>
         /// <param name="value">新しい値。</param>
-        public static void UpdateValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
+        public static void Update<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
             if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
