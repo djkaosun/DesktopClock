@@ -23,7 +23,7 @@ namespace DesktopClockTests
             // act
             // assert
             Assert.Throws<ArgumentNullException>(() => {
-                collection.GetValue(null);
+                collection.Get(null);
             });
         }
 
@@ -36,7 +36,7 @@ namespace DesktopClockTests
             collection.Add(key, null);
 
             // act
-            var actual = collection.GetValue(key);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Null(actual);
@@ -52,7 +52,7 @@ namespace DesktopClockTests
             collection.Add(key, value);
 
             // act
-            var actual = collection.GetValue(key);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Same(value, actual);
@@ -69,7 +69,7 @@ namespace DesktopClockTests
             // act
             // assert
             Assert.Throws<KeyNotFoundException>(() => {
-                collection.GetValue(new Object());
+                collection.Get(new Object());
             });
         }
 
@@ -88,7 +88,7 @@ namespace DesktopClockTests
             // act
             // assert
             Assert.Throws<ArgumentNullException>(() => {
-                collection.UpdateValue(null, null);
+                collection.Update(null, null);
             });
         }
 
@@ -103,7 +103,7 @@ namespace DesktopClockTests
             // act
             // assert
             Assert.Throws<KeyNotFoundException>(() => {
-                collection.UpdateValue(new Object(), null);
+                collection.Update(new Object(), null);
             });
         }
 
@@ -117,8 +117,8 @@ namespace DesktopClockTests
             collection.Add(key, oldvalue);
 
             // act
-            collection.UpdateValue(key, null);
-            var actual = collection.GetValue(key);
+            collection.Update(key, null);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Null(actual);
@@ -135,8 +135,8 @@ namespace DesktopClockTests
             collection.Add(key, oldvalue);
 
             // act
-            collection.UpdateValue(key, newvalue);
-            var actual = collection.GetValue(key);
+            collection.Update(key, newvalue);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Same(newvalue, actual);
@@ -183,7 +183,7 @@ namespace DesktopClockTests
 
             // act
             collection.Add(key, null);
-            var actual = collection.GetValue(key);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Null(actual);
@@ -199,7 +199,7 @@ namespace DesktopClockTests
 
             // act
             collection.Add(key, value);
-            var actual = collection.GetValue(key);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Same(value, actual);
@@ -234,7 +234,7 @@ namespace DesktopClockTests
 
             // act
             collection.AddOrUpdate(key, null);
-            var actual = collection.GetValue(key);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Null(actual);
@@ -252,7 +252,7 @@ namespace DesktopClockTests
 
             // act
             collection.AddOrUpdate(key, newvalue);
-            var actual = collection.GetValue(key);
+            var actual = collection.Get(key);
 
             // assert
             Assert.Same(newvalue, actual);
@@ -270,8 +270,8 @@ namespace DesktopClockTests
 
             // act
             collection.AddOrUpdate(newkey, null);
-            var actual1 = collection.GetValue(newkey);
-            var actual2 = collection.GetValue(oldkey);
+            var actual1 = collection.Get(newkey);
+            var actual2 = collection.Get(oldkey);
 
             // assert
             Assert.Null(actual1);
@@ -291,8 +291,8 @@ namespace DesktopClockTests
 
             // act
             collection.AddOrUpdate(newkey, newvalue);
-            var actual1 = collection.GetValue(newkey);
-            var actual2 = collection.GetValue(oldkey);
+            var actual1 = collection.Get(newkey);
+            var actual2 = collection.Get(oldkey);
 
             // assert
             Assert.Same(newvalue, actual1);
@@ -453,7 +453,7 @@ namespace DesktopClockTests
             collection.Add(key, oldvalue);
 
             // act
-            collection.UpdateValue(key, null);
+            collection.Update(key, null);
             var actual1 = collection.Remove(key);
             var actual2 = collection.ContainsKey(key);
 

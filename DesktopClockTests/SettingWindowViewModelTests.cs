@@ -940,7 +940,7 @@ namespace DesktopClockTests
             viewModel.SettingsWrapper = fakeSettings;
 
             // act
-            viewModel.CustomHolidaysDictionary.UpdateValue(new DateTime(2020, 1, 2), "NewHolidayName");
+            viewModel.CustomHolidaysDictionary.Update(new DateTime(2020, 1, 2), "NewHolidayName");
             var actual = viewModel.ApplySettingsCommand.CanExecute(null);
 
             // assert
@@ -1650,7 +1650,7 @@ namespace DesktopClockTests
             };
 
             // act
-            viewModel.CustomHolidaysDictionary.UpdateValue(new DateTime(2020, 1, 2), "NewHolidayName");
+            viewModel.CustomHolidaysDictionary.Update(new DateTime(2020, 1, 2), "NewHolidayName");
 
             // assert
             Assert.True(actual);
