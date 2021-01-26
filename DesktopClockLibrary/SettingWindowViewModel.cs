@@ -26,6 +26,8 @@ namespace DesktopClock.Library
             get { return _CustomHolidays; }
             private set
             {
+                if (_CustomHolidays != null) throw new InvalidOperationException("already set.");
+                if (value == null) return;
                 _CustomHolidays = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomHolidaysDictionary)));
             }
@@ -85,7 +87,7 @@ namespace DesktopClock.Library
             {
                 _HorizontalMarginString = value;
                 Double.Parse(value);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginString)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginString)));
             }
         }
 
@@ -252,7 +254,6 @@ namespace DesktopClock.Library
             public void Execute(object parameter)
             {
                 viewModel.ApplyAndSaveSettings();
-                viewModel.SettingIsChanged = false;
             }
         }
 
@@ -362,7 +363,53 @@ namespace DesktopClock.Library
                         viewModel.CustomHolidayName);
                 viewModel.CustomHolidayDate = DateTime.Today;
                 viewModel.CustomHolidayName = String.Empty;
-                viewModel.SettingIsChanged = true;
+            }
+        }
+
+        /// <summary>
+        /// カスタム休日名を更新するコマンド
+        /// </summary>
+        public ICommand UpdateHolidayCommand { get; private set; }
+        private class UpdateHolidayCommandImpl : ICommand
+        {
+            private SettingWindowViewModel viewModel;
+            public UpdateHolidayCommandImpl(SettingWindowViewModel viewModel)
+            {
+                this.viewModel = viewModel;
+                viewModel.PropertyChanged += OnViewModelPropertyChangedEventHandler;
+                viewModel.CustomHolidaysDictionary.CollectionChanged += OnCustomHolidaysDictionaryChangedEventHandler;
+            }
+
+            private void OnCustomHolidaysDictionaryChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
+            {
+                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            private void OnViewModelPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(viewModel.CustomHolidayDate):
+                    case nameof(viewModel.CustomHolidayName):
+                        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                        break;
+                }
+            }
+
+            public event EventHandler CanExecuteChanged;
+
+            public bool CanExecute(object parameter)
+            {
+                return viewModel.CustomHolidaysDictionary.ContainsKey(viewModel.CustomHolidayDate)
+                        && viewModel.CustomHolidaysDictionary.GetValue(viewModel.CustomHolidayDate) != viewModel.CustomHolidayName
+                        && !String.IsNullOrEmpty(viewModel.CustomHolidayName);
+            }
+
+            public void Execute(object parameter)
+            {
+                viewModel.CustomHolidaysDictionary.UpdateValue(viewModel.CustomHolidayDate, viewModel.CustomHolidayName);
+                viewModel.CustomHolidayDate = DateTime.Today;
+                viewModel.CustomHolidayName = String.Empty;
             }
         }
 
@@ -401,7 +448,7 @@ namespace DesktopClock.Library
             public bool CanExecute(object parameter)
             {
                 return viewModel.CustomHolidaysDictionary.ContainsKey(viewModel.CustomHolidayDate)
-                        && viewModel.CustomHolidaysDictionary.ContainsValue(viewModel.CustomHolidayName);
+                        && viewModel.CustomHolidaysDictionary.GetValue(viewModel.CustomHolidayDate) == viewModel.CustomHolidayName;
             }
 
             public void Execute(object parameter)
@@ -409,7 +456,6 @@ namespace DesktopClock.Library
                 viewModel.CustomHolidaysDictionary.Remove(viewModel.CustomHolidayDate);
                 viewModel.CustomHolidayDate = DateTime.Today;
                 viewModel.CustomHolidayName = String.Empty;
-                viewModel.SettingIsChanged = true;
             }
         }
 
@@ -435,7 +481,7 @@ namespace DesktopClock.Library
             get { return _SettingsWrapper; }
             set
             {
-                if (_SettingsWrapper != null) throw new InvalidOperationException("already setted");
+                if (_SettingsWrapper != null) throw new InvalidOperationException("already set.");
                 if (value == null) return;
                 _SettingsWrapper = value;
                 LoadSettings();
@@ -471,11 +517,12 @@ namespace DesktopClock.Library
             CloseWindowCommand = new CloseWindowCommandImpl(this);
             ApplyAndCloseCommand = new ApplyAndCloseCommandImpl(this);
             AddHolidayCommand = new AddHolidayCommandImpl(this);
+            UpdateHolidayCommand = new UpdateHolidayCommandImpl(this);
             RemoveHolidayCommand = new RemoveHolidayCommandImpl(this);
 
             // イベントハンドラーの登録
-            CustomHolidaysDictionary.CollectionChanged += CustomHolidaysChangedEventHandler;
             PropertyChanged += SettingsChangedEventHandler;
+            CustomHolidaysDictionary.CollectionChanged += CustomHolidaysChangedEventHandler;
         }
 
         #region Event Handlers
@@ -507,7 +554,7 @@ namespace DesktopClock.Library
 
         private void CustomHolidaysChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
         {
-
+            SettingIsChanged = true;
         }
 
         private void PropertiesSettingsChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -546,7 +593,10 @@ namespace DesktopClock.Library
                     (HorizontalAlignment)SettingsWrapper.HorizontalAlignment);
             VerticalMarginString = SettingsWrapper.VerticalMargin.ToString();
             HorizontalMarginString = SettingsWrapper.HorizontalMargin.ToString();
-            CustomHolidaysDictionary = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
+            CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString, CustomHolidaysDictionary);
+
+            // ロードし終えたら、設定は無変更状態。
+            SettingIsChanged = false;
         }
 
         /// <summary>
@@ -562,6 +612,10 @@ namespace DesktopClock.Library
             SettingsWrapper.VerticalMargin = Double.Parse(VerticalMarginString);
             SettingsWrapper.HorizontalMargin = Double.Parse(HorizontalMarginString);
             SettingsWrapper.CustumHolidaysString = CustomHolidaysParser.Serialize(CustomHolidaysDictionary);
+
+            // 反映し終えたら、設定は無変更状態。
+            SettingIsChanged = false;
+
             // 設定の保存
             SettingsWrapper.Save();
         }

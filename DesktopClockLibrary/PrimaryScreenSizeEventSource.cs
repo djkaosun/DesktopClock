@@ -15,6 +15,23 @@ namespace DesktopClock.Library
         /// </summary>
         public static readonly int MinimumInterval = 200;
 
+        private bool _IsRunning;
+        /// <summary>
+        /// 実行中か否か。
+        /// </summary>
+        public bool IsRunning
+        {
+            get { return _IsRunning; }
+            private set
+            {
+                if (value != _IsRunning)
+                {
+                    _IsRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
+                }
+            }
+        }
+
         private double _Height;
         /// <summary>
         /// スクリーンの高さ。
