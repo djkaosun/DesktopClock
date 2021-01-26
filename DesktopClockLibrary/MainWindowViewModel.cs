@@ -877,7 +877,7 @@ namespace DesktopClock.Library
         #region Color Settings
 
         /// <summary>
-        /// 休日の色.。
+        /// 休日の色。
         /// </summary>
         public System.Windows.Media.Brush HolidayColor
         {
@@ -1063,7 +1063,7 @@ namespace DesktopClock.Library
             get { return _DateTimeEventSource; }
             set
             {
-                if (_DateTimeEventSource != null) throw new InvalidOperationException("already setted");
+                if (_DateTimeEventSource != null) throw new InvalidOperationException("already set.");
                 if (value == null) return;
                 _DateTimeEventSource = value;
                 _DateTimeEventSource.PropertyChanged += DateTimeChangedEventHandler;
@@ -1082,7 +1082,7 @@ namespace DesktopClock.Library
             get { return _PrimaryScreenSizeEventSource; }
             set
             {
-                if (_PrimaryScreenSizeEventSource != null) throw new InvalidOperationException("already setted");
+                if (_PrimaryScreenSizeEventSource != null) throw new InvalidOperationException("already set.");
                 if (value == null) return;
                 _PrimaryScreenSizeEventSource = value;
                 _PrimaryScreenSizeEventSource.PropertyChanged += PrimaryScreenSizeChangedEventHandler;
@@ -1098,7 +1098,7 @@ namespace DesktopClock.Library
             get { return _SettingsWrapper; }
             set
             {
-                if (_SettingsWrapper != null) throw new InvalidOperationException("already setted");
+                if (_SettingsWrapper != null) throw new InvalidOperationException("already set.");
                 if (value == null) return;
                 _SettingsWrapper = value;
                 _SettingsWrapper.PropertyChanged += PropertiesSettingsChangedEventHandler;
@@ -1206,12 +1206,7 @@ namespace DesktopClock.Library
                         HorizontalMargin = SettingsWrapper.HorizontalMargin;
                         break;
                     case nameof(SettingsWrapper.CustumHolidaysString):
-                        var tmp = CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString);
-                        DateTimeEventSource.HolidayChecker.CustomHoliday.Holidays.Clear();
-                        foreach (var item in tmp)
-                        {
-                            DateTimeEventSource.HolidayChecker.CustomHoliday.Holidays.Add(item);
-                        }
+                        CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString, HolidayChecker.CustomHoliday.Holidays);
                         break;
                 }
         }
@@ -1288,22 +1283,29 @@ namespace DesktopClock.Library
                     + DateTimeEventSource.Month.ToString("00") + " 月 "
                     + DateTimeEventSource.Day.ToString("00") + " 日";
 
-            var holidayChecker = DateTimeEventSource.HolidayChecker;
             var today = new DateTime(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
             var oneday = TimeSpan.FromDays(1);
-            var holidayNameOfToday = holidayChecker.GetHolidayName(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
-            var todayIsHoliday = !String.IsNullOrEmpty(holidayNameOfToday);
             var tommorow = today + oneday;
-            var holidayNameOfTommorow = holidayChecker.GetHolidayName(tommorow);
-            var tommorowIsHoliday = !String.IsNullOrEmpty(holidayNameOfTommorow);
             var holidayCount = GetConsecutiveHolidaysCount(tommorow);
             var dayAfterTommorow = tommorow + oneday;
             var holidayCountTommorow = GetConsecutiveHolidaysCount(dayAfterTommorow);
 
+            string holidayNameOfToday = null;
+            string holidayNameOfTommorow = null;
+            bool todayIsHoliday = false;
+            bool tommorowIsHoliday = false;
+            if (HolidayChecker != null)
+            {
+                holidayNameOfToday = HolidayChecker.GetHolidayName(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
+                holidayNameOfTommorow = HolidayChecker.GetHolidayName(tommorow);
+                todayIsHoliday = !String.IsNullOrEmpty(holidayNameOfToday);
+                tommorowIsHoliday = !String.IsNullOrEmpty(holidayNameOfTommorow);
+            }
+
             // HolidayNameOfToday は別のハンドラーでも処理。無駄になるかもしれないが、害もない。
             HolidayNameOfToday = holidayNameOfToday;
             HolidayNameOfTommorow = holidayNameOfTommorow;
-
+            
             // 本日の色設定および土日の追加
             if (todayIsHoliday)
             {
@@ -1333,7 +1335,7 @@ namespace DesktopClock.Library
             {
                 VisibilityOfToday = System.Windows.Visibility.Collapsed;
             }
-
+            
             // 明日の色設定および土日の追加
             if (tommorowIsHoliday)
             {
@@ -1387,19 +1389,22 @@ namespace DesktopClock.Library
             // カレンダーの表示変更
             // ##################### Dispatcher 経由じゃないとエラーになる。 #####################
             // ################ タイミングの問題なら、他の操作も潜在的にバグ持ち？ ###############
-            CalendarWindowDispatcher.Invoke(new Action(() =>
+            if (CalendarWindowDispatcher != null)
             {
-                CalendarYear = today.Year.ToString();
-                CalendarMonth = today.Month.ToString();
-            }));
-            UpdateCalender();
+                CalendarWindowDispatcher.Invoke(new Action(() =>
+                {
+                    CalendarYear = today.Year.ToString();
+                    CalendarMonth = today.Month.ToString();
+                }));
+                UpdateCalender();
+            }
         }
 
         private int GetConsecutiveHolidaysCount(DateTime dateTime)
         {
             var oneday = TimeSpan.FromDays(1);
             int count = 0;
-            while (HolidayChecker.IsHoliday(dateTime) || dateTime.DayOfWeek == System.DayOfWeek.Saturday || dateTime.DayOfWeek == System.DayOfWeek.Sunday)
+            while (dateTime.DayOfWeek == System.DayOfWeek.Saturday || dateTime.DayOfWeek == System.DayOfWeek.Sunday || (HolidayChecker != null && HolidayChecker.IsHoliday(dateTime)))
             {
                 count++;
                 dateTime += oneday;
@@ -1605,11 +1610,11 @@ namespace DesktopClock.Library
             switch (VerticalAlignment)
             {
                 case System.Windows.VerticalAlignment.Center:
-                    WindowTop = (ScreenHeight - WindowHeight -31) / 2;
+                    WindowTop = (ScreenHeight - WindowHeight - 35) / 2;
                     CalendarWindowTop = WindowTop + WindowHeight - 31;
                     break;
                 case System.Windows.VerticalAlignment.Bottom:
-                    WindowTop = ScreenHeight - VerticalMargin - WindowHeight;
+                    WindowTop = ScreenHeight - VerticalMargin - WindowHeight - 35;
                     CalendarWindowTop = WindowTop - CalendarWindowHeight + 31;
                     break;
                 case System.Windows.VerticalAlignment.Top:
@@ -1626,12 +1631,12 @@ namespace DesktopClock.Library
                     CalendarWindowLeft = WindowLeft;
                     break;
                 case System.Windows.HorizontalAlignment.Left:
-                    WindowLeft = HorizontalMargin + 31;
+                    WindowLeft = HorizontalMargin + 35;
                     CalendarWindowLeft = WindowLeft;
                     break;
                 case System.Windows.HorizontalAlignment.Right:
                 default:
-                    WindowLeft = ScreenWidth - HorizontalMargin - WindowWidth - 31;
+                    WindowLeft = ScreenWidth - HorizontalMargin - WindowWidth - 35;
                     CalendarWindowLeft = WindowLeft;
                     break;
             }

@@ -65,6 +65,7 @@
                                         Command="{Binding AddHolidayCommand}"
                                         VerticalAlignment="Center" Margin="5,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="6" />
                                 <Button Content="{Binding Mode=OneWay, Source={StaticResource UPDATE}}"
+                                        Command="{Binding UpdateHolidayCommand}"
                                         VerticalAlignment="Center" Margin="0,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="7" />
                                 <Button Content="{Binding Mode=OneWay, Source={StaticResource REMOVE}}"
                                         Command="{Binding RemoveHolidayCommand}"

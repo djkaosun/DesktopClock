@@ -16,6 +16,23 @@ namespace DesktopClockTests.FakeClasses
         /// </summary>
         public static readonly int MinimumInterval = 500;
 
+        private bool _IsRunning;
+        /// <summary>
+        /// 実行中か否か。
+        /// </summary>
+        public bool IsRunning
+        {
+            get { return _IsRunning; }
+            private set
+            {
+                if (value != _IsRunning)
+                {
+                    _IsRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
+                }
+            }
+        }
+
         private double _Height;
         /// <summary>
         /// スクリーンの高さ。
@@ -77,8 +94,6 @@ namespace DesktopClockTests.FakeClasses
         public event PropertyChangedEventHandler PropertyChanged;
         public event FakeMethodCalledEventHandler FakeMethodCalled;
 
-        private CancellationTokenSource tokenSource;
-
         /// <summary>
         /// コンストラクター。
         /// </summary>
@@ -103,6 +118,7 @@ namespace DesktopClockTests.FakeClasses
         public void Start()
         {
             FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Start), null));
+            IsRunning = true;
         }
 
         public void FakeScreenSizeUpdate(double height, double width)
@@ -117,6 +133,8 @@ namespace DesktopClockTests.FakeClasses
         public void Stop()
         {
             FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Stop), null));
+            IsRunning = false;
+            InitializeScreenSize();
         }
     }
 }

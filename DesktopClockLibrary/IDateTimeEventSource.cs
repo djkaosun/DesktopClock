@@ -9,6 +9,11 @@ namespace DesktopClock.Library
     public interface IDateTimeEventSource : INotifyPropertyChanged, INotifyHolidaySettingChanged
     {
         /// <summary>
+        /// 実行中か否か。
+        /// </summary>
+        public bool IsRunning { get; }
+
+        /// <summary>
         /// 年。
         /// </summary>
         public int Year { get; }

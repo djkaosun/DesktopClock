@@ -9,6 +9,11 @@ namespace DesktopClock.Library
     public interface IPrimaryScreenSizeEventSource : INotifyPropertyChanged
     {
         /// <summary>
+        /// 実行中か否か。
+        /// </summary>
+        bool IsRunning { get; }
+
+        /// <summary>
         /// スクリーンの高さ。
         /// </summary>
         double Height { get; }

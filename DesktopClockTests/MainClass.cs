@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using DesktopClock.Library;
 
-namespace DesktopClockTests_xUnit
+namespace DesktopClockTests
 {
     class MainClass
     {/*
@@ -117,26 +117,26 @@ namespace DesktopClockTests_xUnit
                 Console.WriteLine("    " + lastRow);
                 Console.WriteLine("});");
                 Console.WriteLine();
+            }
 
 
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
 
-                var holidayCheker = new HolidayChecker() { IsAddHolidayNameToObservedHolidayName = true };
-                var dateTime = new DateTime(1948, 7, 20);
-                var endDateTime = new DateTime(2026, 1, 1);
-                var oneDaySpan = TimeSpan.FromDays(1);
-                for (; dateTime < endDateTime; dateTime += oneDaySpan)
+            var holidayCheker = new HolidayChecker() { IsAddHolidayNameToObservedHolidayName = true };
+            var dateTime = new DateTime(1948, 7, 20);
+            var endDateTime = new DateTime(2026, 1, 1);
+            var oneDaySpan = TimeSpan.FromDays(1);
+            for (; dateTime < endDateTime; dateTime += oneDaySpan)
+            {
+                var holidayName = holidayCheker.GetHolidayName(dateTime);
+                if (holidayName != null && holidayName.Contains("振替休日"))
                 {
-                    var holidayName = holidayCheker.GetHolidayName(dateTime);
-                    if (holidayName != null && holidayName.Contains("振替休日"))
-                    {
-                        Console.Write("_testData.Add(new object[] { ");
-                        Console.Write("new DateTime({0}, {1}, {2}), ", dateTime.Year, dateTime.Month, dateTime.Day);
-                        Console.Write("\"{0}\"", holidayName);
-                        Console.WriteLine(" });");
-                    }
+                    Console.Write("_testData.Add(new object[] { ");
+                    Console.Write("new DateTime({0}, {1}, {2}), ", dateTime.Year, dateTime.Month, dateTime.Day);
+                    Console.Write("\"{0}\"", holidayName);
+                    Console.WriteLine(" });");
                 }
             }
 

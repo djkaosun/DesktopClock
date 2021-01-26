@@ -14,10 +14,18 @@ namespace DesktopClock.Library
         /// シリアライズされた文字列を、<see cref="System.Collections.ObjectModel.ObservableCollection{T}"/> に戻します。
         /// </summary>
         /// <param name="customHolidaysString">シリアライズされた文字列。</param>
+        /// <param name="customHolidays">でシリアライス結果を入れるコレクション。渡されたコレクションはクリアされます。null の場合は新しいコレクションが生成されます。</param>
         /// <returns>カスタム休日を格納した <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/>。</returns>
-        public static ObservableCollection<KeyValuePair<DateTime, string>> Deserialize(string customHolidaysString)
+        public static ObservableCollection<KeyValuePair<DateTime, string>> Deserialize(string customHolidaysString, ObservableCollection<KeyValuePair<DateTime, string>> customHolidays = null)
         {
-            var customHolidays = new ObservableCollection<KeyValuePair<DateTime, string>>();
+            if (customHolidays == null)
+            {
+                customHolidays = new ObservableCollection<KeyValuePair<DateTime, string>>();
+            }
+            else
+            {
+                customHolidays.Clear();
+            }
 
             if (!String.IsNullOrEmpty(customHolidaysString)) {
                 var dic = JsonSerializer.Deserialize<Dictionary<string, string>>(customHolidaysString);

@@ -7,7 +7,7 @@ using Xunit;
 using DesktopClock.Library;
 using DesktopClockTests.TestDatas;
 
-namespace DesktopClockTests_xUnit
+namespace DesktopClockTests
 {
     public class CustomHolidayTests
     {

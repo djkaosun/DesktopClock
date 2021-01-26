@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopClock", "DesktopCloc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopClockLibrary", "DesktopClockLibrary\DesktopClockLibrary.csproj", "{B01BB436-8F7F-49F8-853C-5AADCD9A386C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopClockTests", "DesktopClockTests\DesktopClockTests.csproj", "{8B86370A-9575-4DF9-B581-57084F7A99DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopClockTests_xUnit", "DesktopClockTests_xUnit\DesktopClockTests_xUnit.csproj", "{03092D29-DC18-4A9B-99A5-6D0730F4EFD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopClockTests", "DesktopClockTests\DesktopClockTests.csproj", "{E920CC25-DC31-435B-A51E-A4F46977C26D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +23,10 @@ Global
 		{B01BB436-8F7F-49F8-853C-5AADCD9A386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01BB436-8F7F-49F8-853C-5AADCD9A386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01BB436-8F7F-49F8-853C-5AADCD9A386C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B86370A-9575-4DF9-B581-57084F7A99DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B86370A-9575-4DF9-B581-57084F7A99DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B86370A-9575-4DF9-B581-57084F7A99DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B86370A-9575-4DF9-B581-57084F7A99DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03092D29-DC18-4A9B-99A5-6D0730F4EFD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03092D29-DC18-4A9B-99A5-6D0730F4EFD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03092D29-DC18-4A9B-99A5-6D0730F4EFD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03092D29-DC18-4A9B-99A5-6D0730F4EFD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E920CC25-DC31-435B-A51E-A4F46977C26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E920CC25-DC31-435B-A51E-A4F46977C26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E920CC25-DC31-435B-A51E-A4F46977C26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E920CC25-DC31-435B-A51E-A4F46977C26D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
