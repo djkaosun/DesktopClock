@@ -9,6 +9,10 @@ namespace DesktopClock.Library
     /// </summary>
     public static class ObservableCollectionExtentions
     {
+        private const string ARGUMENT_NULL_EXCEPTION_MESSAGE = "Value cannot be null. (Parameter '{0}')";
+        private const string KEY_NOT_FOUND_EXCEPTION_MESSAGE = "The given key '{0}' was not present in the dictionary.";
+        private const string ARGUMENT_EXCEPTION_MESSAGE = "An item with the same key has already been added. Key: {0}";
+
         /// <summary>
         /// キーに対応する値を取得します。(インデクサーの代替)
         /// </summary>
@@ -17,13 +21,13 @@ namespace DesktopClock.Library
         /// <returns>対応する値。</returns>
         public static TValue GetValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
         {
-            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+            if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
             foreach (var keyValuePair in observableCollection)
             {
                 if (keyValuePair.Key.Equals(key)) return keyValuePair.Value;
             }
-            throw new KeyNotFoundException("The given key '" + key + "' was not present in the dictionary.");
+            throw new KeyNotFoundException(String.Format(KEY_NOT_FOUND_EXCEPTION_MESSAGE, key));
         }
 
         /// <summary>
@@ -34,7 +38,7 @@ namespace DesktopClock.Library
         /// <param name="value">新しい値。</param>
         public static void UpdateValue<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
-            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+            if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
             foreach (var keyValuePair in observableCollection)
             {
@@ -45,7 +49,7 @@ namespace DesktopClock.Library
                     return;
                 }
             }
-            throw new KeyNotFoundException("The given key '" + key + "' was not present in the dictionary.");
+            throw new KeyNotFoundException(String.Format(KEY_NOT_FOUND_EXCEPTION_MESSAGE, key));
         }
 
         /// <summary>
@@ -56,11 +60,11 @@ namespace DesktopClock.Library
         /// <param name="value">値。</param>
         public static void Add<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
-            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+            if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
             if (ContainsKey(observableCollection, key))
             {
-                throw new ArgumentException("An item with the same key has already been added. Key: " + key);
+                throw new ArgumentException(String.Format(ARGUMENT_EXCEPTION_MESSAGE, key));
             }
             observableCollection.Add(new KeyValuePair<TKey, TValue>(key, value));
         }
@@ -73,7 +77,7 @@ namespace DesktopClock.Library
         /// <param name="value">値。</param>
         public static void AddOrUpdate<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, TValue value)
         {
-            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+            if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
             foreach (var keyValuePair in observableCollection)
             {
@@ -94,7 +98,7 @@ namespace DesktopClock.Library
         /// <returns>キーが含まれる場合 true。含まれない場合は false。</returns>
         public static bool ContainsKey<TKey,TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
         {
-            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+            if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
             foreach (var keyValuePair in observableCollection)
             {
@@ -133,7 +137,7 @@ namespace DesktopClock.Library
         /// <returns>削除された場合 true。削除されなかった場合は false。</returns>
         public static bool Remove<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key)
         {
-            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+            if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
             foreach (var keyValuePair in observableCollection)
             {
@@ -155,7 +159,7 @@ namespace DesktopClock.Library
         /// <returns>削除された場合 true。削除されなかった場合は false。</returns>
         public static bool Remove<TKey, TValue>(this ObservableCollection<KeyValuePair<TKey, TValue>> observableCollection, TKey key, out TValue value)
         {
-            if (key == null) throw new ArgumentNullException("Value cannot be null. (Parameter 'key')");
+            if (key == null) throw new ArgumentNullException(String.Format(ARGUMENT_NULL_EXCEPTION_MESSAGE, nameof(key)));
 
             foreach (var keyValuePair in observableCollection)
             {
