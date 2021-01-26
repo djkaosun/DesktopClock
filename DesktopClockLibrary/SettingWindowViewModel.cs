@@ -14,6 +14,8 @@ namespace DesktopClock.Library
     /// </summary>
     public class SettingWindowViewModel : INotifyPropertyChanged
     {
+        private const string ALREADY_SET_MESSAGE = "{0} is already set.";
+        private const string IS_NULL_MESSAGE = "{0} is null.";
 
         #region Properties for Binding
 
@@ -26,7 +28,7 @@ namespace DesktopClock.Library
             get { return _CustomHolidays; }
             private set
             {
-                if (_CustomHolidays != null) throw new InvalidOperationException("already set.");
+                if (_CustomHolidays != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE,nameof(CustomHolidaysDictionary)));
                 if (value == null) return;
                 _CustomHolidays = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CustomHolidaysDictionary)));
@@ -481,7 +483,7 @@ namespace DesktopClock.Library
             get { return _SettingsWrapper; }
             set
             {
-                if (_SettingsWrapper != null) throw new InvalidOperationException("already set.");
+                if (_SettingsWrapper != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE,nameof(SettingsWrapper)));
                 if (value == null) return;
                 _SettingsWrapper = value;
                 LoadSettings();
@@ -508,6 +510,7 @@ namespace DesktopClock.Library
         /// </summary>
         public SettingWindowViewModel()
         {
+            // プロパティの初期化
             CustomHolidayDate = DateTime.Today;
             CustomHolidayName = String.Empty;
             CustomHolidaysDictionary = new ObservableCollection<KeyValuePair<DateTime, string>>();
@@ -535,8 +538,6 @@ namespace DesktopClock.Library
                 {
                     case nameof(VerticalMarginString):
                     case nameof(HorizontalMarginString):
-                    case nameof(VerticalAlignment):
-                    case nameof(HorizontalAlignment):
                     case nameof(AlignmentLeftTop):
                     case nameof(AlignmentCenterTop):
                     case nameof(AlignmentRightTop):
@@ -585,7 +586,7 @@ namespace DesktopClock.Library
         /// </summary>
         private void LoadSettings()
         {
-            if (SettingsWrapper == null) throw new InvalidOperationException("SettingWrapper is null.");
+            if (SettingsWrapper == null) throw new InvalidOperationException(String.Format(IS_NULL_MESSAGE , nameof(SettingsWrapper)));
 
             // Properties.Settings からの読み出し
             SetAlignmentToRadioButton(
@@ -604,7 +605,7 @@ namespace DesktopClock.Library
         /// </summary>
         private void ApplyAndSaveSettings()
         {
-            if (SettingsWrapper == null) throw new InvalidOperationException("SettingWrapper is null.");
+            if (SettingsWrapper == null) throw new InvalidOperationException(String.Format(IS_NULL_MESSAGE, nameof(SettingsWrapper)));
 
             SetAlignmentFromRadioButton(out VerticalAlignment verticalAlignment, out HorizontalAlignment horizontalAlignment);
             SettingsWrapper.VerticalAlignment = (int)verticalAlignment;
