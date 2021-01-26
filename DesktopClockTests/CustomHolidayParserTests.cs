@@ -41,7 +41,7 @@ namespace DesktopClockTests
         }
 
         [Fact]
-        public void Deserialize_PassSerializedString_ReturnsDesirializedCollection()
+        public void Deserialize_PassedSerializedString_ReturnsDesirializedCollection()
         {
             // arrange
             var customHolidays = new ObservableCollection<KeyValuePair<DateTime, string>>();
@@ -56,7 +56,7 @@ namespace DesktopClockTests
         }
 
         [Fact]
-        public void Deserialize2_PassSerializedString_ReturnsDesirializedCollection()
+        public void Deserialize2_PassedSerializedString_ReturnsDesirializedCollection()
         {
             // arrange
             var customHolidays = new ObservableCollection<KeyValuePair<DateTime, string>>();
