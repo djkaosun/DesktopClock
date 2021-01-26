@@ -9,7 +9,7 @@ namespace DesktopClock.Library
     /// BottomMost を実現するビヘイビア。IsEnabled を true にすると、以下の挙動を行います。
     /// <list>
     /// <item><description>あらゆるウィンドウの下に表示されます。</description></item>
-    /// <item><description>Win+D などでデスクトップを表示したとき、ウィンドウを最小化しません。</description></item>
+    /// <item><description>Win+D などでデスクトップを表示したとき、ウィンドウを隠しません。</description></item>
     /// </list>
     /// </summary>
     public class BottomMostBehavior
@@ -49,8 +49,7 @@ namespace DesktopClock.Library
         private static void OnIsEnabledPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var w = sender as Window;
-            if (w == null)
-                return;
+            if (w == null) return;
 
             var isEnabled = (bool)e.NewValue;
             if (isEnabled)
