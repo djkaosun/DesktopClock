@@ -79,32 +79,5 @@ namespace DesktopClock.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
-        /// <summary>
-        ///   終了 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string NOTIFY_ICON_EXIT {
-            get {
-                return ResourceManager.GetString("NOTIFY_ICON_EXIT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   DesktopClock に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string NOTIFY_ICON_NAME {
-            get {
-                return ResourceManager.GetString("NOTIFY_ICON_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   設定 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string NOTIFY_ICON_SETTING {
-            get {
-                return ResourceManager.GetString("NOTIFY_ICON_SETTING", resourceCulture);
-            }
-        }
     }
 }
