@@ -8,6 +8,7 @@
     <Authors>DJ_Kaosun</Authors>
     <Company>DJ_Kaosun</Company>
     <PackageIcon></PackageIcon>
+	<UICulture>ja-JP</UICulture>
     <Version>1.0.1.0</Version>
   </PropertyGroup>
 

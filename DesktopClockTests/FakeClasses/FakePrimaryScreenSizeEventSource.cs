@@ -11,6 +11,13 @@ namespace DesktopClockTests.FakeClasses
     /// </summary>
     public class FakePrimaryScreenSizeEventSource : IPrimaryScreenSizeEventSource, INotifyFakeMethodCalled
     {
+        private const string TOO_SMALL_MESSAGE = "{0} is too small. (< {1})";
+        private const string ALREADY_STARTED_MESSAGE = "Already started.";
+        private const string NOT_RUNNING_MESSAGE = "This is not running.";
+        private const double INITIAL_HEIGHT = 0;
+        private const double INITIAL_WIDTH = 0;
+
+
         /// <summary>
         /// スクリーン サイズを確認する間隔の最小値。
         /// </summary>
@@ -82,7 +89,7 @@ namespace DesktopClockTests.FakeClasses
             get { return _MillisecondsInterval; }
             set
             {
-                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException("MillisecondsInterval is too small. (< " + MinimumInterval + ")");
+                if (MillisecondsInterval < MinimumInterval) throw new ArgumentException(String.Format(TOO_SMALL_MESSAGE, nameof(MillisecondsInterval), MinimumInterval));
                 _MillisecondsInterval = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MillisecondsInterval)));
             }
@@ -108,8 +115,8 @@ namespace DesktopClockTests.FakeClasses
         /// </summary>
         private void InitializeScreenSize()
         {
-            _Height = 0;
-            _Width = 0;
+            _Height = INITIAL_HEIGHT;
+            _Width = INITIAL_WIDTH;
         }
 
         /// <summary>
@@ -117,6 +124,7 @@ namespace DesktopClockTests.FakeClasses
         /// </summary>
         public void Start()
         {
+            if (IsRunning) throw new InvalidOperationException(ALREADY_STARTED_MESSAGE);
             FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Start), null));
             IsRunning = true;
         }
@@ -132,6 +140,7 @@ namespace DesktopClockTests.FakeClasses
         /// </summary>
         public void Stop()
         {
+            if (!IsRunning) throw new InvalidOperationException(NOT_RUNNING_MESSAGE);
             FakeMethodCalled?.Invoke(this, new FakeMethodCalledEventArgs(nameof(Stop), null));
             IsRunning = false;
             InitializeScreenSize();

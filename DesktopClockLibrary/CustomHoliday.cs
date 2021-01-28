@@ -11,6 +11,8 @@ namespace DesktopClock.Library
     /// </summary>
     public class CustomHoliday : ICustomHoliday
     {
+        private const string ALREADY_SET_MESSAGE = "{0} is already set.";
+
         private ObservableCollection<KeyValuePair<DateTime, string>> _Holidays;
         /// <summary>
         /// カスタム休日の一覧。
@@ -21,7 +23,7 @@ namespace DesktopClock.Library
             get { return _Holidays; }
             set
             {
-                if (_Holidays != null) throw new InvalidOperationException("already set.");
+                if (_Holidays != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(Holidays)));
                 if (value == null) return;
 
                 _Holidays = value;

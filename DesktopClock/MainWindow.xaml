@@ -357,7 +357,7 @@
                 </TextBlock.Effect>
             </TextBlock>
             <TextBlock x:Name="TODAYIS"
-                       Text="今日は"
+                       Text="{Binding Mode=OneWay, Source={StaticResource TODAY_INFO_PRE}}"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Center"
                        FontSize="19.5"
@@ -434,7 +434,7 @@
                 </TextBlock.Effect>
             </TextBlock>
             <TextBlock x:Name="TODAYDESU"
-                       Text="です。"
+                       Text="{Binding Mode=OneWay, Source={StaticResource TODAY_INFO_POST}}"
                        HorizontalAlignment="Left"
                        VerticalAlignment="{Binding ElementName=TODAYIS, Path=VerticalAlignment}"
                        FontSize="{Binding ElementName=TODAYIS, Path=FontSize}"
@@ -480,7 +480,7 @@
                 </TextBlock.Effect>
             </TextBlock>
             <TextBlock x:Name="TOMMOROWIS"
-                       Text="明日は"
+                       Text="{Binding Mode=OneWay, Source={StaticResource TOMMOROW_INFO_PRE}}"
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Center"
                        FontSize="19.5"
@@ -560,7 +560,7 @@
                 </TextBlock.Effect>
             </TextBlock>
             <TextBlock x:Name="TOMMOROWDESU"
-                       Text="です。"
+                       Text="{Binding Mode=OneWay, Source={StaticResource TOMMOROW_INFO_POST}}"
                        HorizontalAlignment="Left"
                        VerticalAlignment="{Binding ElementName=TOMMOROWIS, Path=VerticalAlignment}"
                        FontSize="{Binding ElementName=TOMMOROWIS, Path=FontSize}"
