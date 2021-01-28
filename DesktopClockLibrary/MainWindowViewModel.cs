@@ -1444,7 +1444,8 @@ namespace DesktopClock.Library
         {
             if (CalendarYear == 0 || CalendarMonth == 0) return;
 
-            CalendarYearAndMonth = CalendarYear + " 年 " + CalendarMonth + " 月";
+            CalendarYearAndMonth =
+                StringShaper.InsertSpaceInZenkakuHankaku(new DateTime(CalendarYear, CalendarMonth, 1).ToString("Y"));
 
             var year = _CalendarYear;
             var month = _CalendarMonth;
