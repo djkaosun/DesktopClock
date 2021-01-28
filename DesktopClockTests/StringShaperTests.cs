@@ -9,6 +9,9 @@ namespace DesktopClockTests
     public class StringShaperTests
     {
         [Fact]
-        public void 
+        public void InsertSpace__()
+        {
+
+        }
     }
 }
