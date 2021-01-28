@@ -1127,7 +1127,7 @@ namespace DesktopClock.Library
             {
                 switch (e.PropertyName)
                 {
-                    case nameof(IDateTimeEventSource.Day):
+                    case nameof(IDateTimeEventSource.Today):
                         ChangeDate();
                         break;
                     case nameof(IDateTimeEventSource.Hour):
@@ -1264,9 +1264,12 @@ namespace DesktopClock.Library
         /// </summary>
         private void ChangeDate()
         {
+            /*
             Date = DateTimeEventSource.Year + " 年 "
                     + DateTimeEventSource.Month.ToString("00") + " 月 "
                     + DateTimeEventSource.Day.ToString("00") + " 日";
+            */
+            Date = StringShaper.InsertSpaceInZenkakuHankaku(DateTimeEventSource.Today.ToString("D"));
 
             var today = new DateTime(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
             var oneday = TimeSpan.FromDays(1);
