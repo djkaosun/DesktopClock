@@ -2,6 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="APP_NAME">DesktopClock</sys:String>
+    <sys:String x:Key="TODAY_INFO_PRE">今日は</sys:String>
+    <sys:String x:Key="TODAY_INFO_POST">です。</sys:String>
+    <sys:String x:Key="TOMMOROW_INFO_PRE">明日は</sys:String>
+    <sys:String x:Key="TOMMOROW_INFO_POST">です。</sys:String>
+    <sys:String x:Key="CONSECTIVE_HOLIDAYS_MESSAGE_TOMMOROW">明日以降、{0} 日の連休です。</sys:String>
+    <sys:String x:Key="CONSECTIVE_HOLIDAYS_MESSAGE_DAT">明後日から、{0} 日の連休です。</sys:String>
     <sys:String x:Key="OK">OK</sys:String>
     <sys:String x:Key="CANCEL">キャンセル</sys:String>
     <sys:String x:Key="APPLY">適用</sys:String>

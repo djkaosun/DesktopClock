@@ -468,7 +468,7 @@ namespace DesktopClock.Library
 
 
         #region Number
-        private string[,] _CalendarNumbers = new string[6,7];
+        private string[,] _CalendarNumbers = new string[6, 7];
 
         /// <summary>カレンダーに表示する日付。(以下略)</summary>
         public string CalendarR0C0Number { get { return _CalendarNumbers[0, 0]; } }
@@ -733,7 +733,7 @@ namespace DesktopClock.Library
         public System.Windows.Media.Brush CalendarR5C6Background { get { return _CalendarBackgrounds[5, 6]; } }
         #endregion
         #region Opacity
-        private double[,] _CalendarOpacities = new double[6,7];
+        private double[,] _CalendarOpacities = new double[6, 7];
 
         /// <summary>カレンダーに表示する日付の不透明度。(以下略)</summary>
         public double CalendarR0C0Opacity { get { return _CalendarOpacities[0, 0]; } }
@@ -982,7 +982,7 @@ namespace DesktopClock.Library
             {
                 var timestamp = DateTime.Now;
                 viewModel.CalendarYear = timestamp.Year;
-                viewModel.CalendarMonth =timestamp.Month;
+                viewModel.CalendarMonth = timestamp.Month;
             }
         }
 
@@ -1053,6 +1053,36 @@ namespace DesktopClock.Library
                 if (value == null) return;
                 _SettingsWrapper = value;
                 _SettingsWrapper.PropertyChanged += PropertiesSettingsChangedEventHandler;
+            }
+        }
+
+        private string _ConsecutiveHolidaysMessageFormat;
+        /// <summary>
+        /// 明日以降の連休情報メッセージ。内部的に <see cref="String.Format"  /> の第 1 引数として使用されます。
+        /// </summary>
+        public string ConsecutiveHolidaysMessageFormat
+        {
+            get { return _ConsecutiveHolidaysMessageFormat; }
+            set
+            {
+                if (_ConsecutiveHolidaysMessageFormat != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(SettingsWrapper)));
+                if (value == null) return;
+                _ConsecutiveHolidaysMessageFormat = value;
+            }
+        }
+
+        private string _ConsecutiveHolidaysMessageDATFormat;
+        /// <summary>
+        /// 明後日以降の連休情報メッセージ。内部的に <see cref="String.Format"  /> の第 1 引数として使用されます。
+        /// </summary>
+        public string ConsecutiveHolidaysMessageDATFormat
+        {
+            get { return _ConsecutiveHolidaysMessageDATFormat; }
+            set
+            {
+                if (_ConsecutiveHolidaysMessageDATFormat != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(SettingsWrapper)));
+                if (value == null) return;
+                _ConsecutiveHolidaysMessageDATFormat = value;
             }
         }
 
@@ -1350,7 +1380,7 @@ namespace DesktopClock.Library
                     && tommorow.DayOfWeek != System.DayOfWeek.Saturday
                     && tommorow.DayOfWeek != System.DayOfWeek.Sunday)
             {
-                VisibilityOfToday = System.Windows.Visibility.Visible;
+                VisibilityOfTommorow = System.Windows.Visibility.Visible;
             }
             else
             {
@@ -1361,12 +1391,18 @@ namespace DesktopClock.Library
             // 連休の情報表示
             if (holidayCount > 1 && todayIsHoliday || holidayCount > 1 && tommorowIsHoliday || holidayCount > 2)
             {
-                ConsecutiveHolidaysMessage = "明日以降、" + holidayCount + " 日の連休です。";
+                if (ConsecutiveHolidaysMessageFormat != null)
+                {
+                    ConsecutiveHolidaysMessage = StringShaper.InsertSpaceInZenkakuHankaku(String.Format(ConsecutiveHolidaysMessageFormat, holidayCount));
+                }
                 VisibilityOfConsecutiveHolidays = System.Windows.Visibility.Visible;
             }
             else if (holidayCountTommorow > 2 && !todayIsHoliday)
             {
-                ConsecutiveHolidaysMessage = "明後日から、" + holidayCountTommorow + " 日の連休です。";
+                if (ConsecutiveHolidaysMessageDATFormat != null)
+                {
+                    ConsecutiveHolidaysMessage = StringShaper.InsertSpaceInZenkakuHankaku(String.Format(ConsecutiveHolidaysMessageDATFormat, holidayCountTommorow));
+                }
                 VisibilityOfConsecutiveHolidays = System.Windows.Visibility.Visible;
             }
             else
