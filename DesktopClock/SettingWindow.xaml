@@ -15,7 +15,7 @@
                       Source="{Binding CustomHolidaysDictionary}" 
                       IsLiveSortingRequested="True">
             <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="Description" Direction="Ascending"/>
+                <scm:SortDescription PropertyName="Value" Direction="Ascending"/>
             </CollectionViewSource.SortDescriptions>
             <CollectionViewSource.LiveSortingProperties>
                 <sys:String>Value</sys:String>

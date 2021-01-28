@@ -10,14 +10,15 @@ namespace DesktopClock.Library
     {
         private const char ASCII_BEGIN = '\u0000';
         private const char ASCII_END = '\u007F';
-        private static readonly char[] SPACE_CHAR = new char[]{ ' ', '\t'};
+        private static readonly char[] SPACE_CHAR = new char[]{ ' ', '\t' };
 
         /// <summary>
         /// 全角と半角の境目に半角スペースを挿入します。
         /// </summary>
         /// <param name="messageString">元の文字列。</param>
+        /// <param name="additionalSpaseChars">スペース扱いする追加の文字。指定しない場合、半角スペースおよびタブがスペース扱いされます。</param>
         /// <returns>半角スペースを挿入した文字列。</returns>
-        public static string InsertSpaceInZenkakuHankaku(string messageString)
+        public static string InsertSpace(string messageString, char[] additionalSpaseChars = null)
         {
             if (messageString == null) return null;
             if (messageString.Length == 0) return String.Empty;
@@ -30,7 +31,7 @@ namespace DesktopClock.Library
                 var c = strBuilder[i];
                 if (IsASCII(c))
                 {
-                    if (IsSpace(c))
+                    if (IsSpace(c, additionalSpaseChars))
                     {
                         prevIsSpace = true;
                     }
@@ -47,7 +48,7 @@ namespace DesktopClock.Library
                 }
                 else
                 {
-                    if (IsSpace(c))
+                    if (IsSpace(c, additionalSpaseChars))
                     {
                         prevIsSpace = true;
                     }
@@ -86,12 +87,21 @@ namespace DesktopClock.Library
             return c >= ASCII_BEGIN && c <= ASCII_END;
         }
 
-        private static bool IsSpace(char c)
+        private static bool IsSpace(char c, char[] additionalSpaseChars)
         {
             foreach (var sc in SPACE_CHAR)
             {
-                if (c == sc) return true; 
+                if (c == sc) return true;
             }
+
+            if (additionalSpaseChars != null)
+            {
+                foreach (var sc in additionalSpaseChars)
+                {
+                    if (c == sc) return true;
+                }
+            }
+
             return false;
         }
     }
