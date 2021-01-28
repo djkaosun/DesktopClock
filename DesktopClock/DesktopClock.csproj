@@ -9,6 +9,7 @@
     <Company>DJ_Kaosun</Company>
     <PackageIcon></PackageIcon>
     <Version>1.0.0.0</Version>
+	<UICulture>ja-JP</UICulture>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

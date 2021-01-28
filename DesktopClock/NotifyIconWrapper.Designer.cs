@@ -46,7 +46,7 @@ namespace DesktopClock
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = Properties.Resources.NOTIFY_ICON;
-            this.notifyIcon1.Text = Properties.Resources.NOTIFY_ICON_NAME;
+            this.notifyIcon1.Text = (string)Application.Current.FindResource("APP_NAME");
             this.notifyIcon1.Visible = true;
             // 
             // contextMenuStrip1
@@ -62,13 +62,13 @@ namespace DesktopClock
             // 
             this.toolStripMenuItem_Setting.Name = "toolStripMenu_Open";
             this.toolStripMenuItem_Setting.Size = new System.Drawing.Size(127, 22);
-            this.toolStripMenuItem_Setting.Text = Properties.Resources.NOTIFY_ICON_SETTING;
+            this.toolStripMenuItem_Setting.Text = (string)Application.Current.FindResource("SETTING");
             // 
             // toolStripMenuItem_Exit
             // 
             this.toolStripMenuItem_Exit.Name = "toolStripMenuItem_Exit";
             this.toolStripMenuItem_Exit.Size = new System.Drawing.Size(127, 22);
-            this.toolStripMenuItem_Exit.Text = Properties.Resources.NOTIFY_ICON_EXIT;
+            this.toolStripMenuItem_Exit.Text = (string)Application.Current.FindResource("EXIT");
 
         }
 

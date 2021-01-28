@@ -449,76 +449,26 @@ namespace DesktopClock.Library
 
         #region Date Properties for CalendarWindow
 
+        private string _CalendarYearAndMonth;
         /// <summary>
-        /// カレンダーに表示する年の数値。
+        /// カレンダーに表示する年と月を表す文字列。
         /// </summary>
-        private int CalendarYearInt { get; set; }
-        /// <summary>
-        /// カレンダーに表示する年。
-        /// </summary>
-        public string CalendarYear
+        public string CalendarYearAndMonth
         {
             get
             {
-                if (CalendarYearInt == 0)
-                {
-                    return null;
-                }
-                else
-                {
-                    return CalendarYearInt.ToString();
-                }
+                return _CalendarYearAndMonth;
             }
             set
             {
-                if (value == null)
-                {
-                    CalendarYearInt = 0;
-                }
-                else
-                {
-                    CalendarYearInt = Int32.Parse(value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarYear)));
-                }
+                _CalendarYearAndMonth = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarYearAndMonth)));
             }
         }
 
-        /// <summary>
-        /// カレンダーに表示する月の数値。
-        /// </summary>
-        private int CalendarMonthInt { get; set; }
-        /// <summary>
-        /// カレンダーに表示する月。
-        /// </summary>
-        public string CalendarMonth
-        {
-            get
-            {
-                if (CalendarMonthInt == 0)
-                {
-                    return null;
-                }
-                else
-                {
-                    return CalendarMonthInt.ToString();
-                }
-            }
-            set
-            {
-                if (value == null)
-                {
-                    CalendarMonthInt = 0;
-                }
-                else
-                {
-                    CalendarMonthInt = Int32.Parse(value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarMonth)));
-                }
-            }
-        }
 
         #region Number
-        private string[,] _CalendarNumbers = new string[6,7];
+        private string[,] _CalendarNumbers = new string[6, 7];
 
         /// <summary>カレンダーに表示する日付。(以下略)</summary>
         public string CalendarR0C0Number { get { return _CalendarNumbers[0, 0]; } }
@@ -783,7 +733,7 @@ namespace DesktopClock.Library
         public System.Windows.Media.Brush CalendarR5C6Background { get { return _CalendarBackgrounds[5, 6]; } }
         #endregion
         #region Opacity
-        private double[,] _CalendarOpacities = new double[6,7];
+        private double[,] _CalendarOpacities = new double[6, 7];
 
         /// <summary>カレンダーに表示する日付の不透明度。(以下略)</summary>
         public double CalendarR0C0Opacity { get { return _CalendarOpacities[0, 0]; } }
@@ -933,27 +883,27 @@ namespace DesktopClock.Library
 
             public bool CanExecute(object parameter)
             {
-                if (viewModel.CalendarYear == null || viewModel.CalendarMonth == null) return false;
+                if (viewModel.CalendarYear == 0 || viewModel.CalendarMonth == 0) return false;
 
                 // HolidayChecker が祝日法の施行 (1948 年 7 月 20 日) 以降にのみ対応のため、
                 // カレンダー表示は1948 年 8 月 まで。
-                var year = Int32.Parse(viewModel.CalendarYear);
-                var month = Int32.Parse(viewModel.CalendarMonth);
+                var year = viewModel.CalendarYear;
+                var month = viewModel.CalendarMonth;
                 return (year > 1948 || year == 1948 && month > 7);
             }
 
             public void Execute(object parameter)
             {
-                var month = Int32.Parse(viewModel.CalendarMonth);
+                var month = viewModel.CalendarMonth;
                 if (month == 1)
                 {
-                    var year = Int32.Parse(viewModel.CalendarYear);
-                    viewModel.CalendarYear = (year - 1).ToString();
-                    viewModel.CalendarMonth = "12";
+                    var year = viewModel.CalendarYear;
+                    viewModel.CalendarYear = year - 1;
+                    viewModel.CalendarMonth = 12;
                 }
                 else
                 {
-                    viewModel.CalendarMonth = (month - 1).ToString(); ;
+                    viewModel.CalendarMonth = month - 1;
                 }
             }
         }
@@ -979,16 +929,16 @@ namespace DesktopClock.Library
 
             public void Execute(object parameter)
             {
-                var month = Int32.Parse(viewModel.CalendarMonth);
+                var month = viewModel.CalendarMonth;
                 if (month == 12)
                 {
-                    var year = Int32.Parse(viewModel.CalendarYear);
-                    viewModel.CalendarYear = (year + 1).ToString();
-                    viewModel.CalendarMonth = "1";
+                    var year = viewModel.CalendarYear;
+                    viewModel.CalendarYear = year + 1;
+                    viewModel.CalendarMonth = 1;
                 }
                 else
                 {
-                    viewModel.CalendarMonth = (month + 1).ToString(); ;
+                    viewModel.CalendarMonth = month + 1;
                 }
             }
         }
@@ -1021,18 +971,18 @@ namespace DesktopClock.Library
 
             public bool CanExecute(object parameter)
             {
-                if (viewModel.CalendarYear == null || viewModel.CalendarMonth == null) return false;
+                if (viewModel.CalendarYear == 0 || viewModel.CalendarMonth == 0) return false;
 
                 var today = DateTime.Today;
-                return today.Year != Int32.Parse(viewModel.CalendarYear)
-                        || today.Month != Int32.Parse(viewModel.CalendarMonth);
+                return today.Year != viewModel.CalendarYear
+                        || today.Month != viewModel.CalendarMonth;
             }
 
             public void Execute(object parameter)
             {
                 var timestamp = DateTime.Now;
-                viewModel.CalendarYear = timestamp.Year.ToString();
-                viewModel.CalendarMonth =timestamp.Month.ToString();
+                viewModel.CalendarYear = timestamp.Year;
+                viewModel.CalendarMonth = timestamp.Month;
             }
         }
 
@@ -1106,7 +1056,71 @@ namespace DesktopClock.Library
             }
         }
 
+        private string _ConsecutiveHolidaysMessageFormat;
+        /// <summary>
+        /// 明日以降の連休情報メッセージ。内部的に <see cref="String.Format"  /> の第 1 引数として使用されます。
+        /// </summary>
+        public string ConsecutiveHolidaysMessageFormat
+        {
+            get { return _ConsecutiveHolidaysMessageFormat; }
+            set
+            {
+                if (_ConsecutiveHolidaysMessageFormat != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(SettingsWrapper)));
+                if (value == null) return;
+                _ConsecutiveHolidaysMessageFormat = value;
+            }
+        }
+
+        private string _ConsecutiveHolidaysMessageDATFormat;
+        /// <summary>
+        /// 明後日以降の連休情報メッセージ。内部的に <see cref="String.Format"  /> の第 1 引数として使用されます。
+        /// </summary>
+        public string ConsecutiveHolidaysMessageDATFormat
+        {
+            get { return _ConsecutiveHolidaysMessageDATFormat; }
+            set
+            {
+                if (_ConsecutiveHolidaysMessageDATFormat != null) throw new InvalidOperationException(String.Format(ALREADY_SET_MESSAGE, nameof(SettingsWrapper)));
+                if (value == null) return;
+                _ConsecutiveHolidaysMessageDATFormat = value;
+            }
+        }
+
         #endregion
+
+        private int _CalendarYear;
+        /// <summary>
+        /// カレンダーに表示する年。
+        /// </summary>
+        public int CalendarYear
+        {
+            get
+            {
+                return _CalendarYear;
+            }
+            set
+            {
+                _CalendarYear = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarYear)));
+            }
+        }
+
+        private int _CalendarMonth;
+        /// <summary>
+        /// カレンダーに表示する月。
+        /// </summary>
+        public int CalendarMonth
+        {
+            get
+            {
+                return _CalendarMonth;
+            }
+            set
+            {
+                _CalendarMonth = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CalendarMonth)));
+            }
+        }
 
         private System.Windows.Threading.Dispatcher MainWindowDispatcher;
         private System.Windows.Threading.Dispatcher CalendarWindowDispatcher;
@@ -1143,7 +1157,7 @@ namespace DesktopClock.Library
             {
                 switch (e.PropertyName)
                 {
-                    case nameof(IDateTimeEventSource.Day):
+                    case nameof(IDateTimeEventSource.Today):
                         ChangeDate();
                         break;
                     case nameof(IDateTimeEventSource.Hour):
@@ -1280,9 +1294,12 @@ namespace DesktopClock.Library
         /// </summary>
         private void ChangeDate()
         {
+            /*
             Date = DateTimeEventSource.Year + " 年 "
                     + DateTimeEventSource.Month.ToString("00") + " 月 "
                     + DateTimeEventSource.Day.ToString("00") + " 日";
+            */
+            Date = StringShaper.InsertSpaceInZenkakuHankaku(DateTimeEventSource.Today.ToString("D"));
 
             var today = new DateTime(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
             var oneday = TimeSpan.FromDays(1);
@@ -1363,7 +1380,7 @@ namespace DesktopClock.Library
                     && tommorow.DayOfWeek != System.DayOfWeek.Saturday
                     && tommorow.DayOfWeek != System.DayOfWeek.Sunday)
             {
-                VisibilityOfToday = System.Windows.Visibility.Visible;
+                VisibilityOfTommorow = System.Windows.Visibility.Visible;
             }
             else
             {
@@ -1374,12 +1391,18 @@ namespace DesktopClock.Library
             // 連休の情報表示
             if (holidayCount > 1 && todayIsHoliday || holidayCount > 1 && tommorowIsHoliday || holidayCount > 2)
             {
-                ConsecutiveHolidaysMessage = "明日以降、" + holidayCount + " 日の連休です。";
+                if (ConsecutiveHolidaysMessageFormat != null)
+                {
+                    ConsecutiveHolidaysMessage = StringShaper.InsertSpaceInZenkakuHankaku(String.Format(ConsecutiveHolidaysMessageFormat, holidayCount));
+                }
                 VisibilityOfConsecutiveHolidays = System.Windows.Visibility.Visible;
             }
             else if (holidayCountTommorow > 2 && !todayIsHoliday)
             {
-                ConsecutiveHolidaysMessage = "明後日から、" + holidayCountTommorow + " 日の連休です。";
+                if (ConsecutiveHolidaysMessageDATFormat != null)
+                {
+                    ConsecutiveHolidaysMessage = StringShaper.InsertSpaceInZenkakuHankaku(String.Format(ConsecutiveHolidaysMessageDATFormat, holidayCountTommorow));
+                }
                 VisibilityOfConsecutiveHolidays = System.Windows.Visibility.Visible;
             }
             else
@@ -1394,8 +1417,8 @@ namespace DesktopClock.Library
             {
                 CalendarWindowDispatcher.Invoke(new Action(() =>
                 {
-                    CalendarYear = today.Year.ToString();
-                    CalendarMonth = today.Month.ToString();
+                    CalendarYear = today.Year;
+                    CalendarMonth = today.Month;
                 }));
                 UpdateCalender();
             }
@@ -1458,10 +1481,13 @@ namespace DesktopClock.Library
         /// </summary>
         private void UpdateCalender()
         {
-            if (CalendarYear == null || CalendarMonth == null) return;
+            if (CalendarYear == 0 || CalendarMonth == 0) return;
 
-            var year = CalendarYearInt;
-            var month = CalendarMonthInt;
+            CalendarYearAndMonth =
+                StringShaper.InsertSpaceInZenkakuHankaku(new DateTime(CalendarYear, CalendarMonth, 1).ToString("Y"));
+
+            var year = _CalendarYear;
+            var month = _CalendarMonth;
 
             var todayYear = DateTimeEventSource.Year;
             var todayMonth = DateTimeEventSource.Month;

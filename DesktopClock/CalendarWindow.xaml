@@ -79,10 +79,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="0" Grid.Column="1">
+                    <!--
                     <TextBlock Text="{Binding CalendarYear}"/>
                     <TextBlock Text=" 年 "/>
                     <TextBlock Text="{Binding CalendarMonth}"/>
                     <TextBlock Text="月"/>
+                    -->
+                    <TextBlock Text="{Binding CalendarYearAndMonth}"/>
                 </StackPanel>
                 <Button Content="Today&lt;&lt;"
                         Command="{Binding ThisMonthCommand}"
