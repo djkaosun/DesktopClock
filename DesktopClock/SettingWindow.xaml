@@ -3,14 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:DesktopClock"
         xmlns:lib="clr-namespace:DesktopClock.Library;assembly=DesktopClockLib"
         mc:Ignorable="d"
-        Title="設定 - DesktopClock"
-        Height="450" Width="400" >
-    <!--Window.Title>
-        <Binding Path="SETTING_WINDOW_TITLE" Mode="OneWay" Source="{StaticResource resources}" />
-    </Window.Title-->
+        Title="{Binding Mode=OneWay, Source={StaticResource SETTING_WINDOW_TITLE}}"
+        Height="450" Width="400">
+    <Window.Resources>
+        <CollectionViewSource x:Key="SortedCalendarList" 
+                      Source="{Binding CustomHolidaysDictionary}" 
+                      IsLiveSortingRequested="True">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Description" Direction="Ascending"/>
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.LiveSortingProperties>
+                <sys:String>Value</sys:String>
+            </CollectionViewSource.LiveSortingProperties>
+        </CollectionViewSource>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -28,7 +39,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <DataGrid x:Name="CustomHolidaysDataGrid"
-                                      ItemsSource="{Binding CustomHolidaysDictionary}"
+                                      DataContext="{StaticResource SortedCalendarList}"
+                                      ItemsSource="{Binding}"
                                       CurrentCellChanged="DataGrid_CurrentCellChanged"
                                       AutoGenerateColumns="False"
                                       IsReadOnly="True"
@@ -38,11 +50,11 @@
                                       CanUserResizeRows="False"
                                       Margin="0,2,0,2" Grid.Row="0" Grid.Column="0">
                                 <DataGrid.Columns>
-                                <DataGridTextColumn Width="Auto" Header="{Binding Mode=OneWay, Source={StaticResource DATE}}" Binding="{Binding Key, StringFormat=yyyy/MM/dd}" />
-                                <DataGridTextColumn Width="270" Header="{Binding Mode=OneWay, Source={StaticResource HOLIDAY_NAME}}" Binding="{Binding Value}" />
+                                    <DataGridTextColumn Width="Auto" Header="{Binding Mode=OneWay, Source={StaticResource DATE}}" Binding="{Binding Key, StringFormat=yyyy/MM/dd}" />
+                                    <DataGridTextColumn Width="270" Header="{Binding Mode=OneWay, Source={StaticResource HOLIDAY_NAME}}" Binding="{Binding Value}" />
                                 </DataGrid.Columns>
                             </DataGrid>
-                                <Grid Grid.Row="1" Grid.Column="0">
+                            <Grid Grid.Row="1" Grid.Column="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
