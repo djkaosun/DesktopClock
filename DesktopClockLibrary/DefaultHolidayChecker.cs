@@ -48,7 +48,7 @@ namespace DesktopClock.Library
         /// <summary>
         /// コンストラクター。
         /// </summary>
-        public DefaultHolidayChecker()
+        internal DefaultHolidayChecker()
         {
             PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {

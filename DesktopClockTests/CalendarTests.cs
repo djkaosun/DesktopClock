@@ -15,7 +15,7 @@ namespace DesktopClockTests
             // arrange
 
             // act
-            Calendar.GetCalendar(year, month, new HolidayChecker_ja_JP(), out int[,] actualDays, out bool[,] actualIsHoliday, out bool[,] actualIsThisMonth, out int actualLastRow);
+            Calendar.GetCalendar(year, month, HolidayChecker.GetHolidayChecker("ja_JP"), out int[,] actualDays, out bool[,] actualIsHoliday, out bool[,] actualIsThisMonth, out int actualLastRow);
 
             // assert
             Assert.Equal(days, actualDays);

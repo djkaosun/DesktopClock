@@ -66,7 +66,7 @@ namespace DesktopClock.Library
         /// <summary>
         /// コンストラクター。
         /// </summary>
-        public HolidayChecker_ja_JP()
+        internal HolidayChecker_ja_JP()
         {
             PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
