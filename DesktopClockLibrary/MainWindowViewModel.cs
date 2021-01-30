@@ -1299,7 +1299,7 @@ namespace DesktopClock.Library
                     + DateTimeEventSource.Month.ToString("00") + " 月 "
                     + DateTimeEventSource.Day.ToString("00") + " 日";
             */
-            Date = StringShaper.InsertSpaceInZenkakuHankaku(DateTimeEventSource.Today.ToString("D"));
+            Date = StringShaper.InsertSpace(DateTimeEventSource.Today.ToString("D"));
 
             var today = new DateTime(DateTimeEventSource.Year, DateTimeEventSource.Month, DateTimeEventSource.Day);
             var oneday = TimeSpan.FromDays(1);
@@ -1393,7 +1393,7 @@ namespace DesktopClock.Library
             {
                 if (ConsecutiveHolidaysMessageFormat != null)
                 {
-                    ConsecutiveHolidaysMessage = StringShaper.InsertSpaceInZenkakuHankaku(String.Format(ConsecutiveHolidaysMessageFormat, holidayCount));
+                    ConsecutiveHolidaysMessage = StringShaper.InsertSpace(String.Format(ConsecutiveHolidaysMessageFormat, holidayCount), new char[] { '、', '。' });
                 }
                 VisibilityOfConsecutiveHolidays = System.Windows.Visibility.Visible;
             }
@@ -1401,7 +1401,7 @@ namespace DesktopClock.Library
             {
                 if (ConsecutiveHolidaysMessageDATFormat != null)
                 {
-                    ConsecutiveHolidaysMessage = StringShaper.InsertSpaceInZenkakuHankaku(String.Format(ConsecutiveHolidaysMessageDATFormat, holidayCountTommorow));
+                    ConsecutiveHolidaysMessage = StringShaper.InsertSpace(String.Format(ConsecutiveHolidaysMessageDATFormat, holidayCountTommorow), new char[] { '、', '。' });
                 }
                 VisibilityOfConsecutiveHolidays = System.Windows.Visibility.Visible;
             }
@@ -1484,7 +1484,7 @@ namespace DesktopClock.Library
             if (CalendarYear == 0 || CalendarMonth == 0) return;
 
             CalendarYearAndMonth =
-                StringShaper.InsertSpaceInZenkakuHankaku(new DateTime(CalendarYear, CalendarMonth, 1).ToString("Y"));
+                StringShaper.InsertSpace(new DateTime(CalendarYear, CalendarMonth, 1).ToString("Y"));
 
             var year = _CalendarYear;
             var month = _CalendarMonth;
