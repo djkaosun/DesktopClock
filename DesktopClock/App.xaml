@@ -8,7 +8,7 @@
         <!--properties:Resources x:Key="resources" /-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourcesDictionary.xaml" />
+                <ResourceDictionary Source="StringResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
