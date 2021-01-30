@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DesktopClockTests.TestDatas
 {
-    public class ObservedHolidayData : IEnumerable<object[]>    {
+    public class ObservedHolidayData_ja_JP : IEnumerable<object[]>    {
 
         private List<object[]> _testData = new List<object[]>();
 
-        public ObservedHolidayData()
+        public ObservedHolidayData_ja_JP()
         {
             _testData.Add(new object[] { new DateTime(1973, 4, 30), "振替休日 (天皇誕生日)" });
             _testData.Add(new object[] { new DateTime(1973, 9, 24), "振替休日 (秋分の日)" });

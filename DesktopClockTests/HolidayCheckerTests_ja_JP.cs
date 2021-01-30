@@ -13,7 +13,7 @@ namespace DesktopClockTests
     public class HolidayChecker_ja_JP_Tests
     {
         [Theory]
-        [ClassData(typeof(HolidayData))]
+        [ClassData(typeof(HolidayData_ja_JP))]
         public void GetHolidayName_HolidayDateTime_ReturnsCorrectlyName(DateTime date, string expectedHolidayName)
         {
             // arrange
@@ -28,7 +28,7 @@ namespace DesktopClockTests
         }
 
         [Theory]
-        [ClassData(typeof(NotHolidayData))]
+        [ClassData(typeof(NotHolidayData_ja_JP))]
         public void GetHolidayName_NotHolidayDateTime_ReturnsNull(DateTime date)
         {
             // arrange
@@ -42,7 +42,7 @@ namespace DesktopClockTests
         }
 
         [Theory]
-        [ClassData(typeof(ObservedHolidayData))]
+        [ClassData(typeof(ObservedHolidayData_ja_JP))]
         public void GetHolidayName_IsNotAddHolidayNameToObservedHolidayName_ReturnsNotAddedName(DateTime date, string addedName)
         {
             // arrange
@@ -57,7 +57,7 @@ namespace DesktopClockTests
         }
 
         [Theory]
-        [ClassData(typeof(ObservedHolidayData))]
+        [ClassData(typeof(ObservedHolidayData_ja_JP))]
         public void GetHolidayName_IsAddHolidayNameToObservedHolidayName_ReturnsAddedName(DateTime date, string addedName)
         {
             // arrange

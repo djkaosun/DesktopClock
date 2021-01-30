@@ -16,13 +16,7 @@ namespace DesktopClock.Library
         /// <returns></returns>
         public static IHolidayChecker GetHolidayChecker(string cultureName)
         {
-            switch (cultureName)
-            {
-                case "ja-JP":
-                    return new HolidayChecker_ja_JP();
-                default:
-                    return new DefaultHolidayChecker();
-            }
+            return GetHolidayChecker(CultureInfo.GetCultureInfo(cultureName));
         }
 
         /// <summary>
@@ -32,7 +26,13 @@ namespace DesktopClock.Library
         /// <returns></returns>
         public static IHolidayChecker GetHolidayChecker(CultureInfo culture)
         {
-            return GetHolidayChecker(culture.Name);
+            switch (culture.Name)
+            {
+                case "ja-JP":
+                    return new HolidayChecker_ja_JP();
+                default:
+                    return new DefaultHolidayChecker();
+            }
         }
 
         /// <summary>
