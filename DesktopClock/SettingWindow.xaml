@@ -37,6 +37,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <DataGrid x:Name="CustomHolidaysDataGrid"
                                       DataContext="{StaticResource SortedCalendarList}"
@@ -62,9 +63,6 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Mode=OneWay, Source={StaticResource DATE}}" VerticalAlignment="Center" Margin="0,2,0,2" Grid.Row="0" Grid.Column="0" />
                                 <TextBlock Text=": " VerticalAlignment="Center" Margin="0,2,0,2" Grid.Row="0" Grid.Column="1" />
@@ -73,15 +71,23 @@
                                 <TextBlock Text="{Binding Mode=OneWay, Source={StaticResource HOLIDAY_NAME}}" VerticalAlignment="Center" Margin="5,2,0,2" Grid.Row="0" Grid.Column="3" />
                                 <TextBlock Text=": " VerticalAlignment="Center" Margin="0,2,0,2" Grid.Row="0" Grid.Column="4" />
                                 <TextBox Text="{Binding CustomHolidayName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Padding="3" Margin="0,2,0,2" Grid.Row="0" Grid.Column="5" />
-                                <Button Content="{Binding Mode=OneWay, Source={StaticResource ADD}}"
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Content="{Binding Mode=OneWay, Source={StaticResource ADD}}"
                                         Command="{Binding AddHolidayCommand}"
-                                        VerticalAlignment="Center" Margin="5,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="6" />
+                                        VerticalAlignment="Center" Margin="5,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="1" />
                                 <Button Content="{Binding Mode=OneWay, Source={StaticResource UPDATE}}"
                                         Command="{Binding UpdateHolidayCommand}"
-                                        VerticalAlignment="Center" Margin="0,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="7" />
+                                        VerticalAlignment="Center" Margin="0,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="2" />
                                 <Button Content="{Binding Mode=OneWay, Source={StaticResource REMOVE}}"
                                         Command="{Binding RemoveHolidayCommand}"
-                                        VerticalAlignment="Center" Margin="0,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="8" />
+                                        VerticalAlignment="Center" Margin="0,2,0,2" Padding="2,0,2,0" Grid.Row="0" Grid.Column="3" />
                             </Grid>
                         </Grid>
                     </GroupBox>
