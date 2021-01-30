@@ -25,12 +25,13 @@ namespace DesktopClock
 
             var dtEvtSrc = new DateTimeEventSource()
             {
-                HolidayChecker = new HolidayChecker_ja_JP()
-                {
-                    IsAddHolidayNameToObservedHolidayName = true,
-                    CustomHoliday = customHoliday
-                }
+                HolidayChecker = HolidayChecker.GetHolidayChecker()
             };
+            dtEvtSrc.HolidayChecker.CustomHoliday = customHoliday;
+            if (dtEvtSrc.HolidayChecker is HolidayChecker_ja_JP hc_ja_JP)
+            {
+                hc_ja_JP.IsAddHolidayNameToObservedHolidayName = true;
+            }
 
             // カレンダー ウィンドウの生成
             var calendarWindow = new CalendarWindow();
