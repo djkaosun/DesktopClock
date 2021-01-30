@@ -25,7 +25,7 @@ namespace DesktopClock
 
             var dtEvtSrc = new DateTimeEventSource()
             {
-                HolidayChecker = new HolidayChecker()
+                HolidayChecker = new HolidayChecker_ja_JP()
                 {
                     IsAddHolidayNameToObservedHolidayName = true,
                     CustomHoliday = customHoliday

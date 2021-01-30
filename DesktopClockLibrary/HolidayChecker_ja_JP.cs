@@ -7,7 +7,7 @@ namespace DesktopClock.Library
     /// <see cref="IHolidayChecker" /> の実装です。
     /// 1948 年 7 月 20 日施行の祝日法に基づきます。これ以前の日付には例外を返します。
     /// </summary>
-    public class HolidayChecker : IHolidayChecker
+    public class HolidayChecker_ja_JP : IHolidayChecker
     {
         private const string ALREADY_SET_MESSAGE = "{0} is already set.";
 
@@ -66,7 +66,7 @@ namespace DesktopClock.Library
         /// <summary>
         /// コンストラクター。
         /// </summary>
-        public HolidayChecker()
+        public HolidayChecker_ja_JP()
         {
             PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
@@ -105,6 +105,12 @@ namespace DesktopClock.Library
                 {
                     holidayName = "国民の休日";
                 }
+            }
+
+            if (CustomHoliday != null)
+            {
+                var customHoliday = CustomHoliday.GetHolidayName(year, month, day);
+                if (customHoliday != null) holidayName = customHoliday;
             }
 
             return holidayName;
@@ -156,8 +162,6 @@ namespace DesktopClock.Library
                     }
                 }
             }
-
-            if (holidayName == null && CustomHoliday != null) holidayName = CustomHoliday.GetHolidayName(year, month, day);
 
             return holidayName;
         }

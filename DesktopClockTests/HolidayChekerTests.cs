@@ -17,7 +17,7 @@ namespace DesktopClockTests
         public void GetHolidayName_HolidayDateTime_ReturnsCorrectlyName(DateTime date, string expectedHolidayName)
         {
             // arrange
-            var hCheker = new HolidayChecker() { IsAddHolidayNameToObservedHolidayName = false };
+            var hCheker = new HolidayChecker_ja_JP() { IsAddHolidayNameToObservedHolidayName = false };
 
             // act
             var actualHolidayName = hCheker.GetHolidayName(date);
@@ -31,7 +31,7 @@ namespace DesktopClockTests
         public void GetHolidayName_NotHolidayDateTime_ReturnsNull(DateTime date)
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
 
             // act
             var actual = hCheker.GetHolidayName(date);
@@ -45,7 +45,7 @@ namespace DesktopClockTests
         public void GetHolidayName_IsNotAddHolidayNameToObservedHolidayName_ReturnsNotAddedName(DateTime date, string addedName)
         {
             // arrange
-            var hCheker = new HolidayChecker() { IsAddHolidayNameToObservedHolidayName = false };
+            var hCheker = new HolidayChecker_ja_JP() { IsAddHolidayNameToObservedHolidayName = false };
 
             // act
             var actual = hCheker.GetHolidayName(date);
@@ -59,7 +59,7 @@ namespace DesktopClockTests
         public void GetHolidayName_IsAddHolidayNameToObservedHolidayName_ReturnsAddedName(DateTime date, string addedName)
         {
             // arrange
-            var hCheker = new HolidayChecker() { IsAddHolidayNameToObservedHolidayName = true };
+            var hCheker = new HolidayChecker_ja_JP() { IsAddHolidayNameToObservedHolidayName = true };
 
             // act
             var actual = hCheker.GetHolidayName(date);
@@ -72,7 +72,7 @@ namespace DesktopClockTests
         public void GetHolidayName_IfNomalDayAndCustomHoliday_RerturnsCustomHolidayName()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
             hCheker.CustomHoliday = new CustomHoliday();
             hCheker.CustomHoliday.Holidays = new ObservableCollection<KeyValuePair<DateTime, string>>();
 
@@ -94,11 +94,11 @@ namespace DesktopClockTests
         public void IsAddHolidayNameToObservedHolidayName_SetValue_OccursPropertyChangedEvent()
         {
             // arrange
-            var hCheker = new HolidayChecker() { IsAddHolidayNameToObservedHolidayName = false };
+            var hCheker = new HolidayChecker_ja_JP() { IsAddHolidayNameToObservedHolidayName = false };
 
             bool actual = false;
             hCheker.PropertyChanged += (sender, e) => {
-                if (e.PropertyName == nameof(HolidayChecker.IsAddHolidayNameToObservedHolidayName)) actual = true;
+                if (e.PropertyName == nameof(HolidayChecker_ja_JP.IsAddHolidayNameToObservedHolidayName)) actual = true;
             };
 
             // act
@@ -112,15 +112,15 @@ namespace DesktopClockTests
         public void IsAddHolidayNameToObservedHolidayName_SetValue_OccursHolidaySettingChangedEvent()
         {
             // arrange
-            var hCheker = new HolidayChecker() { IsAddHolidayNameToObservedHolidayName = false };
+            var hCheker = new HolidayChecker_ja_JP() { IsAddHolidayNameToObservedHolidayName = false };
 
             bool actual = false;
             hCheker.HolidaySettingChanged += (sender, e) => {
-                if (e.PropertyName == nameof(HolidayChecker.IsAddHolidayNameToObservedHolidayName))
+                if (e.PropertyName == nameof(HolidayChecker_ja_JP.IsAddHolidayNameToObservedHolidayName))
                 {
                     if (e.OriginalEventArgs is PropertyChangedEventArgs eventArgs)
                     {
-                        if (eventArgs.PropertyName == nameof(HolidayChecker.IsAddHolidayNameToObservedHolidayName)) actual = true;
+                        if (eventArgs.PropertyName == nameof(HolidayChecker_ja_JP.IsAddHolidayNameToObservedHolidayName)) actual = true;
                     }
                 }
             };
@@ -136,7 +136,7 @@ namespace DesktopClockTests
         public void CustomHoliday_SetNull_ThrowsNoException()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
 
             // act
             // assert
@@ -148,7 +148,7 @@ namespace DesktopClockTests
         public void CustomHoliday_SetTwice_ThrowsInvalidOperaionException()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
             hCheker.CustomHoliday = new CustomHoliday();
 
             // act
@@ -160,7 +160,7 @@ namespace DesktopClockTests
         public void CustomHoliday_SetNullAfterSetOnce_ThrowsInvalidOperaionException()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
             hCheker.CustomHoliday = new CustomHoliday();
 
             // act
@@ -172,11 +172,11 @@ namespace DesktopClockTests
         public void CustomHoliday_SetCustomHoliday_OccursPropertyChangedEvent()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
 
             bool actual = false;
             hCheker.PropertyChanged += (sender, e) => {
-                if (e.PropertyName == nameof(HolidayChecker.CustomHoliday)) actual = true;
+                if (e.PropertyName == nameof(HolidayChecker_ja_JP.CustomHoliday)) actual = true;
             };
 
             // act
@@ -190,15 +190,15 @@ namespace DesktopClockTests
         public void CustomHoliday_SetCustomHoliday_OccursHolidaySettingChangedEvent()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
 
             bool actual = false;
             hCheker.HolidaySettingChanged += (sender, e) => {
-                if (e.PropertyName == nameof(HolidayChecker.CustomHoliday))
+                if (e.PropertyName == nameof(HolidayChecker_ja_JP.CustomHoliday))
                 {
                     if (e.OriginalEventArgs is PropertyChangedEventArgs eventArgs)
                     {
-                        if (eventArgs.PropertyName == nameof(HolidayChecker.CustomHoliday)) actual = true;
+                        if (eventArgs.PropertyName == nameof(HolidayChecker_ja_JP.CustomHoliday)) actual = true;
                     }
                 }
             };
@@ -214,7 +214,7 @@ namespace DesktopClockTests
         public void CustomHoliday_OccuredHolidaySettingChangedEventOnCustomHolidayObject_OccursHolidaySettingChangedEvent()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
             var customHoliday = new CustomHoliday();
             hCheker.CustomHoliday = customHoliday;
 
@@ -243,7 +243,7 @@ namespace DesktopClockTests
         public void CustomHoliday_AddCustomHoliday_OccursHolidaySettingChangedEvent()
         {
             // arrange
-            var hCheker = new HolidayChecker();
+            var hCheker = new HolidayChecker_ja_JP();
             hCheker.CustomHoliday = new CustomHoliday();
             hCheker.CustomHoliday.Holidays = new ObservableCollection<KeyValuePair<DateTime, string>>();
 

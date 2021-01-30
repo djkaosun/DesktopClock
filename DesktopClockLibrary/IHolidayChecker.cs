@@ -9,11 +9,6 @@ namespace DesktopClock.Library
     public interface IHolidayChecker : INotifyHolidaySettingChanged, INotifyPropertyChanged
     {
         /// <summary>
-        /// 振替休日に元の祝祭日名を含めるか。true の場合は <see cref="GetHolidayName(DateTime)" /> や <see cref="GetHolidayName(int, int, int)" /> が振替休日を「振替休日 (元の祝祭日名)」と、false の場合は単に「振替休日」と返すようになります。
-        /// </summary>
-        public bool IsAddHolidayNameToObservedHolidayName { get; set; }
-
-        /// <summary>
         /// カスタム休日を処理する <see cref="ICustomHoliday" /> を格納します。
         /// </summary>
         public ICustomHoliday CustomHoliday { get; set; }
