@@ -71,6 +71,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="3" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
