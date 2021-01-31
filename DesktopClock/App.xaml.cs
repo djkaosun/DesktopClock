@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Windows;
+using System.Threading;
+using System.IO;
+using System.Reflection;
+using System.Globalization;
 
 namespace DesktopClock
 {
@@ -8,7 +12,7 @@ namespace DesktopClock
     /// </summary>
     public partial class App : Application
     {
-        private static System.Threading.Semaphore semaphore;
+        private static Semaphore semaphore;
         private static readonly string SemaphoreName = "TkmrAkhs.DesktopClock";
 
         /// <summary>
@@ -22,7 +26,6 @@ namespace DesktopClock
         /// <param name="e">イベントデータ を格納している StartupEventArgs</param>
         protected override void OnStartup(StartupEventArgs e)
         {
-
             // Semaphoreクラスのインスタンスを生成し、アプリケーション終了まで保持する
             App.semaphore = new System.Threading.Semaphore(1, 1, App.SemaphoreName, out bool createdNew);
             {
@@ -35,6 +38,14 @@ namespace DesktopClock
                 }
                 else
                 {
+                    var dictionary = new ResourceDictionary()
+                    {
+                        Source = StringResourceResolver.Resolve(CultureInfo.CurrentUICulture)
+                    };
+                    // リソースの再設定
+                    this.Resources.MergedDictionaries.Clear();
+                    this.Resources.MergedDictionaries.Add(dictionary);
+
                     // アプリケーション起動
                     base.OnStartup(e);
                     this.ShutdownMode = ShutdownMode.OnExplicitShutdown;

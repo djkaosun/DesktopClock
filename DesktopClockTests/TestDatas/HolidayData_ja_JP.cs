@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DesktopClockTests.TestDatas
 {
-    public class HolidayData : IEnumerable<object[]>
+    public class HolidayData_ja_JP : IEnumerable<object[]>
     {
         /// <summary>
         /// ここを true にすると全数チェック。
@@ -18,7 +18,7 @@ namespace DesktopClockTests.TestDatas
         private List<DateTime> _listData = new List<DateTime>();
         public List<DateTime> HolidayDateTimeList { get { return _listData; } }
 
-        public HolidayData()
+        public HolidayData_ja_JP()
         {
             if (IS_FULL_TEST)
             {

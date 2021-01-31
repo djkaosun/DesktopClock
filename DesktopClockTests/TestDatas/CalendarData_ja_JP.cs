@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace DesktopClockTests.TestDatas
 {
-    public class CalendarData : IEnumerable<object[]>
+    public class CalendarData_ja_JP : IEnumerable<object[]>
     {
         private List<object[]> _testData = new List<object[]>();
 
-        public CalendarData()
+        public CalendarData_ja_JP()
         {
             {
                 _testData.Add(new object[] {

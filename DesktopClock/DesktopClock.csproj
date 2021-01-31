@@ -8,7 +8,6 @@
     <Authors>DJ_Kaosun</Authors>
     <Company>DJ_Kaosun</Company>
     <PackageIcon></PackageIcon>
-	<UICulture>ja-JP</UICulture>
     <Version>1.0.1.0</Version>
   </PropertyGroup>
 
@@ -21,17 +20,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Remove="Resources\ResourcesDictionary.xaml" />
+    <Page Remove="StringResource.ja-JP.xaml" />
+    <Page Remove="StringResource.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DesktopClockLibrary\DesktopClockLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="ResourcesDictionary.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -66,12 +60,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="StringResource.xaml">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Drawing.Common">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Windows.Forms.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="StringResource.ja-JP.xaml" />
   </ItemGroup>
 
 </Project>
