@@ -23,7 +23,6 @@
   <ItemGroup>
     <Page Remove="Resources\ResourcesDictionary.xaml" />
     <Page Remove="StringResources.xaml" />
-    <Page Remove="StringResources_ja_JP.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,9 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="StringResources_ja_JP.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Resource>
     <Resource Include="StringResources.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
