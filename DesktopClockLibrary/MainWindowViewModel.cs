@@ -1575,6 +1575,7 @@ namespace DesktopClock.Library
                     else
                     {
                         _CalendarNumbers[i, j] = String.Empty;
+                        _CalendarBackgrounds[i, j] = System.Windows.Media.Brushes.Transparent;
                     }
                 }
             }
