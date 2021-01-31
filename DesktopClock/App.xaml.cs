@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Threading;
+using System.IO;
+using System.Reflection;
 using System.Globalization;
 
 namespace DesktopClock
@@ -36,8 +38,14 @@ namespace DesktopClock
                 }
                 else
                 {
-                    //CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture;
-                    
+                    var dictionary = new ResourceDictionary()
+                    {
+                        Source = StringResourceResolver.Resolve(CultureInfo.CurrentUICulture)
+                    };
+                    // リソースの再設定
+                    this.Resources.MergedDictionaries.Clear();
+                    this.Resources.MergedDictionaries.Add(dictionary);
+
                     // アプリケーション起動
                     base.OnStartup(e);
                     this.ShutdownMode = ShutdownMode.OnExplicitShutdown;

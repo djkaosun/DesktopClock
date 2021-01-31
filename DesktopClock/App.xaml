@@ -8,7 +8,10 @@
         <!--properties:Resources x:Key="resources" /-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="StringResources.xaml" />
+                <!-- ここでの指定は UI デザイン用の仮置きです -->
+                <!-- コード ビハインドで Clear されます -->
+                <!-- 本設置のためにはコード ビハインドで組み込んでください -->
+                <ResourceDictionary Source="StringResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
