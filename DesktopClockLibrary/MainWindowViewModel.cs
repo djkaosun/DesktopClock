@@ -60,66 +60,6 @@ namespace DesktopClock.Library
 
         #endregion
 
-        #region Window Alignment Settings
-
-        private System.Windows.VerticalAlignment _VerticalAlignment;
-        /// <summary>
-        /// 時計ウィンドウの垂直方向の位置。Stretch の場合、Top として扱われます。
-        /// </summary>
-        public System.Windows.VerticalAlignment VerticalAlignment
-        {
-            get { return _VerticalAlignment; }
-            set
-            {
-                _VerticalAlignment = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalAlignment)));
-            }
-        }
-
-        private System.Windows.HorizontalAlignment _HorizontalAlignment;
-        /// <summary>
-        /// 時計ウィンドウの水平方向の位置。Stretch の場合、Right として扱われます。
-        /// </summary>
-        public System.Windows.HorizontalAlignment HorizontalAlignment
-        {
-            get { return _HorizontalAlignment; }
-            set
-            {
-                _HorizontalAlignment = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalAlignment)));
-            }
-        }
-
-        private double _VerticalMargin;
-        /// <summary>
-        /// 垂直方向のマージン。
-        /// </summary>
-        public double VerticalMargin
-        {
-            get { return _VerticalMargin; }
-            set
-            {
-                _VerticalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMargin)));
-            }
-        }
-
-        private double _HorizontalMargin;
-        /// <summary>
-        /// 水平方向のマージン。
-        /// </summary>
-        public double HorizontalMargin
-        {
-            get { return _HorizontalMargin; }
-            set
-            {
-                _HorizontalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMargin)));
-            }
-        }
-
-        #endregion
-
         #region MainWindow's Size and Position
 
         private double _WindowHeight;
@@ -825,9 +765,68 @@ namespace DesktopClock.Library
 
         #endregion
 
-        #region MarginSettingHolder
+        #region Window Alignment Settings
+
+        private System.Windows.VerticalAlignment _VerticalAlignment;
+        /// <summary>
+        /// 時計ウィンドウの垂直方向の位置。Stretch の場合、Top として扱われます。
+        /// </summary>
+        public System.Windows.VerticalAlignment VerticalAlignment
+        {
+            get { return _VerticalAlignment; }
+            set
+            {
+                _VerticalAlignment = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalAlignment)));
+            }
+        }
+
+        private System.Windows.HorizontalAlignment _HorizontalAlignment;
+        /// <summary>
+        /// 時計ウィンドウの水平方向の位置。Stretch の場合、Right として扱われます。
+        /// </summary>
+        public System.Windows.HorizontalAlignment HorizontalAlignment
+        {
+            get { return _HorizontalAlignment; }
+            set
+            {
+                _HorizontalAlignment = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalAlignment)));
+            }
+        }
+
+        private double _VerticalMargin;
+        /// <summary>
+        /// 垂直方向のマージン (単位はピクセル)。
+        /// </summary>
+        public double VerticalMargin
+        {
+            get { return _VerticalMargin; }
+            set
+            {
+                _VerticalMargin = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMargin)));
+            }
+        }
+
+        private double _HorizontalMargin;
+        /// <summary>
+        /// 水平方向のマージン (単位はピクセル)。
+        /// </summary>
+        public double HorizontalMargin
+        {
+            get { return _HorizontalMargin; }
+            set
+            {
+                _HorizontalMargin = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMargin)));
+            }
+        }
 
         private double _VerticalMarginNumber;
+        /// <summary>
+        /// 垂直方向のマージンの数値
+        /// </summary>
         public double VerticalMarginNumber
         {
             get { return _VerticalMarginNumber; }
@@ -839,6 +838,9 @@ namespace DesktopClock.Library
         }
 
         private bool _IsPercentVertical;
+        /// <summary>
+        /// 垂直方向のマージンの単位がパーセントかどうか
+        /// </summary>
         public bool IsPercentVertical
         {
             get { return _IsPercentVertical; }
@@ -850,6 +852,9 @@ namespace DesktopClock.Library
         }
 
         private double _HorizontalMarginNumber;
+        /// <summary>
+        /// 水平方向のマージンの数値
+        /// </summary>
         public double HorizontalMarginNumber
         {
             get { return _HorizontalMarginNumber; }
@@ -861,6 +866,9 @@ namespace DesktopClock.Library
         }
 
         private bool _IsPercentHorizontal;
+        /// <summary>
+        /// 水平方向のマージンの単位がパーセントかどうか
+        /// </summary>
         public bool IsPercentHorizontal
         {
             get { return _IsPercentHorizontal; }
