@@ -16,6 +16,8 @@ namespace DesktopClock
         public double VerticalMargin { get => _Settings.VerticalMargin; set => _Settings.VerticalMargin = value; }
         public double HorizontalMargin { get => _Settings.HorizontalMargin; set => _Settings.HorizontalMargin = value; }
         public string CustumHolidaysString { get => _Settings.CustumHolidaysString; set => _Settings.CustumHolidaysString = value; }
+        public bool IsPercentVertical { get => _Settings.IsPercentVertical; set => _Settings.IsPercentVertical = value; }
+        public bool IsPercentHorizontal { get => _Settings.IsPercentHorizontal; set => _Settings.IsPercentHorizontal = value; }
 
         internal Properties.Settings Settings
         {

@@ -36,4 +36,6 @@
     <sys:String x:Key="LEFT_BUTTOM">左下</sys:String>
     <sys:String x:Key="CENTER_BUTTOM">下</sys:String>
     <sys:String x:Key="RIGHT_BUTTOM">右下</sys:String>
+    <sys:String x:Key="PERCENT">パーセント</sys:String>
+    <sys:String x:Key="PIXEL">ピクセル</sys:String>
 </ResourceDictionary>

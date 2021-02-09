@@ -41,6 +41,16 @@ namespace DesktopClockTests.FakeClasses
             }
         }
 
+        private bool _IsPercentVertical;
+        public bool IsPercentVertical
+        {
+            get { return _IsPercentVertical; }
+            set
+            {
+                _IsPercentVertical = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentVertical)));
+            }
+        }
 
 
         private double _HorizontalMargin;
@@ -51,6 +61,17 @@ namespace DesktopClockTests.FakeClasses
             {
                 _HorizontalMargin = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMargin)));
+            }
+        }
+
+        private bool _IsPercentHorizontal;
+        public bool IsPercentHorizontal
+        {
+            get { return _IsPercentHorizontal; }
+            set
+            {
+                _IsPercentHorizontal = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentHorizontal)));
             }
         }
 

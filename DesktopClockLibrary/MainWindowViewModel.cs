@@ -825,6 +825,54 @@ namespace DesktopClock.Library
 
         #endregion
 
+        #region MarginSettingHolder
+
+        private double _VerticalMarginNumber;
+        public double VerticalMarginNumber
+        {
+            get { return _VerticalMarginNumber; }
+            set
+            {
+                _VerticalMarginNumber = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginNumber)));
+            }
+        }
+
+        private bool _IsPercentVertical;
+        public bool IsPercentVertical
+        {
+            get { return _IsPercentVertical; }
+            set
+            {
+                _IsPercentVertical = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentVertical)));
+            }
+        }
+
+        private double _HorizontalMarginNumber;
+        public double HorizontalMarginNumber
+        {
+            get { return _HorizontalMarginNumber; }
+            set
+            {
+                _HorizontalMarginNumber = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginNumber)));
+            }
+        }
+
+        private bool _IsPercentHorizontal;
+        public bool IsPercentHorizontal
+        {
+            get { return _IsPercentHorizontal; }
+            set
+            {
+                _IsPercentHorizontal = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentHorizontal)));
+            }
+        }
+
+        #endregion
+
         #region Color Settings
 
         /// <summary>
@@ -1205,25 +1253,31 @@ namespace DesktopClock.Library
         /// <param name="e">イベント引数</param>
         private void PropertiesSettingsChangedEventHandler(object sender, PropertyChangedEventArgs e)
         {
-                //IndicatorString = (settings == Properties.Settings.Default).ToString();
-                switch (e.PropertyName)
-                {
-                    case nameof(SettingsWrapper.VerticalAlignment):
-                        VerticalAlignment = (System.Windows.VerticalAlignment)SettingsWrapper.VerticalAlignment;
-                        break;
-                    case nameof(SettingsWrapper.HorizontalAlignment):
-                        HorizontalAlignment = (System.Windows.HorizontalAlignment)SettingsWrapper.HorizontalAlignment;
-                        break;
-                    case nameof(SettingsWrapper.VerticalMargin):
-                        VerticalMargin = SettingsWrapper.VerticalMargin;
-                        break;
-                    case nameof(SettingsWrapper.HorizontalMargin):
-                        HorizontalMargin = SettingsWrapper.HorizontalMargin;
-                        break;
-                    case nameof(SettingsWrapper.CustumHolidaysString):
-                        CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString, HolidayChecker.CustomHoliday.Holidays);
-                        break;
-                }
+            //IndicatorString = (settings == Properties.Settings.Default).ToString();
+            switch (e.PropertyName)
+            {
+                case nameof(SettingsWrapper.VerticalAlignment):
+                    VerticalAlignment = (System.Windows.VerticalAlignment)SettingsWrapper.VerticalAlignment;
+                    break;
+                case nameof(SettingsWrapper.HorizontalAlignment):
+                    HorizontalAlignment = (System.Windows.HorizontalAlignment)SettingsWrapper.HorizontalAlignment;
+                    break;
+                case nameof(SettingsWrapper.VerticalMargin):
+                    VerticalMarginNumber = SettingsWrapper.VerticalMargin;
+                    break;
+                case nameof(SettingsWrapper.IsPercentVertical):
+                    IsPercentVertical = SettingsWrapper.IsPercentVertical;
+                    break;
+                case nameof(SettingsWrapper.HorizontalMargin):
+                    HorizontalMarginNumber = SettingsWrapper.HorizontalMargin;
+                    break;
+                case nameof(SettingsWrapper.IsPercentHorizontal):
+                    IsPercentHorizontal = SettingsWrapper.IsPercentHorizontal;
+                    break;
+                case nameof(SettingsWrapper.CustumHolidaysString):
+                    CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString, HolidayChecker.CustomHoliday.Holidays);
+                    break;
+            }
         }
 
         /// <summary>
@@ -1621,8 +1675,10 @@ namespace DesktopClock.Library
                     case nameof(CalendarWindowHeight):
                     case nameof(VerticalAlignment):
                     case nameof(HorizontalAlignment):
-                    case nameof(VerticalMargin):
-                    case nameof(HorizontalMargin):
+                    case nameof(VerticalMarginNumber):
+                    case nameof(IsPercentVertical):
+                    case nameof(HorizontalMarginNumber):
+                    case nameof(IsPercentHorizontal):
                         ChangeWindowPosition();
                         break;
                 }
@@ -1635,6 +1691,24 @@ namespace DesktopClock.Library
         /// </summary>
         private void ChangeWindowPosition()
         {
+            if (IsPercentVertical)
+            {
+                VerticalMargin = ScreenHeight * VerticalMarginNumber / 100;
+            }
+            else
+            {
+                VerticalMargin = VerticalMarginNumber;
+            }
+
+            if (IsPercentHorizontal)
+            {
+                HorizontalMargin = ScreenWidth * HorizontalMarginNumber / 100;
+            }
+            else
+            {
+                HorizontalMargin = HorizontalMarginNumber;
+            }
+
             switch (VerticalAlignment)
             {
                 case System.Windows.VerticalAlignment.Center:

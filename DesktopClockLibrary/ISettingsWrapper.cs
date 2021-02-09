@@ -25,9 +25,19 @@ namespace DesktopClock.Library
         public double VerticalMargin { get; set; }
 
         /// <summary>
+        /// 垂直方向のマージンの単位がパーセントであるかどうかを取得、適用します。
+        /// </summary>
+        public bool IsPercentVertical { get; set; }
+
+        /// <summary>
         /// 水平方向のマージン設定を取得、適用します。
         /// </summary>
         public double HorizontalMargin { get; set; }
+
+        /// <summary>
+        /// 水平方向のマージンの単位がパーセントであるかどうかを取得、適用します。
+        /// </summary>
+        public bool IsPercentHorizontal { get; set; }
 
         /// <summary>
         /// カスタム休日設定を取得、適用します。<see cref="CustomHolidaysParser" /> で変換する必要があります。

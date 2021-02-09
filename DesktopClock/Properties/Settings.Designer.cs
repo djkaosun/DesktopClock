@@ -82,5 +82,29 @@ namespace DesktopClock.Properties {
                 this["CustumHolidaysString"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsPercentVertical {
+            get {
+                return ((bool)(this["IsPercentVertical"]));
+            }
+            set {
+                this["IsPercentVertical"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsPercentHorizontal {
+            get {
+                return ((bool)(this["IsPercentHorizontal"]));
+            }
+            set {
+                this["IsPercentHorizontal"] = value;
+            }
+        }
     }
 }

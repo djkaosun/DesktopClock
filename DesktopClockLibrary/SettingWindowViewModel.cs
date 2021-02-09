@@ -78,6 +78,34 @@ namespace DesktopClock.Library
             }
         }
 
+        private bool _VerticalMarginPixel;
+        /// <summary>
+        /// 垂直方向のマージンの単位がピクセル。
+        /// </summary>
+        public bool VerticalMarginPixel
+        {
+            get { return _VerticalMarginPixel; }
+            set
+            {
+                _VerticalMarginPixel = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginPixel)));
+            }
+        }
+
+        private bool _VerticalMarginPercent;
+        /// <summary>
+        /// 垂直方向のマージンの単位がパーセント。
+        /// </summary>
+        public bool VerticalMarginPercent
+        {
+            get { return _VerticalMarginPercent; }
+            set
+            {
+                _VerticalMarginPercent = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginPercent)));
+            }
+        }
+
         private string _HorizontalMarginString;
         /// <summary>
         /// 水平方向のマージンを示す文字列。(double にパースできる文字列)
@@ -90,6 +118,34 @@ namespace DesktopClock.Library
                 _HorizontalMarginString = value;
                 Double.Parse(value);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginString)));
+            }
+        }
+
+        private bool _HorizontalMarginPixel;
+        /// <summary>
+        /// 水平方向のマージンの単位がピクセル。
+        /// </summary>
+        public bool HorizontalMarginPixel
+        {
+            get { return _HorizontalMarginPixel; }
+            set
+            {
+                _HorizontalMarginPixel = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginPixel)));
+            }
+        }
+
+        private bool _HorizontalMarginPercent;
+        /// <summary>
+        /// 垂水平方向のマージンの単位がパーセント。
+        /// </summary>
+        public bool HorizontalMarginPercent
+        {
+            get { return _HorizontalMarginPercent; }
+            set
+            {
+                _HorizontalMarginPercent = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginPercent)));
             }
         }
 
@@ -537,7 +593,11 @@ namespace DesktopClock.Library
                 switch (e.PropertyName)
                 {
                     case nameof(VerticalMarginString):
+                    case nameof(VerticalMarginPercent):
+                    case nameof(VerticalMarginPixel):
                     case nameof(HorizontalMarginString):
+                    case nameof(HorizontalMarginPercent):
+                    case nameof(HorizontalMarginPixel):
                     case nameof(AlignmentLeftTop):
                     case nameof(AlignmentCenterTop):
                     case nameof(AlignmentRightTop):
@@ -594,6 +654,10 @@ namespace DesktopClock.Library
                     (HorizontalAlignment)SettingsWrapper.HorizontalAlignment);
             VerticalMarginString = SettingsWrapper.VerticalMargin.ToString();
             HorizontalMarginString = SettingsWrapper.HorizontalMargin.ToString();
+            VerticalMarginPercent = SettingsWrapper.IsPercentVertical;
+            VerticalMarginPixel = !SettingsWrapper.IsPercentVertical;
+            HorizontalMarginPercent = SettingsWrapper.IsPercentHorizontal;
+            HorizontalMarginPixel = !SettingsWrapper.IsPercentHorizontal;
             CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString, CustomHolidaysDictionary);
 
             // ロードし終えたら、設定は無変更状態。
@@ -612,6 +676,8 @@ namespace DesktopClock.Library
             SettingsWrapper.HorizontalAlignment = (int)horizontalAlignment;
             SettingsWrapper.VerticalMargin = Double.Parse(VerticalMarginString);
             SettingsWrapper.HorizontalMargin = Double.Parse(HorizontalMarginString);
+            SettingsWrapper.IsPercentVertical = VerticalMarginPercent;
+            SettingsWrapper.IsPercentHorizontal = HorizontalMarginPercent;
             SettingsWrapper.CustumHolidaysString = CustomHolidaysParser.Serialize(CustomHolidaysDictionary);
 
             // 反映し終えたら、設定は無変更状態。
