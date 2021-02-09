@@ -45,9 +45,9 @@ namespace DesktopClock
 
             viewModel.VerticalAlignment = (VerticalAlignment)Properties.Settings.Default.VerticalAlignment;
             viewModel.HorizontalAlignment = (HorizontalAlignment)Properties.Settings.Default.HorizontalAlignment;
-            viewModel.VerticalMarginNumber = Properties.Settings.Default.VerticalMargin;
+            viewModel.VerticalMarginNumber = Properties.Settings.Default.VerticalMarginNumber;
             viewModel.IsPercentVertical = Properties.Settings.Default.IsPercentVertical;
-            viewModel.HorizontalMarginNumber = Properties.Settings.Default.HorizontalMargin;
+            viewModel.HorizontalMarginNumber = Properties.Settings.Default.HorizontalMarginNumber;
             viewModel.IsPercentHorizontal = Properties.Settings.Default.IsPercentHorizontal;
             viewModel.ConsecutiveHolidaysMessageFormat = (string)Application.Current.FindResource("CONSECTIVE_HOLIDAYS_MESSAGE_TOMMOROW");
             viewModel.ConsecutiveHolidaysMessageDATFormat = (string)Application.Current.FindResource("CONSECTIVE_HOLIDAYS_MESSAGE_DAT");

@@ -50,24 +50,24 @@ namespace DesktopClock.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("90")]
-        public double VerticalMargin {
+        public double VerticalMarginNumber {
             get {
-                return ((double)(this["VerticalMargin"]));
+                return ((double)(this["VerticalMarginNumber"]));
             }
             set {
-                this["VerticalMargin"] = value;
+                this["VerticalMarginNumber"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("115")]
-        public double HorizontalMargin {
+        public double HorizontalMarginNumber {
             get {
-                return ((double)(this["HorizontalMargin"]));
+                return ((double)(this["HorizontalMarginNumber"]));
             }
             set {
-                this["HorizontalMargin"] = value;
+                this["HorizontalMarginNumber"] = value;
             }
         }
         
@@ -85,7 +85,7 @@ namespace DesktopClock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsPercentVertical {
             get {
                 return ((bool)(this["IsPercentVertical"]));
@@ -97,7 +97,7 @@ namespace DesktopClock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsPercentHorizontal {
             get {
                 return ((bool)(this["IsPercentHorizontal"]));

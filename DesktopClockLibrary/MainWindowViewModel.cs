@@ -1270,14 +1270,14 @@ namespace DesktopClock.Library
                 case nameof(SettingsWrapper.HorizontalAlignment):
                     HorizontalAlignment = (System.Windows.HorizontalAlignment)SettingsWrapper.HorizontalAlignment;
                     break;
-                case nameof(SettingsWrapper.VerticalMargin):
-                    VerticalMarginNumber = SettingsWrapper.VerticalMargin;
+                case nameof(SettingsWrapper.VerticalMarginNumber):
+                    VerticalMarginNumber = SettingsWrapper.VerticalMarginNumber;
                     break;
                 case nameof(SettingsWrapper.IsPercentVertical):
                     IsPercentVertical = SettingsWrapper.IsPercentVertical;
                     break;
-                case nameof(SettingsWrapper.HorizontalMargin):
-                    HorizontalMarginNumber = SettingsWrapper.HorizontalMargin;
+                case nameof(SettingsWrapper.HorizontalMarginNumber):
+                    HorizontalMarginNumber = SettingsWrapper.HorizontalMarginNumber;
                     break;
                 case nameof(SettingsWrapper.IsPercentHorizontal):
                     IsPercentHorizontal = SettingsWrapper.IsPercentHorizontal;

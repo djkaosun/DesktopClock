@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using DesktopClock.Library;
 using Xunit;
 using DesktopClockTests.FakeClasses;
@@ -319,11 +315,11 @@ namespace DesktopClockTests
             // arrange
             var viewModel = new MainWindowViewModel(null, null);
             var fakeSettings = new FakeSettingsWrapper();
-            fakeSettings.VerticalMargin = 0;
+            fakeSettings.VerticalMarginNumber = 0;
             viewModel.SettingsWrapper = fakeSettings;
 
             // act
-            fakeSettings.VerticalMargin = 1;
+            fakeSettings.VerticalMarginNumber = 1;
 
 
             // assert
@@ -336,7 +332,7 @@ namespace DesktopClockTests
             // arrange
             var viewModel = new MainWindowViewModel(null, null);
             var fakeSettings = new FakeSettingsWrapper();
-            fakeSettings.VerticalMargin = 0;
+            fakeSettings.VerticalMarginNumber = 0;
             viewModel.SettingsWrapper = fakeSettings;
 
             var actual = false;
@@ -345,7 +341,7 @@ namespace DesktopClockTests
             };
 
             // act
-            fakeSettings.VerticalMargin = 1;
+            fakeSettings.VerticalMarginNumber = 1;
 
             // assert
             Assert.True(actual);
@@ -357,11 +353,11 @@ namespace DesktopClockTests
             // arrange
             var viewModel = new MainWindowViewModel(null, null);
             var fakeSettings = new FakeSettingsWrapper();
-            fakeSettings.HorizontalMargin = 0;
+            fakeSettings.HorizontalMarginNumber = 0;
             viewModel.SettingsWrapper = fakeSettings;
 
             // act
-            fakeSettings.HorizontalMargin = 1;
+            fakeSettings.HorizontalMarginNumber = 1;
 
 
             // assert
@@ -374,7 +370,7 @@ namespace DesktopClockTests
             // arrange
             var viewModel = new MainWindowViewModel(null, null);
             var fakeSettings = new FakeSettingsWrapper();
-            fakeSettings.HorizontalMargin = 0;
+            fakeSettings.HorizontalMarginNumber = 0;
             viewModel.SettingsWrapper = fakeSettings;
 
             var actual = false;
@@ -383,7 +379,7 @@ namespace DesktopClockTests
             };
 
             // act
-            fakeSettings.HorizontalMargin = 1;
+            fakeSettings.HorizontalMarginNumber = 1;
 
             // assert
             Assert.True(actual);
@@ -513,8 +509,8 @@ namespace DesktopClockTests
 
             fakeSettings.VerticalAlignment = VALIGN_BOTTOM;
             fakeSettings.HorizontalAlignment = HALIGN_RIGHT;
-            fakeSettings.VerticalMargin = 90;
-            fakeSettings.HorizontalMargin = 110;
+            fakeSettings.VerticalMarginNumber = 90;
+            fakeSettings.HorizontalMarginNumber = 110;
         }
 
         [Fact]
@@ -585,7 +581,7 @@ namespace DesktopClockTests
             };
 
             // act
-            fakeSettings.VerticalMargin = 91;
+            fakeSettings.VerticalMarginNumber = 91;
 
             // assert
             Assert.True(actual1);
@@ -660,7 +656,7 @@ namespace DesktopClockTests
             };
 
             // act
-            fakeSettings.HorizontalMargin = 91;
+            fakeSettings.HorizontalMarginNumber = 91;
 
             // assert
             Assert.True(actual1);

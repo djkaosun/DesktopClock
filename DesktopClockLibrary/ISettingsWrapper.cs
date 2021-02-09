@@ -22,7 +22,7 @@ namespace DesktopClock.Library
         /// <summary>
         /// 垂直方向のマージン設定を取得、適用します。
         /// </summary>
-        public double VerticalMargin { get; set; }
+        public double VerticalMarginNumber { get; set; }
 
         /// <summary>
         /// 垂直方向のマージンの単位がパーセントであるかどうかを取得、適用します。
@@ -32,7 +32,7 @@ namespace DesktopClock.Library
         /// <summary>
         /// 水平方向のマージン設定を取得、適用します。
         /// </summary>
-        public double HorizontalMargin { get; set; }
+        public double HorizontalMarginNumber { get; set; }
 
         /// <summary>
         /// 水平方向のマージンの単位がパーセントであるかどうかを取得、適用します。

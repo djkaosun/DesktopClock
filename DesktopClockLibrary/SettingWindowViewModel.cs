@@ -652,8 +652,8 @@ namespace DesktopClock.Library
             SetAlignmentToRadioButton(
                     (VerticalAlignment)SettingsWrapper.VerticalAlignment,
                     (HorizontalAlignment)SettingsWrapper.HorizontalAlignment);
-            VerticalMarginString = SettingsWrapper.VerticalMargin.ToString();
-            HorizontalMarginString = SettingsWrapper.HorizontalMargin.ToString();
+            VerticalMarginString = SettingsWrapper.VerticalMarginNumber.ToString();
+            HorizontalMarginString = SettingsWrapper.HorizontalMarginNumber.ToString();
             VerticalMarginPercent = SettingsWrapper.IsPercentVertical;
             VerticalMarginPixel = !SettingsWrapper.IsPercentVertical;
             HorizontalMarginPercent = SettingsWrapper.IsPercentHorizontal;
@@ -674,8 +674,8 @@ namespace DesktopClock.Library
             SetAlignmentFromRadioButton(out VerticalAlignment verticalAlignment, out HorizontalAlignment horizontalAlignment);
             SettingsWrapper.VerticalAlignment = (int)verticalAlignment;
             SettingsWrapper.HorizontalAlignment = (int)horizontalAlignment;
-            SettingsWrapper.VerticalMargin = Double.Parse(VerticalMarginString);
-            SettingsWrapper.HorizontalMargin = Double.Parse(HorizontalMarginString);
+            SettingsWrapper.VerticalMarginNumber = Double.Parse(VerticalMarginString);
+            SettingsWrapper.HorizontalMarginNumber = Double.Parse(HorizontalMarginString);
             SettingsWrapper.IsPercentVertical = VerticalMarginPercent;
             SettingsWrapper.IsPercentHorizontal = HorizontalMarginPercent;
             SettingsWrapper.CustumHolidaysString = CustomHolidaysParser.Serialize(CustomHolidaysDictionary);

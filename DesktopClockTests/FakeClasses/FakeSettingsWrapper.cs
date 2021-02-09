@@ -31,13 +31,13 @@ namespace DesktopClockTests.FakeClasses
 
 
         private double _VerticalMargin;
-        public double VerticalMargin
+        public double VerticalMarginNumber
         {
             get { return _VerticalMargin; }
             set
             {
                 _VerticalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMargin)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginNumber)));
             }
         }
 
@@ -54,13 +54,13 @@ namespace DesktopClockTests.FakeClasses
 
 
         private double _HorizontalMargin;
-        public double HorizontalMargin
+        public double HorizontalMarginNumber
         {
             get { return _HorizontalMargin; }
             set
             {
                 _HorizontalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMargin)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginNumber)));
             }
         }
 
