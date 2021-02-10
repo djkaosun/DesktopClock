@@ -7,7 +7,7 @@
     <Authors>DJ_Kaosun</Authors>
     <Company>DJ_Kaosun</Company>
     <Version>1.0.0.0</Version>
-    <Description>v1.0.2</Description>
+    <Description>v1.1.0</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

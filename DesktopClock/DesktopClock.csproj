@@ -9,7 +9,7 @@
     <Company>DJ_Kaosun</Company>
     <PackageIcon></PackageIcon>
     <Version>1.0.0.0</Version>
-    <Description>v1.0.2</Description>
+    <Description>v1.1.0</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
