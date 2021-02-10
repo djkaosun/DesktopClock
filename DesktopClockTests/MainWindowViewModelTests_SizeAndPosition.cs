@@ -509,8 +509,10 @@ namespace DesktopClockTests
 
             fakeSettings.VerticalAlignment = VALIGN_BOTTOM;
             fakeSettings.HorizontalAlignment = HALIGN_RIGHT;
-            fakeSettings.VerticalMarginNumber = 90;
+            fakeSettings.VerticalMarginNumber = 95;
+            fakeSettings.IsPercentVertical = false;
             fakeSettings.HorizontalMarginNumber = 110;
+            fakeSettings.IsPercentHorizontal = false;
         }
 
         [Fact]
@@ -521,8 +523,28 @@ namespace DesktopClockTests
             WindowPositionTestSetting(out MainWindowViewModel viewModel, out FakePrimaryScreenSizeEventSource fakeScreenSource, out FakeSettingsWrapper fakeSettings);
 
             // assert
-            Assert.Equal(643, viewModel.WindowTop);
-            Assert.Equal(674, viewModel.CalendarWindowTop);
+            Assert.Equal(638, viewModel.WindowTop);
+            Assert.Equal(669, viewModel.CalendarWindowTop);
+            Assert.Equal(879, viewModel.WindowLeft);
+            Assert.Equal(879, viewModel.CalendarWindowLeft);
+        }
+
+        [Fact]
+        public void WindowTop_SetActualSizeAndPercentSettings_ReturnsExpectedPosition()
+        {
+            // arrange
+            // act
+            WindowPositionTestSetting(out MainWindowViewModel viewModel, out FakePrimaryScreenSizeEventSource fakeScreenSource, out FakeSettingsWrapper fakeSettings);
+            fakeSettings.VerticalMarginNumber = 6.25;
+            fakeSettings.IsPercentVertical = true;
+            fakeSettings.HorizontalMarginNumber = 4.5;
+            fakeSettings.IsPercentHorizontal = true;
+
+            // assert
+            Assert.Equal(685, viewModel.WindowTop);
+            Assert.Equal(716, viewModel.CalendarWindowTop);
+            Assert.Equal(942.92, viewModel.WindowLeft);
+            Assert.Equal(942.92, viewModel.CalendarWindowLeft);
         }
 
         [Fact]

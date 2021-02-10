@@ -30,7 +30,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 1,
+                IsPercentVertical = true,
                 HorizontalMarginNumber = 2,
+                IsPercentHorizontal = true,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
 
@@ -40,7 +42,11 @@ namespace DesktopClockTests
             // assert
             Assert.True(viewModel.AlignmentLeftTop);
             Assert.Equal("1", viewModel.VerticalMarginString);
+            Assert.True(viewModel.VerticalMarginPercent);
+            Assert.False(viewModel.VerticalMarginPixel);
             Assert.Equal("2", viewModel.HorizontalMarginString);
+            Assert.True(viewModel.HorizontalMarginPercent);
+            Assert.False(viewModel.HorizontalMarginPixel);
             Assert.Contains(new KeyValuePair<DateTime, string>(new DateTime(2020, 1, 2), "HolidayName"), viewModel.CustomHolidaysDictionary);
         }
 
@@ -106,6 +112,42 @@ namespace DesktopClockTests
         }
 
         [Fact]
+        public void VerticalMarginPercent_Set_OccursPropertyChangedEvent()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+
+            var actual = false;
+            viewModel.PropertyChanged += (sender, e) => {
+                if (e.PropertyName == nameof(SettingWindowViewModel.VerticalMarginPercent)) actual = true;
+            };
+
+            // act
+            viewModel.VerticalMarginPercent = false;
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void VerticalMarginPixel_Set_OccursPropertyChangedEvent()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+
+            var actual = false;
+            viewModel.PropertyChanged += (sender, e) => {
+                if (e.PropertyName == nameof(SettingWindowViewModel.VerticalMarginPixel)) actual = true;
+            };
+
+            // act
+            viewModel.VerticalMarginPixel = false;
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
         public void HorizontalMarginString_Set_OccursPropertyChangedEvent()
         {
             // arrange
@@ -118,6 +160,42 @@ namespace DesktopClockTests
 
             // act
             viewModel.HorizontalMarginString = "0";
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void HorizontalMarginPercent_Set_OccursPropertyChangedEvent()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+
+            var actual = false;
+            viewModel.PropertyChanged += (sender, e) => {
+                if (e.PropertyName == nameof(SettingWindowViewModel.HorizontalMarginPercent)) actual = true;
+            };
+
+            // act
+            viewModel.HorizontalMarginPercent = false;
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void HorizontalMarginPixel_Set_OccursPropertyChangedEvent()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+
+            var actual = false;
+            viewModel.PropertyChanged += (sender, e) => {
+                if (e.PropertyName == nameof(SettingWindowViewModel.HorizontalMarginPixel)) actual = true;
+            };
+
+            // act
+            viewModel.HorizontalMarginPixel = false;
 
             // assert
             Assert.True(actual);
@@ -633,7 +711,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -655,13 +735,65 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
 
             // act
             viewModel.VerticalMarginString = "1";
+            var actual = viewModel.ApplySettingsCommand.CanExecute(null);
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void ApplySettingsCommand_VerticalMarginPercentSettingsIsChanged_CanExecute()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+            var fakeSettings = new FakeSettingsWrapper()
+            {
+                VerticalAlignment = VALIGN_TOP,
+                HorizontalAlignment = HALIGN_LEFT,
+                VerticalMarginNumber = 0,
+                IsPercentVertical = false,
+                HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
+                CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
+            };
+            viewModel.SettingsWrapper = fakeSettings;
+
+            // act
+            viewModel.VerticalMarginPercent = true;
+            var actual = viewModel.ApplySettingsCommand.CanExecute(null);
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void ApplySettingsCommand_VerticalMarginPixelSettingsIsChanged_CanExecute()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+            var fakeSettings = new FakeSettingsWrapper()
+            {
+                VerticalAlignment = VALIGN_TOP,
+                HorizontalAlignment = HALIGN_LEFT,
+                VerticalMarginNumber = 0,
+                IsPercentVertical = false,
+                HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
+                CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
+            };
+            viewModel.SettingsWrapper = fakeSettings;
+
+            // act
+            viewModel.VerticalMarginPixel= false;
             var actual = viewModel.ApplySettingsCommand.CanExecute(null);
 
             // assert
@@ -678,13 +810,65 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
 
             // act
             viewModel.HorizontalMarginString = "1";
+            var actual = viewModel.ApplySettingsCommand.CanExecute(null);
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void ApplySettingsCommand_HorizontalMarginPercentSettingsIsChanged_CanExecute()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+            var fakeSettings = new FakeSettingsWrapper()
+            {
+                VerticalAlignment = VALIGN_TOP,
+                HorizontalAlignment = HALIGN_LEFT,
+                VerticalMarginNumber = 0,
+                IsPercentVertical = false,
+                HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
+                CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
+            };
+            viewModel.SettingsWrapper = fakeSettings;
+
+            // act
+            viewModel.HorizontalMarginPercent = true;
+            var actual = viewModel.ApplySettingsCommand.CanExecute(null);
+
+            // assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void ApplySettingsCommand_HorizontalMarginPixelSettingsIsChanged_CanExecute()
+        {
+            // arrange
+            var viewModel = new SettingWindowViewModel();
+            var fakeSettings = new FakeSettingsWrapper()
+            {
+                VerticalAlignment = VALIGN_TOP,
+                HorizontalAlignment = HALIGN_LEFT,
+                VerticalMarginNumber = 0,
+                IsPercentVertical = false,
+                HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
+                CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
+            };
+            viewModel.SettingsWrapper = fakeSettings;
+
+            // act
+            viewModel.HorizontalMarginPixel = false;
             var actual = viewModel.ApplySettingsCommand.CanExecute(null);
 
             // assert
@@ -701,7 +885,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_CENTER,
                 HorizontalAlignment = HALIGN_CENTER,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -724,7 +910,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -747,7 +935,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -770,7 +960,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -793,7 +985,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -816,7 +1010,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -839,7 +1035,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -862,7 +1060,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -885,7 +1085,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -908,7 +1110,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -931,7 +1135,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -954,7 +1160,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -977,7 +1185,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -1005,7 +1215,9 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
@@ -1034,20 +1246,28 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
 
             // act
             viewModel.VerticalMarginString = "1";
+            viewModel.VerticalMarginPercent = true;
+            viewModel.VerticalMarginPixel = false;
             viewModel.HorizontalMarginString = "2";
+            viewModel.HorizontalMarginPercent = true;
+            viewModel.HorizontalMarginPixel = false;
             viewModel.CustomHolidaysDictionary.Remove(new DateTime(2020, 1, 2));
             //viewModel.ApplySettingsCommand.Execute(null);
 
             // assert
             Assert.Equal(0, fakeSettings.VerticalMarginNumber);
+            Assert.False(fakeSettings.IsPercentVertical);
             Assert.Equal(0, fakeSettings.HorizontalMarginNumber);
+            Assert.False(fakeSettings.IsPercentHorizontal);
             Assert.Equal("{\"2020-01-02\":\"HolidayName\"}", fakeSettings.CustumHolidaysString);
         }
 
@@ -1061,20 +1281,28 @@ namespace DesktopClockTests
                 VerticalAlignment = VALIGN_TOP,
                 HorizontalAlignment = HALIGN_LEFT,
                 VerticalMarginNumber = 0,
+                IsPercentVertical = false,
                 HorizontalMarginNumber = 0,
+                IsPercentHorizontal = false,
                 CustumHolidaysString = "{\"2020-01-02\":\"HolidayName\"}"
             };
             viewModel.SettingsWrapper = fakeSettings;
 
             // act
             viewModel.VerticalMarginString = "1";
+            viewModel.VerticalMarginPercent = true;
+            viewModel.VerticalMarginPixel = false;
             viewModel.HorizontalMarginString = "2";
+            viewModel.HorizontalMarginPercent = true;
+            viewModel.HorizontalMarginPixel = false;
             viewModel.CustomHolidaysDictionary.Remove(new DateTime(2020, 1, 2));
             viewModel.ApplySettingsCommand.Execute(null);
 
             // assert
             Assert.Equal(1, fakeSettings.VerticalMarginNumber);
+            Assert.True(fakeSettings.IsPercentVertical);
             Assert.Equal(2, fakeSettings.HorizontalMarginNumber);
+            Assert.True(fakeSettings.IsPercentHorizontal);
             Assert.Equal("{}", fakeSettings.CustumHolidaysString);
         }
 
@@ -1284,10 +1512,6 @@ namespace DesktopClockTests
             Assert.Equal(HALIGN_RIGHT, fakeSettings.HorizontalAlignment);
             Assert.Equal("{}", fakeSettings.CustumHolidaysString);
         }
-
-
-
-
 
         #endregion
 

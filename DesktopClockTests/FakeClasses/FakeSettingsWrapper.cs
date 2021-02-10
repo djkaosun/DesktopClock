@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
 using DesktopClock.Library;
 
 namespace DesktopClockTests.FakeClasses
@@ -30,13 +29,13 @@ namespace DesktopClockTests.FakeClasses
         }
 
 
-        private double _VerticalMargin;
+        private double _VerticalMarginNumber;
         public double VerticalMarginNumber
         {
-            get { return _VerticalMargin; }
+            get { return _VerticalMarginNumber; }
             set
             {
-                _VerticalMargin = value;
+                _VerticalMarginNumber = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginNumber)));
             }
         }
@@ -53,13 +52,13 @@ namespace DesktopClockTests.FakeClasses
         }
 
 
-        private double _HorizontalMargin;
+        private double _HorizontalMarginNumber;
         public double HorizontalMarginNumber
         {
-            get { return _HorizontalMargin; }
+            get { return _HorizontalMarginNumber; }
             set
             {
-                _HorizontalMargin = value;
+                _HorizontalMarginNumber = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginNumber)));
             }
         }
