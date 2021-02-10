@@ -36,4 +36,6 @@
     <sys:String x:Key="LEFT_BUTTOM">Bottom-Left</sys:String>
     <sys:String x:Key="CENTER_BUTTOM">Bottom</sys:String>
     <sys:String x:Key="RIGHT_BUTTOM">Bottom-Right</sys:String>
+    <sys:String x:Key="PERCENT">Percent</sys:String>
+    <sys:String x:Key="PIXEL">Pixel</sys:String>
 </ResourceDictionary>

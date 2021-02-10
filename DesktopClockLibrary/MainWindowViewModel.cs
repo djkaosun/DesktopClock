@@ -60,66 +60,6 @@ namespace DesktopClock.Library
 
         #endregion
 
-        #region Window Alignment Settings
-
-        private System.Windows.VerticalAlignment _VerticalAlignment;
-        /// <summary>
-        /// 時計ウィンドウの垂直方向の位置。Stretch の場合、Top として扱われます。
-        /// </summary>
-        public System.Windows.VerticalAlignment VerticalAlignment
-        {
-            get { return _VerticalAlignment; }
-            set
-            {
-                _VerticalAlignment = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalAlignment)));
-            }
-        }
-
-        private System.Windows.HorizontalAlignment _HorizontalAlignment;
-        /// <summary>
-        /// 時計ウィンドウの水平方向の位置。Stretch の場合、Right として扱われます。
-        /// </summary>
-        public System.Windows.HorizontalAlignment HorizontalAlignment
-        {
-            get { return _HorizontalAlignment; }
-            set
-            {
-                _HorizontalAlignment = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalAlignment)));
-            }
-        }
-
-        private double _VerticalMargin;
-        /// <summary>
-        /// 垂直方向のマージン。
-        /// </summary>
-        public double VerticalMargin
-        {
-            get { return _VerticalMargin; }
-            set
-            {
-                _VerticalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMargin)));
-            }
-        }
-
-        private double _HorizontalMargin;
-        /// <summary>
-        /// 水平方向のマージン。
-        /// </summary>
-        public double HorizontalMargin
-        {
-            get { return _HorizontalMargin; }
-            set
-            {
-                _HorizontalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMargin)));
-            }
-        }
-
-        #endregion
-
         #region MainWindow's Size and Position
 
         private double _WindowHeight;
@@ -825,6 +765,122 @@ namespace DesktopClock.Library
 
         #endregion
 
+        #region Window Alignment Settings
+
+        private System.Windows.VerticalAlignment _VerticalAlignment;
+        /// <summary>
+        /// 時計ウィンドウの垂直方向の位置。Stretch の場合、Top として扱われます。
+        /// </summary>
+        public System.Windows.VerticalAlignment VerticalAlignment
+        {
+            get { return _VerticalAlignment; }
+            set
+            {
+                _VerticalAlignment = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalAlignment)));
+            }
+        }
+
+        private System.Windows.HorizontalAlignment _HorizontalAlignment;
+        /// <summary>
+        /// 時計ウィンドウの水平方向の位置。Stretch の場合、Right として扱われます。
+        /// </summary>
+        public System.Windows.HorizontalAlignment HorizontalAlignment
+        {
+            get { return _HorizontalAlignment; }
+            set
+            {
+                _HorizontalAlignment = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalAlignment)));
+            }
+        }
+
+        private double _VerticalMargin;
+        /// <summary>
+        /// 垂直方向のマージン (単位はピクセル)。
+        /// </summary>
+        public double VerticalMargin
+        {
+            get { return _VerticalMargin; }
+            set
+            {
+                _VerticalMargin = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMargin)));
+            }
+        }
+
+        private double _HorizontalMargin;
+        /// <summary>
+        /// 水平方向のマージン (単位はピクセル)。
+        /// </summary>
+        public double HorizontalMargin
+        {
+            get { return _HorizontalMargin; }
+            set
+            {
+                _HorizontalMargin = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMargin)));
+            }
+        }
+
+        private double _VerticalMarginNumber;
+        /// <summary>
+        /// 垂直方向のマージンの数値
+        /// </summary>
+        public double VerticalMarginNumber
+        {
+            get { return _VerticalMarginNumber; }
+            set
+            {
+                _VerticalMarginNumber = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginNumber)));
+            }
+        }
+
+        private bool _IsPercentVertical;
+        /// <summary>
+        /// 垂直方向のマージンの単位がパーセントかどうか
+        /// </summary>
+        public bool IsPercentVertical
+        {
+            get { return _IsPercentVertical; }
+            set
+            {
+                _IsPercentVertical = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentVertical)));
+            }
+        }
+
+        private double _HorizontalMarginNumber;
+        /// <summary>
+        /// 水平方向のマージンの数値
+        /// </summary>
+        public double HorizontalMarginNumber
+        {
+            get { return _HorizontalMarginNumber; }
+            set
+            {
+                _HorizontalMarginNumber = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginNumber)));
+            }
+        }
+
+        private bool _IsPercentHorizontal;
+        /// <summary>
+        /// 水平方向のマージンの単位がパーセントかどうか
+        /// </summary>
+        public bool IsPercentHorizontal
+        {
+            get { return _IsPercentHorizontal; }
+            set
+            {
+                _IsPercentHorizontal = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentHorizontal)));
+            }
+        }
+
+        #endregion
+
         #region Color Settings
 
         /// <summary>
@@ -1205,25 +1261,31 @@ namespace DesktopClock.Library
         /// <param name="e">イベント引数</param>
         private void PropertiesSettingsChangedEventHandler(object sender, PropertyChangedEventArgs e)
         {
-                //IndicatorString = (settings == Properties.Settings.Default).ToString();
-                switch (e.PropertyName)
-                {
-                    case nameof(SettingsWrapper.VerticalAlignment):
-                        VerticalAlignment = (System.Windows.VerticalAlignment)SettingsWrapper.VerticalAlignment;
-                        break;
-                    case nameof(SettingsWrapper.HorizontalAlignment):
-                        HorizontalAlignment = (System.Windows.HorizontalAlignment)SettingsWrapper.HorizontalAlignment;
-                        break;
-                    case nameof(SettingsWrapper.VerticalMargin):
-                        VerticalMargin = SettingsWrapper.VerticalMargin;
-                        break;
-                    case nameof(SettingsWrapper.HorizontalMargin):
-                        HorizontalMargin = SettingsWrapper.HorizontalMargin;
-                        break;
-                    case nameof(SettingsWrapper.CustumHolidaysString):
-                        CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString, HolidayChecker.CustomHoliday.Holidays);
-                        break;
-                }
+            //IndicatorString = (settings == Properties.Settings.Default).ToString();
+            switch (e.PropertyName)
+            {
+                case nameof(SettingsWrapper.VerticalAlignment):
+                    VerticalAlignment = (System.Windows.VerticalAlignment)SettingsWrapper.VerticalAlignment;
+                    break;
+                case nameof(SettingsWrapper.HorizontalAlignment):
+                    HorizontalAlignment = (System.Windows.HorizontalAlignment)SettingsWrapper.HorizontalAlignment;
+                    break;
+                case nameof(SettingsWrapper.VerticalMarginNumber):
+                    VerticalMarginNumber = SettingsWrapper.VerticalMarginNumber;
+                    break;
+                case nameof(SettingsWrapper.IsPercentVertical):
+                    IsPercentVertical = SettingsWrapper.IsPercentVertical;
+                    break;
+                case nameof(SettingsWrapper.HorizontalMarginNumber):
+                    HorizontalMarginNumber = SettingsWrapper.HorizontalMarginNumber;
+                    break;
+                case nameof(SettingsWrapper.IsPercentHorizontal):
+                    IsPercentHorizontal = SettingsWrapper.IsPercentHorizontal;
+                    break;
+                case nameof(SettingsWrapper.CustumHolidaysString):
+                    CustomHolidaysParser.Deserialize(SettingsWrapper.CustumHolidaysString, HolidayChecker.CustomHoliday.Holidays);
+                    break;
+            }
         }
 
         /// <summary>
@@ -1621,8 +1683,10 @@ namespace DesktopClock.Library
                     case nameof(CalendarWindowHeight):
                     case nameof(VerticalAlignment):
                     case nameof(HorizontalAlignment):
-                    case nameof(VerticalMargin):
-                    case nameof(HorizontalMargin):
+                    case nameof(VerticalMarginNumber):
+                    case nameof(IsPercentVertical):
+                    case nameof(HorizontalMarginNumber):
+                    case nameof(IsPercentHorizontal):
                         ChangeWindowPosition();
                         break;
                 }
@@ -1635,6 +1699,24 @@ namespace DesktopClock.Library
         /// </summary>
         private void ChangeWindowPosition()
         {
+            if (IsPercentVertical)
+            {
+                VerticalMargin = ScreenHeight * VerticalMarginNumber / 100;
+            }
+            else
+            {
+                VerticalMargin = VerticalMarginNumber;
+            }
+
+            if (IsPercentHorizontal)
+            {
+                HorizontalMargin = ScreenWidth * HorizontalMarginNumber / 100;
+            }
+            else
+            {
+                HorizontalMargin = HorizontalMarginNumber;
+            }
+
             switch (VerticalAlignment)
             {
                 case System.Windows.VerticalAlignment.Center:

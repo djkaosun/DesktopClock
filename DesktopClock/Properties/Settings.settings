@@ -8,14 +8,20 @@
     <Setting Name="HorizontalAlignment" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="VerticalMargin" Type="System.Double" Scope="User">
+    <Setting Name="VerticalMarginNumber" Type="System.Double" Scope="User">
       <Value Profile="(Default)">90</Value>
     </Setting>
-    <Setting Name="HorizontalMargin" Type="System.Double" Scope="User">
+    <Setting Name="HorizontalMarginNumber" Type="System.Double" Scope="User">
       <Value Profile="(Default)">115</Value>
     </Setting>
     <Setting Name="CustumHolidaysString" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="IsPercentVertical" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IsPercentHorizontal" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

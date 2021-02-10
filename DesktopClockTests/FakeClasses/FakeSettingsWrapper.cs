@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
 using DesktopClock.Library;
 
 namespace DesktopClockTests.FakeClasses
@@ -30,27 +29,48 @@ namespace DesktopClockTests.FakeClasses
         }
 
 
-        private double _VerticalMargin;
-        public double VerticalMargin
+        private double _VerticalMarginNumber;
+        public double VerticalMarginNumber
         {
-            get { return _VerticalMargin; }
+            get { return _VerticalMarginNumber; }
             set
             {
-                _VerticalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMargin)));
+                _VerticalMarginNumber = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VerticalMarginNumber)));
+            }
+        }
+
+        private bool _IsPercentVertical;
+        public bool IsPercentVertical
+        {
+            get { return _IsPercentVertical; }
+            set
+            {
+                _IsPercentVertical = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentVertical)));
             }
         }
 
 
-
-        private double _HorizontalMargin;
-        public double HorizontalMargin
+        private double _HorizontalMarginNumber;
+        public double HorizontalMarginNumber
         {
-            get { return _HorizontalMargin; }
+            get { return _HorizontalMarginNumber; }
             set
             {
-                _HorizontalMargin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMargin)));
+                _HorizontalMarginNumber = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HorizontalMarginNumber)));
+            }
+        }
+
+        private bool _IsPercentHorizontal;
+        public bool IsPercentHorizontal
+        {
+            get { return _IsPercentHorizontal; }
+            set
+            {
+                _IsPercentHorizontal = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsPercentHorizontal)));
             }
         }
 

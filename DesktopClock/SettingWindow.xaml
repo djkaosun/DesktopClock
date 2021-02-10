@@ -99,6 +99,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -110,7 +111,7 @@
                                 <TextBlock Text=": "/>
                             </StackPanel>
                             <TextBox
-                                Width="120" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" >
+                                Width="120" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
                                 <TextBox.Text>
                                     <Binding Path="VerticalMarginString" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
@@ -119,13 +120,36 @@
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                                <RadioButton Content="{Binding Mode=OneWay, Source={StaticResource PIXEL}}"
+                                             IsChecked="{Binding VerticalMarginPixel}"
+                                             VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <RadioButton Content="{Binding Mode=OneWay, Source={StaticResource PERCENT}}"
+                                             IsChecked="{Binding VerticalMarginPercent}"
+                                             VerticalAlignment="Center" Margin="5,0,5,0"/>
+                            </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,2,0,2" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Mode=OneWay, Source={StaticResource HOLIZONTAL}}"/>
                                 <TextBlock Text=": "/>
                             </StackPanel>
                             <TextBox
-                                Text="{Binding HorizontalMarginString, UpdateSourceTrigger=PropertyChanged}"
-                                Width="120" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
+                                Width="120" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                                <TextBox.Text>
+                                    <Binding Path="HorizontalMarginString" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <local:NumberValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                                <RadioButton Content="{Binding Mode=OneWay, Source={StaticResource PIXEL}}"
+                                             IsChecked="{Binding HorizontalMarginPixel}"
+                                             VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <RadioButton Content="{Binding Mode=OneWay, Source={StaticResource PERCENT}}"
+                                             IsChecked="{Binding HorizontalMarginPercent}"
+                                             VerticalAlignment="Center" Margin="5,0,5,0"/>
+                            </StackPanel>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="{Binding Mode=OneWay, Source={StaticResource ALIGNMENT}}">

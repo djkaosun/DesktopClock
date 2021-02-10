@@ -11,7 +11,7 @@ namespace DesktopClock
         {
             if (value is string str)
             {
-                if (str.Any(c => !char.IsNumber(c)))
+                if (! Double.TryParse(str, out _))
                 {
                     return new ValidationResult(false, "Invalid character.");
                 }
